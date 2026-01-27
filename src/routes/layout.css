@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui";
+
+@theme {
+  /* Твої кольори */
+  --color-primary: #A37D7D;
+  --color-secondary: #63414D;
+  --color-accent: #D482A3;
+  --color-base-100: #0A0A0A;
+  --color-base-content: #D1D1D1;
+
+  /* Шрифти */
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
