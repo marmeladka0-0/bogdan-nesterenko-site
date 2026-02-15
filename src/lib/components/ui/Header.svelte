@@ -39,7 +39,7 @@
     }
 </script>
 
-<header class="sticky top-0 z-50 flex w-full justify-between bg-base-100 text-center">
+<header class="sticky top-0 z-50 flex w-full justify-between bg-base-200 text-center">
 	<div class="mx-auto flex w-full max-w-6xl justify-between px-4 md:px-8">
 		<div class = "flex flex items-center h-full hover:text-primary">
 			<a href="/">BOGDAN NESTERENKO</a>

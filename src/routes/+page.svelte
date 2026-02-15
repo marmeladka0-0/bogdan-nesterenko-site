@@ -41,6 +41,23 @@
 
     let activeVideo = $state<string | null>(null);
 
+    // Масив з вашими фото, які ви поклали в static/images/bio/
+    const images = [
+        '/1109.jpg',
+        '/1121.jpg',
+        '/1111.jpg'
+    ];
+
+    let currentIndex = $state(0);
+
+    const nextSlide = () => {
+        currentIndex = (currentIndex + 1) % images.length;
+    };
+
+    const prevSlide = () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+    };
+
 </script>
 
 <div class="bg-base-100 w-full max-w-6xl px-4 md:px-8 mx-auto">
@@ -136,7 +153,7 @@
                             href={concert.link} 
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="btn btn-outline rounded-full px-10 uppercase text-xs hover:text-primary hover:bg-transparent hover:border-primary transition-all duration-300"
+                            class="w-full md:w-32 uppercase border-[1.5px] border-base-content/20 py-2 font-sans text-xs tracking-wider text-center transition-all duration-300 hover:text-primary hover:border-primary flex items-center justify-center"
                         >
                             Info
                         </a>
@@ -151,15 +168,38 @@
     </div>
 </section>
 
-<section id="videos" class="w-full mt-20 md:mt-32 px-4 md:px-8 max-w-6xl mx-auto scroll-mt-24">
-    <div class="flex justify-center mb-16">
+<section id="videos" class="relative w-full mt-20 md:mt-54 px-4 md:px-8 max-w-6xl mx-auto scroll-mt-24">
+    <!-- <div class="flex justify-center mb-16">
         <h2 class="text-4xl text-center uppercase">VIDEOS</h2>
+    </div> -->
+    <div class="hidden md:block absolute top-0 left-0 right-0 px-4 md:px-8 pointer-events-none md:-translate-y-5" aria-hidden="true">
+        <div class="grid grid-cols-3 gap-6">
+            
+            <div class="flex flex-col-reverse gap-3">
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+            </div>
+            
+            <div></div>
+            
+            <div class="flex flex-col-reverse gap-3">
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+                <div class="h-[1.5px] w-full bg-base-content/20"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {#each videos as video}
-            <div class="relative aspect-video bg-base-300 overflow-hidden group shadow-lg isolate">
-                
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        {#each videos as video, i}
+            <div class="relative aspect-video bg-base-300 overflow-hidden group shadow-lg isolate transition-transform duration-500
+                {(i !== 1 && i !== 4) ? 'md:translate-y-12' : 'md:-translate-y-5'}">
+
                 {#if activeVideo === video.id}
                     <iframe 
                         class="w-full h-full"
@@ -191,10 +231,91 @@
                             {video.title}
                         </div>
                     </button>
-                {/if}
+                {/if} 
             </div>
         {/each}
+        <div class="col-span-2 md:col-span-1 md:col-start-2 flex md:-translate-y-5">
+            <a 
+                href="https://www.youtube.com/@YOUR_CHANNEL_HANDLE" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-full border-[1.5px] uppercase border-base-content/20 py-3 font-sans text-xs tracking-wider transition-all duration-300 hover:text-primary hover:border-primary group flex items-center justify-center"
+            >
+                Follow on YouTube 
+                <!-- <p>___</p>
+                <Icon icon="fa6-brands:youtube" class="text-lg opacity-70 group-hover:opacity-100" /> -->
+            </a>
+        </div>
     </div>
+</section>
+
+<section id="bio" class="w-full mt-20 md:mt-32 px-4 md:px-8 max-w-6xl mx-auto scroll-mt-24">
+    <div class="flex flex-col md:flex-row gap-12 items-center">
+        
+        <div class="w-full md:w-1/2 space-y-8">
+            <h2 class="text-4xl uppercase tracking-widest">Biography</h2>
+            
+            <div class="text-sm leading-relaxed opacity-80 space-y-6 font-sans">
+                <p>
+                    Богдан Нестеренко — відомий акордеоніст, чия майстерність поєднує технічну досконалість 
+                    та глибоку емоційність виконання. Його репертуар охоплює широку палітру: 
+                    від класичних шедеврів до сучасних творів.
+                </p>
+                <p>
+                    Народився в Україні, наразі мешкає у Франції. Богдан активно співпрацює 
+                    з міжнародними оркестрами та є постійним гостем престижних європейських фестивалів.
+                </p>
+            </div>
+
+            <div class="w-24 h-[1.5px] bg-base-content/20"></div>
+        </div>
+
+        <div class="w-full md:w-1/2 relative flex items-center">
+            
+            <button 
+                onclick={prevSlide}
+                class="absolute left-0 z-30 p-2 text-base-content/40 hover:text-primary transition-colors focus:outline-none"
+                aria-label="Previous image"
+            >
+                <Icon icon="material-symbols:arrow-back-ios-new" class="text-3xl" />
+            </button>
+
+            <div class="relative w-full aspect-[3/4] px-12 md:px-16 isolate">
+                <div class="w-full h-full overflow-hidden bg-base-300 relative shadow-2xl">
+                    <div 
+                        class="flex h-full transition-transform duration-700 ease-in-out" 
+                        style="transform: translateX(-{currentIndex * 100}%)"
+                    >
+                        {#each images as src}
+                            <img 
+                                {src} 
+                                alt="Bogdan Nesterenko" 
+                                class="w-full h-full object-cover shrink-0 transition-all duration-1000"
+                            />
+                        {/each}
+                    </div>
+
+                    <div class="absolute top-0 right-0 p-6 opacity-30 pointer-events-none flex flex-col items-end gap-2">
+                        <div class="h-[1.5px] w-12 bg-base-content"></div>
+                        <div class="h-[1.5px] w-20 bg-base-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button 
+                onclick={nextSlide}
+                class="absolute right-0 z-30 p-2 text-base-content/40 hover:text-primary transition-colors focus:outline-none"
+                aria-label="Next image"
+            >
+                <Icon icon="material-symbols:arrow-forward-ios" class="text-3xl" />
+            </button>
+
+        </div>
+    </div>
+</section>
+
+<section id="contacts">
+
 </section>
 
 
