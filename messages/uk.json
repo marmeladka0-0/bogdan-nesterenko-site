@@ -1,4 +1,10 @@
 {
-	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from uk!"
+    "hello_world": "Привіт, {name} з uk!",
+    "nav_concerts" : "КОНЦЕРТИ",
+    "nav_videos": "ВІДЕО",
+    "nav_bio": "БІО",
+    "nav_projects": "ПРОЄКТИ",
+    "nav_recordings": "ДИСКОГРАФІЯ",
+    "nav_contact": "КОНТАКТИ",
+    "label_bayan": "Акордеон Баян"
 }

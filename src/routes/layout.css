@@ -1,2 +1,8 @@
 @import 'tailwindcss';
 @plugin 'daisyui';
+
+@layer components {
+  .link-underline {
+   @apply underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-current
+   }
+}
