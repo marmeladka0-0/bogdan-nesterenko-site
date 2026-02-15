@@ -10,7 +10,7 @@
 	const links = [
 		{href: '#concerts', label: m.nav_concerts},
 		{href: '#videos', label: m.nav_videos},
-		{href: '/bio', label: m.nav_bio},
+		{href: '#bio', label: m.nav_bio},
 		{href: '/projects', label: m.nav_projects},
 		{href: '/recordings', label: m.nav_recordings},
 		{href: '/contact', label: m.nav_contact}

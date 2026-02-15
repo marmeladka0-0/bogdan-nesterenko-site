@@ -280,7 +280,7 @@
                 <Icon icon="material-symbols:arrow-back-ios-new" class="text-3xl" />
             </button>
 
-            <div class="relative w-full aspect-[3/4] px-12 md:px-16 isolate">
+            <div class="relative w-full aspect-[3/4] px-12 md:px-16 isolate py-8 md:py-12">
                 <div class="w-full h-full overflow-hidden bg-base-300 relative shadow-2xl">
                     <div 
                         class="flex h-full transition-transform duration-700 ease-in-out" 
