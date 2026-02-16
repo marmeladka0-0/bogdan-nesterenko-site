@@ -2,7 +2,42 @@
 @plugin 'daisyui';
 
 @layer components {
-  .link-underline {
-   @apply underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-current
-   }
+	.link-underline {
+		@apply underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-current;
+	}
+}
+
+@plugin 'daisyui/theme' {
+	name: 'dark';
+	default: true;
+	prefersdark: true;
+	color-scheme: 'dark';
+	--color-base-100: oklch(14% 0.005 285.823);
+	--color-base-200: oklch(21% 0.006 285.885);
+	--color-base-300: oklch(27% 0.006 286.033);
+	--color-base-content: oklch(96% 0.001 286.375);
+	--color-primary: oklch(86% 0.022 252.894);
+	--color-primary-content: oklch(12% 0.042 264.695);
+	--color-secondary: oklch(83% 0.128 66.29);
+	--color-secondary-content: oklch(26% 0.079 36.259);
+	--color-accent: oklch(83% 0.145 321.434);
+	--color-accent-content: oklch(29% 0.136 325.661);
+	--color-neutral: oklch(27% 0.006 286.033);
+	--color-neutral-content: oklch(98% 0 0);
+	--color-info: oklch(74% 0.16 232.661);
+	--color-info-content: oklch(29% 0.066 243.157);
+	--color-success: oklch(76% 0.177 163.223);
+	--color-success-content: oklch(26% 0.051 172.552);
+	--color-warning: oklch(75% 0.183 55.934);
+	--color-warning-content: oklch(26% 0.079 36.259);
+	--color-error: oklch(70% 0.191 22.216);
+	--color-error-content: oklch(25% 0.092 26.042);
+	--radius-selector: 0.25rem;
+	--radius-field: 1rem;
+	--radius-box: 0.25rem;
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+	--border: 1px;
+	--depth: 1;
+	--noise: 0;
 }
