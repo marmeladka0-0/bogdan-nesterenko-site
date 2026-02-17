@@ -1,10 +1,10 @@
 {
-    "hello_world": "Bonjour, {name} depuis fr !",
-    "nav_concerts" : "CONCERTS",
-    "nav_videos": "VIDÉOS",
-    "nav_bio": "BIO",
-    "nav_projects": "PROJETS",
-    "nav_recordings": "DISCOGRAPHIE",
-    "nav_contact": "CONTACT",
-    "label_bayan":"Accordéon Bayan"
+	"hello_world": "Bonjour, {name} depuis fr !",
+	"nav_concerts": "CONCERTS",
+	"nav_videos": "VIDÉOS",
+	"nav_bio": "BIO",
+	"nav_projects": "PROJETS",
+	"nav_recordings": "DISCOGRAPHIE",
+	"nav_contact": "CONTACT",
+	"label_bayan": "Accordéon Bayan"
 }

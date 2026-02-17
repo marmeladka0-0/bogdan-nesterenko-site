@@ -64,12 +64,12 @@
 								{link.label()}
 							</a>
 						</li>
-					{/each}	
+					{/each}
 					<!-- Language switcher -->
 					<li class="ml-4">
 						<a
 							href={getNextLocaleHref()}
-							class="text-sm  tracking-wider uppercase transition-colors hover:text-primary opacity-80"
+							class="text-sm tracking-wider uppercase opacity-80 transition-colors hover:text-primary"
 						>
 							{currentLocale}
 						</a>
