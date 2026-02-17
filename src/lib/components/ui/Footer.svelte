@@ -23,7 +23,7 @@
 	];
 </script>
 
-<footer class="flex w-full justify-center bg-base-200 py-4">
+<footer class="flex w-full justify-center bg-base-100 py-4">
 	<div class="flex max-w-5xl flex-col gap-4">
 		<div class="flex flex-wrap justify-center gap-4">
 			<nav class="flex gap-6 text-base-content">

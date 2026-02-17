@@ -6,7 +6,7 @@
 	import { setLocale } from '$lib/paraglide/runtime';
 
 	const links = [
-		{ href: '#concerts', label: m.nav_concerts },
+		{ href: '/test#concerts', label: m.nav_concerts },
 		{ href: '#videos', label: m.nav_videos },
 		{ href: '#bio', label: m.nav_bio },
 		{ href: '/projects', label: m.nav_projects },
@@ -45,7 +45,7 @@
 			<!-- Logo / Brand -->
 			<div class="flex flex-1 items-center">
 				<a
-					href="/"
+					href="/test"
 					class="text-base font-medium tracking-widest text-base-content transition-colors hover:text-primary"
 				>
 					BOGDAN NESTERENKO
@@ -64,16 +64,17 @@
 								{link.label()}
 							</a>
 						</li>
-					{/each}
+					{/each}	
+					<!-- Language switcher -->
+					<li class="ml-4">
+						<a
+							href={getNextLocaleHref()}
+							class="text-sm  tracking-wider uppercase transition-colors hover:text-primary opacity-80"
+						>
+							{currentLocale}
+						</a>
+					</li>
 				</ul>
-
-				<!-- Language switcher -->
-				<a
-					href={getNextLocaleHref()}
-					class="btn text-xs tracking-wider uppercase btn-ghost transition-colors btn-sm hover:text-primary"
-				>
-					{currentLocale}
-				</a>
 			</nav>
 
 			<!-- Mobile: language + hamburger -->
