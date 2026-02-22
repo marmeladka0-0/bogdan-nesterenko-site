@@ -2,6 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import type { PageProps } from '../$types';
 	import { m } from '$lib/paraglide/messages.js';
+	import { getLocale } from '$lib/paraglide/runtime.js';
 	import { onMount } from 'svelte';
 	import { register } from 'swiper/element/bundle';
 	import type { SwiperOptions } from 'swiper/types';
@@ -22,6 +23,14 @@
 	}
 
 	let scrollY = $state(0);
+	let innerHeight = $state(0);
+
+	// Compute overlay progress: 0 in hero, 1 when fully past hero
+	let overlayProgress = $derived(() => {
+		if (innerHeight === 0) return 0;
+		const progress = Math.max(0, Math.min(1, (scrollY - innerHeight * 0.5) / (innerHeight * 0.5)));
+		return progress;
+	});
 
 	let videos1 = [
 		{ id: 'video4', title: 'Concert 4', videoId: 'JKCSseSa4CY' },
@@ -152,26 +161,33 @@
 	];
 </script>
 
-<svelte:window bind:scrollY />
+<svelte:window bind:scrollY bind:innerHeight />
 
-<div class="relative h-screen w-full overflow-hidden bg-black">
-	<video
-		src="/video.webm"
-		poster="/poster.webp"
-		autoplay
-		loop
-		muted
-		playsinline
-		bind:this={videoElement}
-		class="absolute inset-0 h-full w-full object-cover brightness-50"
-		style="transform: translateY({scrollY * 0.4}px); opacity: {1 - scrollY * 0.001};"
-		aria-hidden="true"
-	>
-		<track kind="captions" />
-	</video>
+<!-- Fixed fullscreen video background -->
+<video
+	src="/video.webm"
+	poster="/poster.webp"
+	autoplay
+	loop
+	muted
+	playsinline
+	bind:this={videoElement}
+	class="fixed inset-0 z-0 h-full w-full object-cover brightness-50"
+	aria-hidden="true"
+>
+	<track kind="captions" />
+</video>
 
-	<div class="absolute inset-x-0 bottom-0 z-10 h-24 bg-linear-to-t from-black to-transparent"></div>
+<!-- Blur/darken overlay that activates when scrolling past the hero -->
+<div
+	class="fixed inset-0 z-1 transition-all duration-500 ease-out"
+	style="background: rgba(0,0,0,{overlayProgress() *
+		0.7}); backdrop-filter: blur({overlayProgress() *
+		14}px);  -webkit-backdrop-filter: blur({overlayProgress() * 14}px);"
+	aria-hidden="true"
+></div>
 
+<div class="relative z-2 h-screen w-full overflow-hidden">
 	<!-- <div href="#concerts" class="absolute inset-x-0 bottom-5 z-20 flex animate-bounce justify-center text-white/50">
 		<Icon icon="mdi:chevron-down" width="36" height="36" />
 	</div> -->
@@ -209,15 +225,15 @@
 		</button>
 	</div>
 </div>
-<main class="mx-auto w-full bg-black px-4 md:px-8 md:py-24">
+<main class="relative z-2 mx-auto w-full px-4 md:px-8 md:py-24">
 	<section id="concerts" class="mx-auto w-full max-w-4xl px-4 py-24 font-sans">
 		<!-- <div class="mb-4 flex items-center justify-center gap-8 opacity-40">
 			<h2 class="text-[11px] font-normal tracking-[0.2em] uppercase">
 				Upcoming Concerts
 			</h2>
 		</div> -->
-		<div class="mb-24 flex items-center justify-center gap-4 opacity-30">
-			<h2 class="text-center text-[10px] font-normal tracking-[0.5em] uppercase">Concerts</h2>
+		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Concerts</h2>
 		</div>
 
 		<div class="space-y-4">
@@ -228,27 +244,29 @@
 					<div
 						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
 					>
-						<span class="text-3xl leading-none font-medium tracking-tighter text-base-content/80">
+						<span class="text-3xl leading-none font-medium tracking-tighter text-base-content/90">
 							{concert.date.split('-')[2]}
 						</span>
-						<span class="mt-1 text-[11px] font-medium tracking-wider uppercase opacity-40">
-							{new Date(concert.date).toLocaleString('default', { month: 'short' })}
+						<span class="mt-1 text-xs font-medium tracking-wider uppercase opacity-70">
+							{new Date(concert.date)
+								.toLocaleString(getLocale(), { month: 'short' })
+								.replace('.', '')}
 						</span>
 						{#if concert.time}
-							<span class="mt-1 font-sans text-[10px] tracking-wide opacity-25">
+							<span class="mt-1 font-sans text-xs tracking-wide opacity-60">
 								{concert.time}
 							</span>
 						{/if}
 					</div>
 
 					<div class="flex flex-1 grow flex-col justify-center">
-						<h4 class="text-lg leading-tight font-normal tracking-wide opacity-80">
+						<h4 class="text-base leading-tight font-normal tracking-wide opacity-90 md:text-lg">
 							{concert.city}{#if concert.country}, {concert.country}{/if}
 						</h4>
 
 						{#if concert.program}
 							<p
-								class="mt-2 text-[10px] leading-relaxed font-normal tracking-[0.2em] uppercase opacity-30"
+								class="mt-2 text-xs leading-relaxed font-normal tracking-[0.15em] uppercase opacity-60"
 							>
 								{concert.program}
 							</p>
@@ -261,7 +279,7 @@
 								href={concert.link}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="btn rounded-2xl border-none px-2 text-[11px] font-normal tracking-widest text-base-content/60 shadow-none btn-ghost transition-colors btn-xs hover:text-primary hover:opacity-100 focus:outline-none md:px-6 md:btn-sm"
+								class="btn rounded-2xl border-none px-2 text-xs font-normal tracking-widest text-base-content/80 shadow-none btn-ghost transition-colors btn-xs hover:text-primary hover:opacity-100 focus:outline-none md:px-6 md:btn-sm"
 							>
 								INFO
 							</a>
@@ -273,7 +291,7 @@
 	</section>
 	<section
 		id="videos"
-		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden bg-black py-24"
+		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden py-24"
 	>
 		<!-- <div class="mb-16 text-center">
 			<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-white/30 italic font-serif">
@@ -396,11 +414,11 @@
 	>
 		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row md:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center py-4">
-				<div class="mb-10 flex items-center gap-4 opacity-30">
-					<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase">Biography</h2>
+				<div class="mb-10 flex items-center gap-4 opacity-70">
+					<h2 class="text-sm font-normal tracking-[0.5em] uppercase">Biography</h2>
 				</div>
 				<div
-					class="relative space-y-6 border-l border-white/10 pl-8 text-justify font-sans text-[13px] leading-relaxed font-light tracking-wide text-white/60"
+					class="relative space-y-6 border-l border-white/10 pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-white/80"
 				>
 					<p>
 						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de
@@ -457,7 +475,7 @@
 		<div class="group/bio2 flex flex-col items-stretch gap-10 md:flex-row-reverse md:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center py-4">
 				<div
-					class="relative space-y-6 border-r border-white/10 pr-8 text-justify font-sans text-[13px] leading-relaxed font-light tracking-wide text-white/60 md:text-right"
+					class="relative space-y-6 border-r border-white/10 pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-white/80 md:text-right"
 				>
 					<p>
 						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de
@@ -523,8 +541,8 @@
 	</section>
 
 	<section id="recordings" class="relative mx-auto max-w-4xl px-4 py-16">
-		<div class="mb-4 flex items-center justify-center gap-4 opacity-30">
-			<h2 class="text-center text-[10px] font-normal tracking-[0.5em] uppercase">Discography</h2>
+		<div class="mb-4 flex items-center justify-center gap-4 opacity-70">
+			<h2 class="text-center text-sm font-normal tracking-[0.5em] uppercase">Discography</h2>
 		</div>
 
 		<div class="absolute top-0 bottom-0 left-1/2 hidden w-[0.5px] bg-white/5 md:block"></div>
@@ -539,7 +557,7 @@
 					></div>
 
 					<div
-						class="flex w-full md:w-[45%] {i % 2 === 0
+						class="flex w-full justify-center md:w-[45%] {i % 2 === 0
 							? 'md:justify-end'
 							: 'order-1 md:order-2 md:justify-start'}"
 					>
@@ -561,7 +579,7 @@
 							? 'order-2 md:order-2 md:text-left'
 							: 'order-2 md:order-1 md:text-right'}"
 					>
-						<p class="mb-1 text-[9px] tracking-[0.3em] text-white/20 uppercase">
+						<p class="mb-1 text-xs tracking-[0.2em] text-white/50 uppercase">
 							{album.year} • {album.label}
 						</p>
 
@@ -570,7 +588,7 @@
 						</h3>
 
 						<p
-							class="text-[11px] leading-relaxed font-light text-white/30 transition-colors group-hover:text-white/50 md:text-xs"
+							class="text-xs leading-relaxed font-light text-white/60 transition-colors group-hover:text-white/80 md:text-sm"
 						>
 							{album.description}
 						</p>
@@ -584,15 +602,15 @@
 		id="contact"
 		class="relative flex min-h-screen items-center justify-center overflow-hidden py-24"
 	>
-		<div class="absolute inset-0 z-0 mx-auto w-full max-w-4xl">
+		<!-- <div class="absolute inset-0 z-0 mx-auto w-full max-w-4xl">
 			<img src="/poster.webp" alt="Background" class="h-full w-full object-cover opacity-40" />
 			<div class="absolute inset-0 bg-linear-to-b from-black via-black/40 to-black"></div>
-		</div>
+		</div> -->
 
 		<div class="relative z-10 mx-auto w-full max-w-2xl px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-12 text-center">
-					<h2 class="mb-8 text-[10px] font-normal tracking-[0.5em] text-white/30 uppercase">
+					<h2 class="mb-8 text-sm font-normal tracking-[0.5em] text-white/70 uppercase">
 						{m.nav_contact()}
 					</h2>
 
@@ -601,13 +619,13 @@
 					>
 						<a
 							href="mailto:mail@example.com"
-							class="border-b border-white/5 pb-1 font-light tracking-widest text-white/60 transition-all duration-500 hover:border-white/40 hover:text-white"
+							class="border-b border-white/10 pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
 						>
 							mail@example.com
 						</a>
 						<a
 							href="tel:+33000000000"
-							class="border-b border-white/5 pb-1 font-light tracking-widest text-white/60 transition-all duration-500 hover:border-white/40 hover:text-white"
+							class="border-b border-white/10 pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
 						>
 							+33 (0) 0 00 00 00 00
 						</a>
@@ -620,7 +638,7 @@
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						<div class="form-control">
 							<label class="label pt-0" for="name">
-								<span class="label-text text-[9px] tracking-[0.2em] text-white/20 uppercase"
+								<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase"
 									>Votre Nom</span
 								>
 							</label>
@@ -629,13 +647,13 @@
 								name="name"
 								placeholder="Nom"
 								required
-								class="input w-full rounded-xl border-none input-ghost bg-white/3 text-xs text-white transition-all duration-300 placeholder:text-white/5 focus:bg-white/[0.07] focus:outline-none"
+								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
 							/>
 						</div>
 
 						<div class="form-control">
 							<label class="label pt-0" for="email">
-								<span class="label-text text-[9px] tracking-[0.2em] text-white/20 uppercase"
+								<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase"
 									>Votre adresse mail</span
 								>
 							</label>
@@ -644,15 +662,14 @@
 								placeholder="email@example.com"
 								name="email"
 								required
-								class="input w-full rounded-xl border-none input-ghost bg-white/3 text-xs text-white transition-all duration-300 placeholder:text-white/5 focus:bg-white/[0.07] focus:outline-none"
+								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
 							/>
 						</div>
 					</div>
 
 					<div class="form-control">
 						<label class="label pt-0" for="subject">
-							<span class="label-text text-[9px] tracking-[0.2em] text-white/20 uppercase"
-								>Objet</span
+							<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase">Objet</span
 							>
 						</label>
 						<input
@@ -660,13 +677,13 @@
 							name="subject"
 							placeholder="Sujet"
 							required
-							class="input w-full rounded-xl border-none input-ghost bg-white/3 text-xs text-white transition-all duration-300 placeholder:text-white/5 focus:bg-white/[0.07] focus:outline-none"
+							class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
 						/>
 					</div>
 
 					<div class="form-control">
 						<label class="label pt-0" for="message">
-							<span class="label-text text-[9px] tracking-[0.2em] text-white/20 uppercase"
+							<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase"
 								>Message</span
 							>
 						</label>
@@ -674,14 +691,14 @@
 							name="message"
 							placeholder="Message..."
 							required
-							class="textarea min-h-[120px] w-full resize-none rounded-xl border-none textarea-ghost bg-white/3 text-xs text-white transition-all duration-300 placeholder:text-white/5 focus:bg-white/[0.07] focus:outline-none"
+							class="textarea min-h-[120px] w-full resize-none rounded-xl border-none textarea-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
 						></textarea>
 					</div>
 
 					<div class="flex justify-center pt-4">
 						<button
 							type="submit"
-							class="rounded-3xl px-4 py-2 text-sm tracking-wider text-base-content/80 uppercase transition-all duration-300 hover:bg-white/10 hover:text-white focus:outline-none"
+							class="rounded-3xl bg-white/10 px-6 py-3 text-sm tracking-wider text-base-content/90 uppercase transition-all duration-300 hover:bg-white/20 hover:text-white focus:outline-none"
 						>
 							{m.nav_contact()}
 						</button>
