@@ -23,31 +23,33 @@
 	];
 </script>
 
-<footer class="flex w-full justify-center bg-transparent py-10 border-t border-white/5">
-    <div class="flex max-w-5xl flex-col gap-6 px-4">
-        
-        <div class="flex flex-wrap justify-center">
-            <nav class="flex flex-wrap justify-center gap-1">
+<footer class="flex w-full justify-center border-t border-white/5 bg-transparent py-10">
+	<div class="flex max-w-5xl flex-col gap-6 px-4">
+		<div class="flex flex-wrap justify-center">
+			<nav class="flex flex-wrap justify-center gap-1">
 				{#each links as link}
 					<a
 						href={link.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="group flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/10"
+						class="group flex items-center gap-2 rounded-full px-4 py-2 transition-all duration-300 hover:bg-white/10"
 					>
 						<Icon icon={link.icon} class="text-lg text-white/60 group-hover:text-white" />
-						
-						<span class="hidden sm:inline text-sm tracking-wide uppercase text-white/80 transition-colors group-hover:text-white">
+
+						<span
+							class="hidden text-sm tracking-wide text-white/80 uppercase transition-colors group-hover:text-white sm:inline"
+						>
 							{link.label}
 						</span>
 					</a>
 				{/each}
 			</nav>
-        </div>
+		</div>
 
-        <div class="flex w-full justify-center text-[10px] uppercase tracking-[0.4em] text-white/20 font-light">
-            © {new Date().getFullYear()} Bogdan Nesterenko
-        </div>
-        
-    </div>
+		<div
+			class="flex w-full justify-center text-[10px] font-light tracking-[0.4em] text-white/20 uppercase"
+		>
+			© {new Date().getFullYear()} Bogdan Nesterenko
+		</div>
+	</div>
 </footer>

@@ -36,9 +36,10 @@
 <svelte:window bind:scrollY />
 
 <header
-	class="fixed top-0 z-50 h-12 w-full whitespace-nowrap transition-all duration-300 border-b bg-black/0 {scrollY > 50
-		? 'bg-black/30 shadow-lg backdrop-blur-2xl border-white/10'
-		: 'bg-linear-to-b from-black/80 to-0% shadow-none border-transparent'}"
+	class="fixed top-0 z-50 h-12 w-full border-b bg-black/0 whitespace-nowrap transition-all duration-300 {scrollY >
+	50
+		? 'border-white/10 bg-black/30 shadow-lg backdrop-blur-2xl'
+		: 'border-transparent bg-linear-to-b from-black/80 to-0% shadow-none'}"
 >
 	<div class="navbar min-h-12 py-0">
 		<div class="mx-auto flex w-full max-w-6xl">
@@ -69,7 +70,7 @@
 					<li class="ml-4">
 						<a
 							href={getNextLocaleHref()}
-							class="text-sm tracking-wider uppercase transition-colors hover:text-primary text-base-content/80"
+							class="text-sm tracking-wider text-base-content/80 uppercase transition-colors hover:text-primary"
 						>
 							{currentLocale}
 						</a>
