@@ -101,26 +101,27 @@
 		playingVideoId = id;
 	}
 
-	let currentIndex1 = $state(0);
-	let currentIndex2 = $state(0);
+	// Оставляем ваши переменные
+    let currentIndex1 = $state(0);
+    let currentIndex2 = $state(0);
 
-	const images1 = ['/1121.jpg', '/1123.jpg']; // Фото для первого блока
-	const images2 = ['/1109.jpg', '/1111.jpg']; // Фото для второго блока
+    const images1 = ['/1121.jpg', '/1123.jpg'];
+    const images2 = ['/1109.jpg', '/1111.jpg'];
 
-	function nextSlide1() {
-		currentIndex1 = (currentIndex1 + 1) % images1.length;
-	}
-	function prevSlide1() {
-		currentIndex1 = (currentIndex1 - 1 + images1.length) % images1.length;
-	}
-
-	function nextSlide2() {
-		currentIndex2 = (currentIndex2 + 1) % images2.length;
-	}
-	function prevSlide2() {
-		currentIndex2 = (currentIndex2 - 1 + images2.length) % images2.length;
-	}
-
+    // Функции переключения остаются такими же
+    function nextSlide1() { currentIndex1 = (currentIndex1 + 1) % images1.length; }
+    function prevSlide1() { currentIndex1 = (currentIndex1 - 1 + images1.length) % images1.length; }
+    function nextSlide2() { currentIndex2 = (currentIndex2 + 1) % images2.length; }
+    function prevSlide2() { currentIndex2 = (currentIndex2 - 1 + images2.length) % images2.length; }
+    
+    // Опционально: автосмена раз в 5 секунд для красоты
+    onMount(() => {
+        const interval = setInterval(() => {
+            nextSlide1();
+            nextSlide2();
+        }, 5000);
+        return () => clearInterval(interval);
+    });
 	const albums = [
 		{
 			title: 'Un Sacre du Printemps',
@@ -202,8 +203,8 @@
 	<div
 		class="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center text-white"
 	>
-		<h1 class="text-5xl font-bold tracking-tight md:text-7xl">BOGDAN NESTERENKO</h1>
-		<p class="mt-4 max-w-xl text-lg md:text-xl">
+		<h1 class="text-5xl font-bold tracking-tight md:text-7xl text-base-content/80">BOGDAN NESTERENKO</h1>
+		<p class="mt-4 max-w-xl text-lg md:text-xl text-base-content/80">
 			{m.label_bayan()}
 		</p>
 	</div>
@@ -239,7 +240,7 @@
 		<div class="space-y-4">
 			{#each data.concerts as concert}
 				<div
-					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200 p-4 transition-all hover:bg-base-200/50 md:gap-6 md:p-6"
+					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200/50 p-4 transition-all hover:bg-base-300/50 md:gap-6 md:p-6"
 				>
 					<div
 						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
@@ -323,7 +324,7 @@
 							<img
 								src="https://img.youtube.com/vi/{video.videoId}/hqdefault.jpg"
 								alt={video.title}
-								class="h-full w-full rounded-lg object-cover transition-all duration-300"
+								class="h-full w-full rounded-lg object-cover transition-all duration-300 border border-white/10"
 							/>
 
 							<!-- <button
@@ -439,35 +440,31 @@
 			</div>
 
 			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="md:absolute md:inset-0">
-					<button
+				<div class="md:absolute md:inset-0 flex items-center">
+					<!-- <button
 						onclick={prevSlide1}
-						class="absolute top-1/2 -left-3 z-30 -translate-y-1/2 p-1 text-white/20 transition-all hover:scale-110 hover:text-white"
+						class="absolute left-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-left" width="32" height="32" />
-					</button>
+					</button> -->
 
-					<div class="relative isolate h-full w-full overflow-hidden rounded-lg">
-						<div
-							class="flex h-full transition-transform duration-700 ease-in-out"
-							style="transform: translateX(-{currentIndex1 * 100}%)"
-						>
-							{#each images1 as src}
-								<img
-									{src}
-									alt="Bogdan"
-									class="h-full w-full shrink-0 object-cover opacity-70 transition-opacity duration-700 group-hover/bio1:opacity-100"
-								/>
-							{/each}
-						</div>
+					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
+						{#each images1 as src, i}
+							<img
+								{src}
+								alt="Bogdan"
+								class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
+								style="opacity: {currentIndex1 === i ? '0.7' : '0'}; z-index: {currentIndex1 === i ? '10' : '0'};"
+							/>
+						{/each}
 					</div>
 
-					<button
+					<!-- <button
 						onclick={nextSlide1}
-						class="absolute top-1/2 -right-3 z-30 -translate-y-1/2 p-1 text-white/20 transition-all hover:scale-110 hover:text-white"
+						class="absolute right-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-right" width="32" height="32" />
-					</button>
+					</button> -->
 				</div>
 			</div>
 		</div>
@@ -506,32 +503,28 @@
 			</div>
 
 			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="md:absolute md:inset-0">
+				<div class="md:absolute md:inset-0 flex items-center">
 					<button
 						onclick={prevSlide2}
-						class="absolute top-1/2 -left-3 z-30 -translate-y-1/2 p-1 text-white/20 transition-all hover:scale-110 hover:text-white"
+						class="absolute left-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-left" width="32" height="32" />
 					</button>
 
-					<div class="relative isolate h-full w-full overflow-hidden rounded-lg">
-						<div
-							class="flex h-full transition-transform duration-700 ease-in-out"
-							style="transform: translateX(-{currentIndex2 * 100}%)"
-						>
-							{#each images2 as src}
-								<img
-									{src}
-									alt="Bogdan"
-									class="h-full w-full shrink-0 object-cover opacity-70 transition-opacity duration-700 group-hover/bio2:opacity-100"
-								/>
-							{/each}
-						</div>
+					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
+						{#each images2 as src, i}
+							<img
+								{src}
+								alt="Bogdan"
+								class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
+								style="opacity: {currentIndex2 === i ? '0.7' : '0'}; z-index: {currentIndex2 === i ? '10' : '0'};"
+							/>
+						{/each}
 					</div>
 
 					<button
 						onclick={nextSlide2}
-						class="absolute top-1/2 -right-3 z-30 -translate-y-1/2 p-1 text-white/20 transition-all hover:scale-110 hover:text-white"
+						class="absolute right-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-right" width="32" height="32" />
 					</button>
@@ -610,7 +603,7 @@
 		<div class="relative z-10 mx-auto w-full max-w-2xl px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-12 text-center">
-					<h2 class="mb-8 text-sm font-normal tracking-[0.5em] text-white/70 uppercase">
+					<h2 class="mb-4 text-sm font-normal tracking-[0.5em] text-white/70 uppercase">
 						{m.nav_contact()}
 					</h2>
 
@@ -619,13 +612,13 @@
 					>
 						<a
 							href="mailto:mail@example.com"
-							class="border-b border-white/10 pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
+							class="pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
 						>
 							mail@example.com
 						</a>
 						<a
 							href="tel:+33000000000"
-							class="border-b border-white/10 pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
+							class="pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
 						>
 							+33 (0) 0 00 00 00 00
 						</a>
@@ -633,7 +626,7 @@
 				</div>
 
 				<form
-					class="space-y-6 rounded-3xl border border-white/5 bg-black/40 p-8 shadow-2xl backdrop-blur-md transition-all duration-500 md:p-10"
+					class="space-y-6 rounded-3xl border border-white/10 bg-black/40 p-8 shadow-2xl backdrop-blur-md transition-all duration-500 md:p-10"
 				>
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						<div class="form-control">
