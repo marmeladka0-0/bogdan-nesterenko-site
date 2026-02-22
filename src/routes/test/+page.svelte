@@ -610,7 +610,7 @@
 		<div class="relative z-10 mx-auto w-full max-w-2xl px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-12 text-center">
-					<h2 class="mb-8 text-sm font-normal tracking-[0.5em] text-white/70 uppercase">
+					<h2 class="mb-4 text-sm font-normal tracking-[0.5em] text-white/70 uppercase">
 						{m.nav_contact()}
 					</h2>
 
@@ -619,13 +619,13 @@
 					>
 						<a
 							href="mailto:mail@example.com"
-							class="border-b border-white/10 pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
+							class="pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:text-white"
 						>
 							mail@example.com
 						</a>
 						<a
 							href="tel:+33000000000"
-							class="border-b border-white/10 pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:border-white/40 hover:text-white"
+							class="pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:text-white"
 						>
 							+33 (0) 0 00 00 00 00
 						</a>
