@@ -24,12 +24,12 @@
 	let scrollY = $state(0);
 
 	let videos1 = [
-		{ id: 'video1', title: 'Concert 1', videoId: 'HgQPZRY2aic' },
-		{ id: 'video2', title: 'Concert 2', videoId: '3OjadYgRVUg' },
-		{ id: 'video3', title: 'Concert 3', videoId: 'uuC-SMsnMWw' },
 		{ id: 'video4', title: 'Concert 4', videoId: 'JKCSseSa4CY' },
 		{ id: 'video5', title: 'Concert 5', videoId: 'NynXtGhj-dU' },
-		{ id: 'video6', title: 'Concert 6', videoId: 'cQ8ZzzPloXc' }
+		{ id: 'video6', title: 'Concert 6', videoId: 'cQ8ZzzPloXc' },
+		{ id: 'video1', title: 'Concert 1', videoId: 'HgQPZRY2aic' },
+		{ id: 'video2', title: 'Concert 2', videoId: '3OjadYgRVUg' },
+		{ id: 'video3', title: 'Concert 3', videoId: 'uuC-SMsnMWw' }
 	];
 
 	let videos = [...videos1, ...videos1, ...videos1];
@@ -65,8 +65,8 @@
 		// Коліщатко миші краще теж вимкнути, щоб працювали тільки стрілки
 		mousewheel: false,
 		breakpoints: {
-			768: { slidesPerView: 3.2 },
-			1024: { slidesPerView: 4.5 }
+			768: { slidesPerView: 2.5 },
+			1024: { slidesPerView: 2.5 }
 		},
 		observer: true,
 		observeParents: true
@@ -92,17 +92,60 @@
 		playingVideoId = id;
 	}
 
-	const images = ['/1109.jpg', '/1121.jpg', '/1111.jpg'];
+	let currentIndex1 = $state(0);
+	let currentIndex2 = $state(0);
 
-	let currentIndex = $state(0);
+	const images1 = ['/1121.jpg', '/1123.jpg']; // Фото для первого блока
+	const images2 = ['/1109.jpg', '/1111.jpg']; // Фото для второго блока
 
-	const nextSlide = () => {
-		currentIndex = (currentIndex + 1) % images.length;
-	};
+	function nextSlide1() {
+		currentIndex1 = (currentIndex1 + 1) % images1.length;
+	}
+	function prevSlide1() {
+		currentIndex1 = (currentIndex1 - 1 + images1.length) % images1.length;
+	}
 
-	const prevSlide = () => {
-		currentIndex = (currentIndex - 1 + images.length) % images.length;
-	};
+	function nextSlide2() {
+		currentIndex2 = (currentIndex2 + 1) % images2.length;
+	}
+	function prevSlide2() {
+		currentIndex2 = (currentIndex2 - 1 + images2.length) % images2.length;
+	}
+
+	const albums = [
+		{
+			title: "Un Sacre du Printemps",
+			year: "2021",
+			label: "Musica Prima",
+			artists: "Bogdan Nesterenko (accordéon bayan)",
+			description: "Recorded in his hometown of Kharkiv, Ukraine. This album features an excerpt from 'The Rite of Spring' alongside transcriptions of major 19th-century Russian works by Mussorgsky, Tchaikovsky, and contemporary original pieces for accordion by Ukrainian composers like Runchak and Kukuzenko.",
+			image: "/pochette.jpg" // вкажіть ваш шлях до фото
+		},
+		{
+			title: "Dialogues insolites",
+			year: "2017",
+			label: "Rainbow Classics",
+			artists: "Marc Hervieux (recorder) & Bogdan Nesterenko (accordion)",
+			description: "A unique program of 18th-century German sonatas. A recorder and an accordion meet for the first time in history to explore both famous and rare baroque repertoires. Recorded in October 2016 at the Église du Bouclier in Strasbourg.",
+			image: "/Dialogue-insolite.jpg"
+		},
+		{
+			title: "Comme un air de passions...",
+			year: "2013",
+			label: "AR-RE-SE",
+			artists: "Juliette de Massy (soprano) & Bogdan Nesterenko (accordion)",
+			description: "Transcriptions of J.S. Bach for soprano and concert accordion. Features duets from Passions and Cantatas, as well as solo performances of Toccata and Fugue in D minor (BWV 565) and Prelude and Fugue in A minor (BWV 543).",
+			image: "/Comme-un-air-de-passions   3.jpg"
+		},
+		{
+			title: "Accordéon Baroque",
+			year: "2006",
+			label: "Editions HIRIN",
+			artists: "Bogdan Nesterenko (accordion)",
+			description: "Recorded and released in Ukraine, this second solo album contains baroque transcriptions (Bach, Vivaldi, Albinoni, Buxtehude) and original late 20th-century works for bayan by Ukrainian composers Gaidenko, Belochitsky, and Zubitsky.",
+			image: "/1 str.jpg"
+		}
+	];
 </script>
 
 <svelte:window bind:scrollY />
@@ -162,23 +205,26 @@
 		</button>
 	</div>
 </div>
-<main class="mx-auto w-full bg-black px-4 md:px-8 md:py-24">
-	<section id="concerts" class="mx-auto w-full max-w-5xl px-4 py-24 font-sans">
+<main class="mx-auto w-full bg-black px-4 md:px-8  md:py-24">
+	<section id="concerts" class="mx-auto w-full max-w-4xl py-24 px-4 font-sans">
+
 		<!-- <div class="mb-4 flex items-center justify-center gap-8 opacity-40">
 			<h2 class="text-[11px] font-normal tracking-[0.2em] uppercase">
 				Upcoming Concerts
 			</h2>
 		</div> -->
+		<div class="mb-24 flex items-center justify-center gap-4 opacity-30">
+			<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-center">
+				Concerts
+			</h2>
+		</div>
 
 		<div class="space-y-4">
 			{#each data.concerts as concert}
-				<div
-					class="flex min-h-[120px] w-full items-stretch justify-between gap-3 rounded-3xl bg-base-200/30 p-4 transition-all hover:bg-base-200/50 md:gap-6 md:p-6"
-				>
-					<div
-						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
-					>
-						<span class="text-3xl leading-none font-medium tracking-tighter text-base-content/80">
+				<div class="w-full flex items-center justify-between gap-3 md:gap-6 rounded-[0.5rem] bg-base-200 p-4 md:p-6 transition-all hover:bg-base-200/50 items-stretch min-h-[120px]">
+					  
+					<div class=" flex flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8 min-w-[50px]">
+						<span class="text-3xl font-medium tracking-tighter leading-none text-base-content/80">
 							{concert.date.split('-')[2]}
 						</span>
 						<span class="mt-1 text-[11px] font-medium tracking-wider uppercase opacity-40">
@@ -206,38 +252,36 @@
 					</div>
 
 					<div class="flex w-auto items-center justify-end">
-						<a
-							href={concert.link}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="btn rounded-2xl border-none px-2 text-[11px] font-normal tracking-widest text-base-content/60 shadow-none btn-ghost transition-colors btn-xs hover:text-primary hover:opacity-100 focus:outline-none md:px-6 md:btn-sm"
-						>
-							INFO
-						</a>
+						{#if concert.link}
+							<a
+								href={concert.link}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="btn rounded-2xl border-none px-2 text-[11px] font-normal tracking-widest text-base-content/60 shadow-none btn-ghost transition-colors btn-xs hover:text-primary hover:opacity-100 focus:outline-none md:px-6 md:btn-sm"
+							>
+								INFO
+							</a>
+						{/if}
 					</div>
 				</div>
 			{/each}
 		</div>
 	</section>
-	<section id="videos" class="group/section relative overflow-hidden bg-black py-24">
+	<section id="videos" class="relative py-24 bg-black overflow-hidden group/section mx-auto w-full max-w-4xl">
 		<!-- <div class="mb-16 text-center">
 			<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-white/30 italic font-serif">
 				Video Archive
 			</h2>
 		</div> -->
 
-		<div
-			class="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-linear-to-r from-black via-black/90 to-transparent md:w-80"
-		></div>
-		<div
-			class="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-linear-to-l from-black via-black/90 to-transparent md:w-80"
-		></div>
+		<div class="absolute inset-y-0 left-0 w-32 md:w-56 bg-gradient-to-r from-black via-black to-transparent z-20 pointer-events-none"></div>
+		<div class="absolute inset-y-0 right-0 w-32 md:w-56 bg-gradient-to-l from-black via-black to-transparent z-20 pointer-events-none"></div>
 
 		<swiper-container init="false" class="pb-12">
 			{#each videos as video}
 				<swiper-slide>
 					<div
-						class="video-wrapper relative aspect-video w-full bg-zinc-900 transition-all duration-700"
+						class="video-wrapper relative aspect-video w-full  transition-all duration-700"
 					>
 						{#if playingVideoId === video.videoId}
 							<iframe
@@ -245,17 +289,17 @@
 								src="https://www.youtube.com/embed/{video.videoId}?autoplay=1"
 								title={video.title}
 								frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture "
 								allowfullscreen
 							></iframe>
 						{:else}
 							<img
 								src="https://img.youtube.com/vi/{video.videoId}/hqdefault.jpg"
 								alt={video.title}
-								class="h-full w-full object-cover grayscale transition-all duration-700"
+								class="h-full w-full object-cover transition-all duration-300 rounded-[0.5rem]"
 							/>
 
-							<button
+							<!-- <button
 								onclick={() => playVideo(video.videoId)}
 								class="group absolute inset-0 z-30 flex items-center justify-center border-none transition-all outline-none"
 								type="button"
@@ -266,6 +310,24 @@
 								>
 									<svg
 										class="mr-3 ml-3 h-6 w-6 fill-current text-white/20 transition-all duration-500 group-hover:text-white/80"
+										viewBox="0 0 24 24"
+									>
+										<path d="M8 5v14l11-7z"/>
+									</svg>
+								</div>
+							</button> -->
+							<button
+								onclick={() => playVideo(video.videoId)}
+								class="absolute inset-0 flex items-center justify-center transition-all group z-30 border-none outline-none bg-transparent"
+								type="button"
+								aria-label="Play {video.title}"
+							>
+								<div class="p-1 rounded-full bg-transparent transition-all duration-300 ease-out
+											group-hover:bg-white/10 group-hover:backdrop-blur-md group-hover:scale-110">
+
+									<svg
+										class="w-6 h-6 text-white opacity-10 fill-current ml-3 mr-3 transition-all duration-300 ease-in-out
+											group-hover:opacity-100 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
 										viewBox="0 0 24 24"
 									>
 										<path d="M8 5v14l11-7z" />
@@ -283,14 +345,14 @@
 		</swiper-container>
 
 		<button
-			class="nav-prev absolute top-[35%] left-4 z-30 hidden text-white/50 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:text-white md:left-10 md:flex"
+			class="nav-prev absolute top-[40%] left-4 z-30 hidden text-white/50 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:text-white md:left-10 md:flex"
 			aria-label="Previous slide"
 		>
 			<Icon icon="mdi:chevron-left" width="36" height="36" />
 		</button>
 
 		<button
-			class="nav-next absolute top-[35%] right-4 z-30 hidden text-white/50 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:text-white md:right-10 md:flex"
+			class="nav-next absolute top-[40%] right-4 z-30 hidden text-white/50 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:text-white md:right-10 md:flex"
 			aria-label="Next slide"
 		>
 			<Icon icon="mdi:chevron-right" width="36" height="36" />
@@ -318,70 +380,234 @@
 		}
 	</style>
 
-	<section id="bio" class="group/bio mx-auto mt-24 w-full max-w-5xl px-4 pb-16 md:px-8 md:pb-32">
-		<div class="flex flex-col items-center gap-10 md:flex-row md:items-stretch">
-			<div class="flex w-full flex-1 flex-col justify-center py-4">
+	<section id="bio" class="mx-auto mt-24 w-full max-w-4xl px-4 pb-16 md:pb-32 space-y-24 md:space-y-40 py-24">
+
+		<div class="flex flex-col md:flex-row items-stretch gap-10 md:gap-16 group/bio1">
+			<div class="w-full flex-1 flex flex-col justify-center py-4">
 				<div class="mb-10 flex items-center gap-4 opacity-30">
 					<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase">Biography</h2>
 				</div>
-
-				<div
-					class="space-y-6 text-justify font-sans text-[13px] leading-relaxed font-light tracking-wide text-white/60"
-				>
-					<p class="pl-6">
-						Bogdan Nesterenko est un accordéoniste de renom international, dont la maîtrise
-						exceptionnelle allie une perfection technique absolue à une profonde expressivité
-						émotionnelle. Son talent unique lui permet de transcender les frontières musicales,
-						offrant à son public une expérience sonore immersive qui captive les sens et l'âme. Son
-						répertoire vaste et éclectique embrasse une large palette de styles, allant des
-						chefs-d'œuvre de la musique classique et baroque aux créations contemporaines les plus
-						audacieuses.
+				<div class="relative space-y-6 font-sans text-[13px] leading-relaxed text-white/60 font-light tracking-wide text-justify border-l border-white/10 pl-8">
+					<p>
+						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire
+						Supérieur de Musique de Kharkov (Ukraine) en accordéon, direction
+						d’orchestre, musique de chambre et lauréat de plusieurs Concours
+						Internationaux d’Accordéon.
 					</p>
-					<p class=" pl-6">
-						Né en Ukraine et résidant actuellement en France, Bogdan s'est imposé comme une figure
-						incontournable de la scène musicale européenne. Il collabore activement avec des
-						orchestres de chambre et symphoniques renommés, tout en étant l'invité régulier de
-						prestigieux festivals. Sa quête constante d'innovation artistique et son dévouement à
-						l'instrument font de chaque concert un moment d'exception, célébrant la richesse
-						culturelle et la modernité de l'accordéon de concert.
+					<p>
+						Installé en France depuis 2006, Bogdan Nesterenko donne un grand nombre
+						de récitals en Europe, en solo et musique de chambre. Il est invité à se produire
+						dans des lieux (Opéra de Vichy, Villa Strauli en Suisse, Théâtre national de
+						Beauvaisis, Abbatiale d’Ebersmunster, Opéra de Lille, Philharmonie de
+						Luxembourg…) et festivals prestigieux (Lille Piano Festival, Festivals de
+						musique baroque de Strasbourg et de Madiran, Festival International d’Orgue en
+						Flandres, Septembre Musical de l&#39;Orne, Nuit blanche à Paris...) en Europe, en
+						Ukraine et en Asie. On peut l&#39;entendre sur les ondes de France Musique, BBC
+						Radio ou sur CultureBox.
 					</p>
 				</div>
 			</div>
 
-			<div class="relative flex w-full shrink-0 items-center justify-center md:w-[280px]">
-				<button
-					onclick={prevSlide}
-					class="absolute -left-1 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none md:-left-3"
-					aria-label="Previous image"
-				>
-					<Icon icon="mdi:chevron-left" width="32" height="32" />
-				</button>
+			<div class="relative w-full md:w-[320px] shrink-0 min-h-[350px] md:min-h-0">
+				<div class="md:absolute md:inset-0">
+					<button onclick={prevSlide1} class="absolute -left-3 top-1/2 -translate-y-1/2 z-30 p-1 text-white/20 transition-all hover:text-white hover:scale-110">
+						<Icon icon="mdi:chevron-left" width="32" height="32" />
+					</button>
 
-				<div
-					class="relative isolate aspect-3/4 w-full max-w-[220px] overflow-hidden border border-white/5 bg-zinc-900 shadow-2xl transition-all duration-700 group-hover/bio:border-white/10"
-				>
-					<div
-						class="cubic-bezier(0.4, 0, 0.2, 1) flex h-full transition-transform duration-1000"
-						style="transform: translateX(-{currentIndex * 100}%)"
-					>
-						{#each images as src}
-							<img
-								{src}
-								alt="Bogdan Nesterenko"
-								class="h-full w-full shrink-0 object-cover opacity-70 grayscale transition-all duration-1000 group-hover/bio:opacity-100"
-							/>
-						{/each}
+					<div class="relative h-full w-full overflow-hidden rounded-[0.5rem] isolate">
+						<div class="flex h-full transition-transform duration-700 ease-in-out" style="transform: translateX(-{currentIndex1 * 100}%)">
+							{#each images1 as src}
+								<img {src} alt="Bogdan" class="h-full w-full shrink-0 object-cover opacity-70 transition-opacity duration-700 group-hover/bio1:opacity-100" />
+							{/each}
+						</div>
 					</div>
-				</div>
 
-				<button
-					onclick={nextSlide}
-					class="absolute -right-1 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none md:-right-3"
-					aria-label="Next image"
-				>
-					<Icon icon="mdi:chevron-right" width="32" height="32" />
-				</button>
+					<button onclick={nextSlide1} class="absolute -right-3 top-1/2 -translate-y-1/2 z-30 p-1 text-white/20 transition-all hover:text-white hover:scale-110">
+						<Icon icon="mdi:chevron-right" width="32" height="32" />
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="flex flex-col md:flex-row-reverse items-stretch gap-10 md:gap-16 group/bio2">
+			<div class="w-full flex-1 flex flex-col justify-center py-4">
+				<div class="relative space-y-6 font-sans text-[13px] leading-relaxed text-white/60 font-light tracking-wide text-justify border-r border-white/10 pr-8 md:text-right">
+					<p>
+						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super
+						Soliste de l’Orchestre National de Lille), avec Quatuor GoYa et Quatuor Elysée,
+						avec le pianiste Alain Raës et le violoniste Pablo Schatzman, avec la Camerata
+						de Flandre et l&#39;Ensemble vocal Métamorphoses. Il forme le Trio SVITA avec
+						Benjamin et Khrystyna Boursier (violons) et joue avec Jan Vermeire (orgue),
+						avec Dorian Gheorghilas (flûte de pan) et la soprano Olga Vojnovic.
+					</p>
+					<p>
+						En musique contemporaine il participe aux créations de M. Bourbon, de
+						Ch. Hache, de N. Debard, J. Dassié, S. Fache et crée le &quot;Concerto de deux
+						mondes&quot; pour accordéon et orchestre symphonique de Omar Yagoubi.
+					</p>
+					<p>
+						Il joue également régulièrement avec la soprano Juliette de Massy. Leur
+						enregistrementdes
+						airs de Bach « Comme un air de
+						passions...» (ed. AR-RE-
+						SE) a reçu des critiques élogieuses. En duo avec Marc Hervieux (flûtes à
+						bec) il
+						enregistre l’album « Dialogue insolite » aux éditions RAINBOW CLASSIC. Le
+						dernier album en solo du musicien « Un Sacre du printemps » est consacré à la
+						musique ukrainienne et russe.
+					</p>
+					<p>
+						Bogdan Nesterenko joue sur un accordéon « bayan » de marque «Jupiter»,
+						un instrument offrant, grâce à sa richesse de timbre et à ses multiples registres,
+						des possibilités musicales très étendues.
+					</p>
+				</div>
+			</div>
+
+			<div class="relative w-full md:w-[320px] shrink-0 min-h-[350px] md:min-h-0">
+				<div class="md:absolute md:inset-0">
+					<button onclick={prevSlide2} class="absolute -left-3 top-1/2 -translate-y-1/2 z-30 p-1 text-white/20 transition-all hover:text-white hover:scale-110">
+						<Icon icon="mdi:chevron-left" width="32" height="32" />
+					</button>
+
+					<div class="relative h-full w-full overflow-hidden rounded-[0.5rem] isolate">
+						<div class="flex h-full transition-transform duration-700 ease-in-out" style="transform: translateX(-{currentIndex2 * 100}%)">
+							{#each images2 as src}
+								<img {src} alt="Bogdan" class="h-full w-full shrink-0 object-cover opacity-70 transition-opacity duration-700 group-hover/bio2:opacity-100" />
+							{/each}
+						</div>
+					</div>
+
+					<button onclick={nextSlide2} class="absolute -right-3 top-1/2 -translate-y-1/2 z-30 p-1 text-white/20 transition-all hover:text-white hover:scale-110">
+						<Icon icon="mdi:chevron-right" width="32" height="32" />
+					</button>
+				</div>
 			</div>
 		</div>
 	</section>
+
+	<section id="recordings" class="max-w-4xl mx-auto px-4 py-16 relative">
+
+
+		<div class="mb-4 flex items-center justify-center gap-4 opacity-30">
+			<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-center">
+				Discography
+			</h2>
+		</div>
+
+		<div class="absolute left-1/2 top-0 bottom-0 w-[0.5px] bg-white/5 hidden md:block"></div>
+
+		<div class="space-y-8 md:space-y-0">
+			{#each albums as album, i}
+				<div class="relative flex flex-col md:flex-row items-center justify-between group py-4 md:py-6">
+
+					<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white/10 border border-black z-10 hidden md:block group-hover:bg-white/40 transition-colors duration-500"></div>
+
+					<div class="w-full md:w-[45%] flex {i % 2 === 0 ? 'md:justify-end' : 'md:justify-start order-1 md:order-2'}">
+						<div class="relative w-32 h-32 sm:w-40 sm:h-40">
+							<div class="absolute inset-0 overflow-hidden rounded-[0.5rem] shadow-2xl border border-white/5 transition-all duration-700 text-center">
+								<img
+									src={album.image}
+									alt={album.title}
+									class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div class="w-full md:w-[45%] mt-4 md:mt-0 text-center {i % 2 === 0 ? 'md:text-left order-2 md:order-2' : 'md:text-right order-2 md:order-1'}">
+						<p class="text-[9px] tracking-[0.3em] text-white/20 uppercase mb-1">
+							{album.year} • {album.label}
+						</p>
+
+						<h3 class="text-lg md:text-xl font-light text-white/90 mb-2 tracking-tight">
+							{album.title}
+						</h3>
+
+						<p class="text-white/30 text-[11px] md:text-xs leading-relaxed font-light group-hover:text-white/50 transition-colors">
+							{album.description}
+						</p>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</section>
+
+	<section id="contact" class="relative min-h-screen flex items-center justify-center py-24 overflow-hidden">
+
+		<div class="absolute inset-0 z-0 w-full max-w-4xl mx-auto">
+			<img
+				src="/poster.png"
+				alt="Background"
+				class="w-full h-full object-cover opacity-40"
+			/>
+			<div class="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black"></div>
+		</div>
+
+		<div class="relative z-10 w-full max-w-2xl mx-auto px-4 md:px-8">
+
+			<div class="max-w-2xl mx-auto"> <div class="text-center mb-12">
+					<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-white/30 mb-8">
+						{m.nav_contact()}
+					</h2>
+
+					<div class="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-sm">
+						<a href="mailto:mail@example.com" class="text-white/60 hover:text-white transition-all duration-500 font-light tracking-widest border-b border-white/5 hover:border-white/40 pb-1">
+							mail@example.com
+						</a>
+						<a href="tel:+33000000000" class="text-white/60 hover:text-white transition-all duration-500 font-light tracking-widest border-b border-white/5 hover:border-white/40 pb-1">
+							+33 (0) 0 00 00 00 00
+						</a>
+					</div>
+				</div>
+
+				<form class="space-y-6 p-8 md:p-10 bg-black/40 backdrop-blur-md rounded-[1.5rem] border border-white/5 shadow-2xl transition-all duration-500">
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div class="form-control">
+							<label class="label pt-0">
+								<span class="label-text text-[9px] uppercase tracking-[0.2em] text-white/20">Votre Nom</span>
+							</label>
+							<input type="text" placeholder="Nom" required
+								class="input input-ghost w-full bg-white/[0.03] border-none focus:outline-none focus:bg-white/[0.07] text-white text-xs placeholder:text-white/5 rounded-xl transition-all duration-300" />
+						</div>
+
+						<div class="form-control">
+							<label class="label pt-0">
+								<span class="label-text text-[9px] uppercase tracking-[0.2em] text-white/20">Votre adresse mail</span>
+							</label>
+							<input type="email" placeholder="email@example.com" required
+								class="input input-ghost w-full bg-white/[0.03] border-none focus:outline-none focus:bg-white/[0.07] text-white text-xs placeholder:text-white/5 rounded-xl transition-all duration-300" />
+						</div>
+					</div>
+
+					<div class="form-control">
+						<label class="label pt-0">
+							<span class="label-text text-[9px] uppercase tracking-[0.2em] text-white/20">Objet</span>
+						</label>
+						<input type="text" placeholder="Sujet" required
+							class="input input-ghost w-full bg-white/[0.03] border-none focus:outline-none focus:bg-white/[0.07] text-white text-xs placeholder:text-white/5 rounded-xl transition-all duration-300" />
+					</div>
+
+					<div class="form-control">
+						<label class="label pt-0">
+							<span class="label-text text-[9px] uppercase tracking-[0.2em] text-white/20">Message</span>
+						</label>
+						<textarea placeholder="Message..." required
+							class="textarea textarea-ghost w-full bg-white/[0.03] border-none focus:outline-none focus:bg-white/[0.07] text-white text-xs placeholder:text-white/5 rounded-xl transition-all duration-300 min-h-[120px] resize-none"></textarea>
+					</div>
+
+					<div class="pt-4 flex justify-center">
+						<button
+							type="submit"
+							class="text-sm tracking-wider uppercase transition-all duration-300 text-base-content/80 hover:text-white hover:bg-white/10 px-4 py-2 rounded-3xl focus:outline-none"
+						>
+							{m.nav_contact()}
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
 </main>

@@ -23,29 +23,31 @@
 	];
 </script>
 
-<footer class="flex w-full justify-center bg-base-100 py-4">
-	<div class="flex max-w-5xl flex-col gap-4">
-		<div class="flex flex-wrap justify-center gap-4">
-			<nav class="flex gap-6 text-base-content">
+<footer class="flex w-full justify-center bg-transparent py-10 border-t border-white/5">
+    <div class="flex max-w-5xl flex-col gap-6 px-4">
+        
+        <div class="flex flex-wrap justify-center">
+            <nav class="flex flex-wrap justify-center gap-1">
 				{#each links as link}
 					<a
 						href={link.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						aria-label={link.label}
-						class="group flex items-center gap-2 transition-all duration-300 hover:text-primary"
+						class="group flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/10"
 					>
-						<!-- class="group flex items-center gap-2 transition-all duration-300 transform hover:text-red-500"   hover:decoration-1 -->
-						<Icon icon={link.icon} />
-						<span class="hidden sm:inline">
+						<Icon icon={link.icon} class="text-lg text-white/60 group-hover:text-white" />
+						
+						<span class="hidden sm:inline text-sm tracking-wide uppercase text-white/80 transition-colors group-hover:text-white">
 							{link.label}
 						</span>
 					</a>
 				{/each}
 			</nav>
-		</div>
-		<div class="flex w-full max-w-5xl justify-center text-base-content">
-			© {new Date().getFullYear()} Bogdan Nesterenko
-		</div>
-	</div>
+        </div>
+
+        <div class="flex w-full justify-center text-[10px] uppercase tracking-[0.4em] text-white/20 font-light">
+            © {new Date().getFullYear()} Bogdan Nesterenko
+        </div>
+        
+    </div>
 </footer>
