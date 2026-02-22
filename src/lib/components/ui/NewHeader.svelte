@@ -7,11 +7,11 @@
 
 	const links = [
 		{ href: '/test#concerts', label: m.nav_concerts },
-		{ href: '#videos', label: m.nav_videos },
-		{ href: '#bio', label: m.nav_bio },
+		{ href: '/test#videos', label: m.nav_videos },
+		{ href: '/test#bio', label: m.nav_bio },
 		{ href: '/projects', label: m.nav_projects },
-		{ href: '/recordings', label: m.nav_recordings },
-		{ href: '/contact', label: m.nav_contact }
+		{ href: '/test#recordings', label: m.nav_recordings },
+		{ href: '/test#contact', label: m.nav_contact }
 	];
 
 	function getNextLocaleHref() {
@@ -36,9 +36,9 @@
 <svelte:window bind:scrollY />
 
 <header
-	class="fixed top-0 z-50 h-12 w-full whitespace-nowrap transition-all duration-300 {scrollY > 50
-		? 'bg-black/30 shadow-lg backdrop-blur-2xl'
-		: 'bg-linear-to-b from-black/80 to-0% shadow-none'}"
+	class="fixed top-0 z-50 h-12 w-full whitespace-nowrap transition-all duration-300 border-b bg-black/0 {scrollY > 50
+		? 'bg-black/30 shadow-lg backdrop-blur-2xl border-white/10'
+		: 'bg-linear-to-b from-black/80 to-0% shadow-none border-transparent'}"
 >
 	<div class="navbar min-h-12 py-0">
 		<div class="mx-auto flex w-full max-w-6xl">
@@ -69,7 +69,7 @@
 					<li class="ml-4">
 						<a
 							href={getNextLocaleHref()}
-							class="text-sm  tracking-wider uppercase transition-colors hover:text-primary opacity-80"
+							class="text-sm tracking-wider uppercase transition-colors hover:text-primary text-base-content/80"
 						>
 							{currentLocale}
 						</a>
