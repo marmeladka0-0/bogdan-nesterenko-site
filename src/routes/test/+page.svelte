@@ -504,12 +504,12 @@
 
 			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
 				<div class="md:absolute md:inset-0 flex items-center">
-					<button
+					<!-- <button
 						onclick={prevSlide2}
 						class="absolute left-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-left" width="32" height="32" />
-					</button>
+					</button> -->
 
 					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
 						{#each images2 as src, i}
@@ -522,12 +522,12 @@
 						{/each}
 					</div>
 
-					<button
+					<!-- <button
 						onclick={nextSlide2}
 						class="absolute right-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-right" width="32" height="32" />
-					</button>
+					</button> -->
 				</div>
 			</div>
 		</div>
@@ -538,7 +538,7 @@
 			<h2 class="text-center text-sm font-normal tracking-[0.5em] uppercase">Discography</h2>
 		</div>
 
-		<div class="absolute top-0 bottom-0 left-1/2 hidden w-[0.5px] bg-white/5 md:block"></div>
+		<div class="absolute top-32 bottom-24 left-1/2 hidden w-[0.5px] bg-white/10 md:block"></div>
 
 		<div class="space-y-8 md:space-y-0">
 			{#each albums as album, i}
@@ -546,7 +546,9 @@
 					class="group relative flex flex-col items-center justify-between py-4 md:flex-row md:py-6"
 				>
 					<div
-						class="absolute top-1/2 left-1/2 z-10 hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-black bg-white/10 transition-colors duration-500 group-hover:bg-white/40 md:block"
+						class="absolute top-1/2 left-1/2 z-10 hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full 
+						bg-zinc-600 transition-all duration-500 
+						group-hover:bg-zinc-400 md:block"
 					></div>
 
 					<div
