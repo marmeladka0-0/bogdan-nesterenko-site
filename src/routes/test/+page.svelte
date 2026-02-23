@@ -240,7 +240,7 @@
 		<div class="space-y-4">
 			{#each data.concerts as concert}
 				<div
-					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200/50 p-4 transition-all hover:bg-base-300/50 md:gap-6 md:p-6"
+					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200/50 p-4 transition-all hover:bg-base-300/50 md:gap-6 md:p-6 border border-white/10"
 				>
 					<div
 						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
@@ -280,7 +280,7 @@
 								href={concert.link}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="btn rounded-2xl border-none px-2 text-xs font-normal tracking-widest text-base-content/80 shadow-none btn-ghost transition-colors btn-xs hover:text-primary hover:opacity-100 focus:outline-none md:px-6 md:btn-sm"
+								class="btn rounded-2xl border-none px-2 text-xs font-normal tracking-widest text-white/90 bg-transparent shadow-none transition-all duration-300 hover:bg-white/5 hover:text-white focus:outline-none md:px-6 md:btn-sm"
 							>
 								INFO
 							</a>
