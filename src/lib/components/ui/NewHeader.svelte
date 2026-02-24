@@ -7,8 +7,8 @@
 
 	const links = [
 		{ href: '/test#concerts', label: m.nav_concerts },
-		{ href: '/test#videos', label: m.nav_videos },
 		{ href: '/test#bio', label: m.nav_bio },
+		{ href: '/test#videos', label: m.nav_videos },
 		{ href: '/test#projects', label: m.nav_projects },
 		{ href: '/test#recordings', label: m.nav_recordings },
 		{ href: '/test#contact', label: m.nav_contact }

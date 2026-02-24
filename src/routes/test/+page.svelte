@@ -51,7 +51,6 @@
 		centeredSlides: true,
 		spaceBetween: 20,
 		loop: true,
-		// Додаємо ці параметри для плавності:
 		loopAdditionalSlides: 6,
 		watchSlidesProgress: true,
 		preloadImages: true,
@@ -60,22 +59,25 @@
 			prevEl: '.nav-prev',
 			nextEl: '.nav-next'
 		},
-		// mousewheel: {
-		// 	forceToAxis: true,
-		// },
-		// БЛОКУЄМО РУХ МИШКОЮ ТА ПАЛЬЦЕМ
-		allowTouchMove: false, // Вимикає перетягування на мобільних та десктопі
-		simulateTouch: false, // Вимикає емуляцію натискання мишкою
+
+		// По умолчанию ВКЛЮЧАЕМ свайп (для мобильных)
+		allowTouchMove: true, 
+		simulateTouch: true, 
 
 		keyboard: {
 			enabled: true
 		},
 
-		// Коліщатко миші краще теж вимкнути, щоб працювали тільки стрілки
 		mousewheel: false,
+		
 		breakpoints: {
-			768: { slidesPerView: 2.5 },
-			1024: { slidesPerView: 2.5 }
+			// Начиная с 768px (планшеты и десктопы) ВЫКЛЮЧАЕМ свайп
+			768: { 
+				slidesPerView: 2
+			},
+			1024: { 
+				slidesPerView: 2.2
+			}
 		},
 		observer: true,
 		observeParents: true
@@ -188,7 +190,7 @@
 <div
 	class="fixed inset-0 z-1 transition-all duration-500 ease-out"
 	style="background: rgba(0,0,0,{overlayProgress() *
-		0.7}); backdrop-filter: blur({overlayProgress() *
+		0.2}); backdrop-filter: blur({overlayProgress() *
 		14}px);  -webkit-backdrop-filter: blur({overlayProgress() * 14}px);"
 	aria-hidden="true"
 ></div>
@@ -232,7 +234,7 @@
 	</div>
 </div>
 <main class="relative z-2 mx-auto w-full px-4 md:px-8 md:py-24">
-	<section id="concerts" class="mx-auto w-full max-w-4xl px-4 py-24 font-sans">
+	<section id="concerts" class="mx-auto w-full max-w-4xl px-4 pt-24 font-sans">
 		<!-- <div class="mb-4 flex items-center justify-center gap-8 opacity-40">
 			<h2 class="text-[11px] font-normal tracking-[0.2em] uppercase">
 				Upcoming Concerts
@@ -295,13 +297,156 @@
 			{/each}
 		</div>
 	</section>
+
+	<section
+		id="bio"
+		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-4 py-24 pb-16 md:space-y-24 md:pb-32"
+	>
+		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row lg:gap-16 mb-24">
+			<div class="flex w-full flex-1 flex-col justify-center">
+				<div class="mb-8 flex items-center gap-4 opacity-70">
+					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">Biography</h2>
+				</div>
+				<div
+					class="relative space-y-6 lg:border-l border-white/10 lg:pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
+				>
+					<p>
+						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de
+						Kharkov (Ukraine) en accordéon, direction d’orchestre, musique de chambre et lauréat de
+						plusieurs Concours Internationaux d’Accordéon.
+					</p>
+					<p>
+						Installé en France depuis 2006, Bogdan Nesterenko donne un grand nombre de récitals en
+						Europe, en solo et musique de chambre. Il est invité à se produire dans des lieux (Opéra
+						de Vichy, Villa Strauli en Suisse, Théâtre national de Beauvaisis, Abbatiale
+						d’Ebersmunster, Opéra de Lille, Philharmonie de Luxembourg…) et festivals prestigieux
+						(Lille Piano Festival, Festivals de musique baroque de Strasbourg et de Madiran,
+						Festival International d’Orgue en Flandres, Septembre Musical de l&#39;Orne, Nuit
+						blanche à Paris...) en Europe, en Ukraine et en Asie. On peut l&#39;entendre sur les
+						ondes de France Musique, BBC Radio ou sur CultureBox.
+					</p>
+				</div>
+			</div>
+
+			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
+				<div class="absolute inset-0 flex items-center">
+					<button
+						onclick={prevSlide1}
+						class="absolute left-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio1:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
+					>
+						<Icon icon="mdi:chevron-left" width="32" height="32" />
+					</button>
+
+					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
+						<div 
+							class="flex h-full w-full transition-transform duration-700 ease-in-out" 
+							style="transform: translateX(-{currentIndex1 * 100}%);"
+						>
+							{#each images1 as src}
+								<div class="h-full w-full shrink-0 overflow-hidden">
+									<img
+										{src}
+										alt="Bogdan"
+										class="h-full w-full object-cover brightness-60 transition-all duration-700 group-hover/bio1:scale-105 group-hover/bio1:brightness-90"
+									/>
+								</div>
+							{/each}
+						</div>
+					</div>
+
+					<button
+						onclick={nextSlide1}
+						class="absolute right-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio1:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
+					>
+						<Icon icon="mdi:chevron-right" width="32" height="32" />
+					</button>
+									
+				</div>
+			</div>
+		</div>
+
+		<div class="group/bio2 flex flex-col items-stretch gap-10 md:flex-row-reverse lg:gap-16">
+			<div class="flex w-full flex-1 flex-col justify-center">
+				<div
+					class="relative space-y-6 lg:border-r border-white/10 lg:pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
+				>
+					<p>
+						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de
+						l’Orchestre National de Lille), avec Quatuor GoYa et Quatuor Elysée, avec le pianiste
+						Alain Raës et le violoniste Pablo Schatzman, avec la Camerata de Flandre et
+						l&#39;Ensemble vocal Métamorphoses. Il forme le Trio SVITA avec Benjamin et Khrystyna
+						Boursier (violons) et joue avec Jan Vermeire (orgue), avec Dorian Gheorghilas (flûte de
+						pan) et la soprano Olga Vojnovic.
+					</p>
+					<p>
+						En musique contemporaine il participe aux créations de M. Bourbon, de Ch. Hache, de N.
+						Debard, J. Dassié, S. Fache et crée le &quot;Concerto de deux mondes&quot; pour
+						accordéon et orchestre symphonique de Omar Yagoubi.
+					</p>
+					<p>
+						Il joue également régulièrement avec la soprano Juliette de Massy. Leur
+						enregistrementdes airs de Bach « Comme un air de passions...» (ed. AR-RE- SE) a reçu des
+						critiques élogieuses. En duo avec Marc Hervieux (flûtes à bec) il enregistre l’album
+						« Dialogue insolite » aux éditions RAINBOW CLASSIC. Le dernier album en solo du musicien
+						« Un Sacre du printemps » est consacré à la musique ukrainienne et russe.
+					</p>
+					<p>
+						Bogdan Nesterenko joue sur un accordéon « bayan » de marque «Jupiter», un instrument
+						offrant, grâce à sa richesse de timbre et à ses multiples registres, des possibilités
+						musicales très étendues.
+					</p>
+				</div>
+			</div>
+
+			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
+				<div class="absolute inset-0 flex items-center transition-transform ">
+					<button
+						onclick={prevSlide2}
+						class="absolute left-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio2:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
+					>
+						<Icon icon="mdi:chevron-left" width="32" height="32" />
+					</button>
+
+					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
+						<div 
+							class="flex h-full w-full transition-transform duration-700 ease-in-out" 
+							style="transform: translateX(-{currentIndex2 * 100}%);"
+						>
+							{#each images2 as src}
+								<div class="h-full w-full shrink-0 overflow-hidden">
+									<img
+										{src}
+										alt="Bogdan"
+										class="h-full w-full object-cover brightness-60 transition-all duration-700 
+											group-hover/bio2:scale-105 group-hover/bio2:brightness-90"
+									/>
+								</div>
+							{/each}
+						</div>
+					</div>
+
+					<button
+						onclick={nextSlide2}
+						class="absolute right-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio2:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
+					>
+						<Icon icon="mdi:chevron-right" width="32" height="32" />
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section
 		id="videos"
-		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden py-24 px-4"
+		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-4 py-24"
 	>
 
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Videos</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Performance Archive</h2>
 		</div>
 
 		<!-- <div class="mb-16 text-center">
@@ -361,12 +506,12 @@
 								aria-label="Play {video.title}"
 							>
 								<div
-									class="rounded-full bg-transparent p-1 transition-all duration-300 ease-out
-											group-hover:scale-110 group-hover:bg-white/10 group-hover:backdrop-blur-md"
+									class="rounded-full bg-white/5 p-1 backdrop-blur-md transition-all duration-300 ease-out
+										group-hover:scale-110 group-hover:bg-white/20"
 								>
 									<svg
-										class="mr-3 ml-3 h-6 w-6 fill-current text-white opacity-10 transition-all duration-300 ease-in-out
-											group-hover:opacity-100 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+										class="mr-3 ml-3 h-6 w-6 fill-current text-white transition-all duration-300 ease-in-out
+											drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
 										viewBox="0 0 24 24"
 									>
 										<path d="M8 5v14l11-7z" />
@@ -384,14 +529,14 @@
 		</swiper-container>
 
 		<button
-			class="nav-prev absolute top-[48.5%] left-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:left-2 md:flex"
+			class="nav-prev absolute top-[47.5%] left-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:left-4 md:flex"
 			aria-label="Previous slide"
 		>
 			<Icon icon="mdi:chevron-left" width="32" height="32" />
 		</button>
 
 		<button
-			class="nav-next absolute top-[48.5%] right-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:right-2 md:flex"
+			class="nav-next absolute top-[47.5%] right-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:right-4 md:flex"
 			aria-label="Next slide"
 		>
 			<Icon icon="mdi:chevron-right" width="32" height="32" />
@@ -404,7 +549,7 @@
 			max-width: 100vw;
 			overflow: visible;
 			/* Маска: прозрачный -> непрозрачный -> прозрачный */
-			-webkit-mask-image: linear-gradient(
+			/* -webkit-mask-image: linear-gradient(
 				to right,
 				transparent 0%,
 				black 15%,
@@ -417,7 +562,7 @@
 				black 45%,
 				black 55%,
 				transparent 100%
-			);
+			); */
 		}
 
 		#videos {
@@ -457,138 +602,53 @@
 			100% { transform: translate(1%, 0); }
 		}
 		/*===============================*/
+
+		/* Скрываем кнопку на всех слайдах по умолчанию */
+		swiper-slide .video-wrapper button {
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.5s ease-in-out;
+		}
+
+		/* Показываем кнопку только на активном (центральном) слайде */
+		swiper-slide.swiper-slide-active .video-wrapper button {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		/* Сохраняем ваши hover-эффекты внутри активного слайда */
+		swiper-slide.swiper-slide-active .video-wrapper button:hover {
+			transform: scale(1.05);
+		}
 	</style>
 
-	<section
-		id="bio"
-		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-4 py-24 pb-16 md:space-y-24 md:pb-32"
-	>
-		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row lg:gap-16 mb-24">
-			<div class="flex w-full flex-1 flex-col justify-center">
-				<div class="mb-8 flex items-center gap-4 opacity-70">
-					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">Biography</h2>
-				</div>
-				<div
-					class="relative space-y-6 lg:border-l border-white/10 lg:pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
-				>
-					<p>
-						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de
-						Kharkov (Ukraine) en accordéon, direction d’orchestre, musique de chambre et lauréat de
-						plusieurs Concours Internationaux d’Accordéon.
-					</p>
-					<p>
-						Installé en France depuis 2006, Bogdan Nesterenko donne un grand nombre de récitals en
-						Europe, en solo et musique de chambre. Il est invité à se produire dans des lieux (Opéra
-						de Vichy, Villa Strauli en Suisse, Théâtre national de Beauvaisis, Abbatiale
-						d’Ebersmunster, Opéra de Lille, Philharmonie de Luxembourg…) et festivals prestigieux
-						(Lille Piano Festival, Festivals de musique baroque de Strasbourg et de Madiran,
-						Festival International d’Orgue en Flandres, Septembre Musical de l&#39;Orne, Nuit
-						blanche à Paris...) en Europe, en Ukraine et en Asie. On peut l&#39;entendre sur les
-						ondes de France Musique, BBC Radio ou sur CultureBox.
-					</p>
-				</div>
-			</div>
-
-			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="absolute inset-0 flex items-center">
-					<button
-						onclick={prevSlide1}
-						class="absolute left-2 z-30 p-1 text-white/20 transition-all duration-500 
-							opacity-0 group-hover/bio1:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
-					>
-						<Icon icon="mdi:chevron-left" width="32" height="32" />
-					</button>
-
-					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
-						{#each images1 as src, i}
-							<img
-								{src}
-								alt="Bogdan"
-								class="absolute inset-0 h-full w-full object-cover brightness-60 
-									transition-all duration-700 ease-in-out 
-									group-hover/bio1:scale-105 group-hover/bio1:brightness-90"
-								style="opacity: {currentIndex1 === i ? '0.7' : '0'}; z-index: {currentIndex1 === i ? '10' : '0'};"
-							/>
-						{/each}
-					</div>
-
-					<button
-						onclick={nextSlide1}
-						class="absolute right-2 z-30 p-1 text-white/20 transition-all duration-500 
-							opacity-0 group-hover/bio1:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
-					>
-						<Icon icon="mdi:chevron-right" width="32" height="32" />
-					</button>
-									
-				</div>
-			</div>
+	<section id="projects" class="mx-auto w-full max-w-4xl px-4 py-24">
+		<div class="mb-12 flex items-center justify-center gap-4 opacity-70">
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Projets</h2>
 		</div>
 
-		<div class="group/bio2 flex flex-col items-stretch gap-10 md:flex-row-reverse lg:gap-16">
-			<div class="flex w-full flex-1 flex-col justify-center">
-				<div
-					class="relative space-y-6 lg:border-r border-white/10 lg:pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
-				>
-					<p>
-						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de
-						l’Orchestre National de Lille), avec Quatuor GoYa et Quatuor Elysée, avec le pianiste
-						Alain Raës et le violoniste Pablo Schatzman, avec la Camerata de Flandre et
-						l&#39;Ensemble vocal Métamorphoses. Il forme le Trio SVITA avec Benjamin et Khrystyna
-						Boursier (violons) et joue avec Jan Vermeire (orgue), avec Dorian Gheorghilas (flûte de
-						pan) et la soprano Olga Vojnovic.
-					</p>
-					<p>
-						En musique contemporaine il participe aux créations de M. Bourbon, de Ch. Hache, de N.
-						Debard, J. Dassié, S. Fache et crée le &quot;Concerto de deux mondes&quot; pour
-						accordéon et orchestre symphonique de Omar Yagoubi.
-					</p>
-					<p>
-						Il joue également régulièrement avec la soprano Juliette de Massy. Leur
-						enregistrementdes airs de Bach « Comme un air de passions...» (ed. AR-RE- SE) a reçu des
-						critiques élogieuses. En duo avec Marc Hervieux (flûtes à bec) il enregistre l’album
-						« Dialogue insolite » aux éditions RAINBOW CLASSIC. Le dernier album en solo du musicien
-						« Un Sacre du printemps » est consacré à la musique ukrainienne et russe.
-					</p>
-					<p>
-						Bogdan Nesterenko joue sur un accordéon « bayan » de marque «Jupiter», un instrument
-						offrant, grâce à sa richesse de timbre et à ses multiples registres, des possibilités
-						musicales très étendues.
-					</p>
-				</div>
-			</div>
+		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
+			{#each projects as project}
+				<div class="group/proj relative aspect-[5/6] overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all">
+					
+					<img 
+						src={project.img} 
+						alt={project.title} 
+						class="h-full w-full object-cover brightness-50 transition-all duration-700 ease-in-out group-hover/proj:scale-105 group-hover/proj:brightness-80"
+					/>
 
-			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="absolute inset-0 flex items-center transition-transform ">
-					<button
-						onclick={prevSlide2}
-						class="absolute left-2 z-30 p-1 text-white/20 transition-all duration-500 
-							opacity-0 group-hover/bio2:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
-					>
-						<Icon icon="mdi:chevron-left" width="32" height="32" />
-					</button>
-
-					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
-						{#each images2 as src, i}
-							<img
-								{src}
-								alt="Bogdan"
-								class="absolute inset-0 h-full w-full object-cover brightness-60 
-									transition-all duration-700 ease-in-out 
-									group-hover/bio2:scale-105 group-hover/bio2:brightness-90"
-								style="opacity: {currentIndex2 === i ? '0.7' : '0'}; z-index: {currentIndex2 === i ? '10' : '0'};"
-							/>
-						{/each}
+					<div class="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
+						<div class="translate-y-2 transition-transform duration-500 group-hover/proj:translate-y-0">
+							<h3 class="text-[10px] font-medium tracking-[0.2em] uppercase text-white/90 md:text-xs">
+								{project.title}
+							</h3>
+							<div class="mt-2 h-[1px] w-0 bg-white/40 transition-all duration-500 group-hover/proj:w-full"></div>
+						</div>
 					</div>
 
-					<button
-						onclick={nextSlide2}
-						class="absolute right-2 z-30 p-1 text-white/20 transition-all duration-500 
-							opacity-0 group-hover/bio2:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
-					>
-						<Icon icon="mdi:chevron-right" width="32" height="32" />
-					</button>
+					<a href="#contact" class="absolute inset-0 z-10" aria-label="Details about {project.title}"></a>
 				</div>
-			</div>
+			{/each}
 		</div>
 	</section>
 
@@ -648,36 +708,6 @@
 							{album.description}
 						</p>
 					</div>
-				</div>
-			{/each}
-		</div>
-	</section>
-
-	<section id="projects" class="mx-auto w-full max-w-4xl px-4 py-24">
-		<div class="mb-12 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Projets</h2>
-		</div>
-
-		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
-			{#each projects as project}
-				<div class="group/proj relative aspect-[5/6] overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all">
-					
-					<img 
-						src={project.img} 
-						alt={project.title} 
-						class="h-full w-full object-cover brightness-50 transition-all duration-700 ease-in-out group-hover/proj:scale-105 group-hover/proj:brightness-80"
-					/>
-
-					<div class="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
-						<div class="translate-y-2 transition-transform duration-500 group-hover/proj:translate-y-0">
-							<h3 class="text-[10px] font-medium tracking-[0.2em] uppercase text-white/90 md:text-xs">
-								{project.title}
-							</h3>
-							<div class="mt-2 h-[1px] w-0 bg-white/40 transition-all duration-500 group-hover/proj:w-full"></div>
-						</div>
-					</div>
-
-					<a href="#contact" class="absolute inset-0 z-10" aria-label="Details about {project.title}"></a>
 				</div>
 			{/each}
 		</div>
