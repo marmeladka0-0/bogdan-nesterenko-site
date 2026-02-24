@@ -114,14 +114,6 @@
     function nextSlide2() { currentIndex2 = (currentIndex2 + 1) % images2.length; }
     function prevSlide2() { currentIndex2 = (currentIndex2 - 1 + images2.length) % images2.length; }
 
-    // Опционально: автосмена раз в 5 секунд для красоты
-    onMount(() => {
-        const interval = setInterval(() => {
-            nextSlide1();
-            nextSlide2();
-        }, 5000);
-        return () => clearInterval(interval);
-    });
 	const albums = [
 		{
 			title: 'Un Sacre du Printemps',
@@ -160,6 +152,17 @@
 			image: '/1 str.jpg'
 		}
 	];
+
+	const projects = [
+		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.jpg' },
+		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.jpg' },
+		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1413 Ju.jpg' },
+		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.jpg' },
+		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.JPG' },
+		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.JPG' },
+		{ id: 7, title: 'RAFRAÎCHIS', img: '/projects/1201 SVITA.jpg' },
+		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/projects/1201 SVITA.jpg' }
+	];
 </script>
 
 <svelte:window bind:scrollY bind:innerHeight />
@@ -179,6 +182,8 @@
 	<track kind="captions" />
 </video>
 
+<div class="noise-overlay" aria-hidden="true"></div>
+
 <!-- Blur/darken overlay that activates when scrolling past the hero -->
 <div
 	class="fixed inset-0 z-1 transition-all duration-500 ease-out"
@@ -194,10 +199,10 @@
 	</div> -->
 	<a
 		href="#concerts"
-		class="absolute inset-x-0 bottom-5 z-20 flex animate-bounce justify-center text-white/50 transition-colors hover:text-white"
+		class="absolute inset-x-0 bottom-5 z-20 flex animate-bounce justify-center text-base-content/60 transition-colors hover:text-primary"
 		aria-label="Scroll to concerts"
 	>
-		<Icon icon="mdi:chevron-down" width="36" height="36" />
+		<Icon icon="mdi:chevron-down" width="32" height="32" />
 	</a>
 
 	<div
@@ -315,7 +320,7 @@
 		<swiper-container init="false" class="pb-12">
 			{#each videos as video}
 				<swiper-slide>
-					<div class="video-wrapper relative aspect-video w-full transition-all duration-700">
+					<div class="video-wrapper relative aspect-video w-full transition-all rounded-lg overflow-hidden duration-700 border border-white/10">
 						{#if playingVideoId === video.videoId}
 							<iframe
 								class="h-full w-full"
@@ -329,7 +334,7 @@
 							<img
 								src="https://img.youtube.com/vi/{video.videoId}/hqdefault.jpg"
 								alt={video.title}
-								class="h-full w-full object-cover transition-all duration-300 border border-white/10 brightness-60"
+								class="h-full w-full object-cover transition-all duration-300 brightness-60"
 							/>
 
 							<!-- <button
@@ -382,14 +387,14 @@
 			class="nav-prev absolute top-[48.5%] left-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:left-2 md:flex"
 			aria-label="Previous slide"
 		>
-			<Icon icon="mdi:chevron-left" width="54" height="54" />
+			<Icon icon="mdi:chevron-left" width="32" height="32" />
 		</button>
 
 		<button
 			class="nav-next absolute top-[48.5%] right-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:right-2 md:flex"
 			aria-label="Next slide"
 		>
-			<Icon icon="mdi:chevron-right" width="54" height="54" />
+			<Icon icon="mdi:chevron-right" width="32" height="32" />
 		</button>
 	</section>
 
@@ -426,19 +431,45 @@
 			display: flex;
 			width: 100%;
 		}
+
+		/*===============================*/
+		.noise-overlay {
+			position: fixed;
+			inset: -200%; /* Увеличиваем размер, чтобы при анимации не было пустых краев */
+			z-index: 1; /* Между видео (z-0) и оверлеем (z-1) */
+			background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+			opacity: 0.5; /* Едва заметно, чтобы не раздражать */
+			pointer-events: none;
+			animation: noise-shift 0.2s infinite steps(2);
+		}
+
+		@keyframes noise-shift {
+			0% { transform: translate(0, 0); }
+			10% { transform: translate(-1%, -2%); }
+			20% { transform: translate(-3%, 1%); }
+			30% { transform: translate(2%, -3%); }
+			40% { transform: translate(-2%, 4%); }
+			50% { transform: translate(-4%, 2%); }
+			60% { transform: translate(3%, 0); }
+			70% { transform: translate(0, 3%); }
+			80% { transform: translate(-2%, 0); }
+			90% { transform: translate(2%, 1%); }
+			100% { transform: translate(1%, 0); }
+		}
+		/*===============================*/
 	</style>
 
 	<section
 		id="bio"
-		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-4 py-24 pb-16 md:space-y-40 md:pb-32"
+		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-4 py-24 pb-16 md:space-y-24 md:pb-32"
 	>
-		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row md:gap-16">
-			<div class="flex w-full flex-1 flex-col justify-center py-4">
+		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row lg:gap-16 mb-24">
+			<div class="flex w-full flex-1 flex-col justify-center">
 				<div class="mb-8 flex items-center gap-4 opacity-70">
 					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">Biography</h2>
 				</div>
 				<div
-					class="relative space-y-6 border-l border-white/10 pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
+					class="relative space-y-6 lg:border-l border-white/10 lg:pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
 				>
 					<p>
 						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de
@@ -459,13 +490,14 @@
 			</div>
 
 			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="md:absolute md:inset-0 flex items-center">
-					<!-- <button
+				<div class="absolute inset-0 flex items-center">
+					<button
 						onclick={prevSlide1}
-						class="absolute left-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
+						class="absolute left-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio1:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-left" width="32" height="32" />
-					</button> -->
+					</button>
 
 					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
 						{#each images1 as src, i}
@@ -474,26 +506,28 @@
 								alt="Bogdan"
 								class="absolute inset-0 h-full w-full object-cover brightness-60 
 									transition-all duration-700 ease-in-out 
-									group-hover/bio1:scale-105 group-hover/bio1:brightness-80"
+									group-hover/bio1:scale-105 group-hover/bio1:brightness-90"
 								style="opacity: {currentIndex1 === i ? '0.7' : '0'}; z-index: {currentIndex1 === i ? '10' : '0'};"
 							/>
 						{/each}
 					</div>
 
-					<!-- <button
+					<button
 						onclick={nextSlide1}
-						class="absolute right-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
+						class="absolute right-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio1:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-right" width="32" height="32" />
-					</button> -->
+					</button>
+									
 				</div>
 			</div>
 		</div>
 
-		<div class="group/bio2 flex flex-col items-stretch gap-10 md:flex-row-reverse md:gap-16">
-			<div class="flex w-full flex-1 flex-col justify-center py-4">
+		<div class="group/bio2 flex flex-col items-stretch gap-10 md:flex-row-reverse lg:gap-16">
+			<div class="flex w-full flex-1 flex-col justify-center">
 				<div
-					class="relative space-y-6 border-r border-white/10 pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80 md:text-right"
+					class="relative space-y-6 lg:border-r border-white/10 lg:pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
 				>
 					<p>
 						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de
@@ -524,13 +558,14 @@
 			</div>
 
 			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="md:absolute md:inset-0 flex items-center transition-transform ">
-					<!-- <button
+				<div class="absolute inset-0 flex items-center transition-transform ">
+					<button
 						onclick={prevSlide2}
-						class="absolute left-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
+						class="absolute left-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio2:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-left" width="32" height="32" />
-					</button> -->
+					</button>
 
 					<div class="relative isolate h-full w-full overflow-hidden rounded-lg border border-white/10">
 						{#each images2 as src, i}
@@ -539,18 +574,19 @@
 								alt="Bogdan"
 								class="absolute inset-0 h-full w-full object-cover brightness-60 
 									transition-all duration-700 ease-in-out 
-									group-hover/bio2:scale-105 group-hover/bio2:brightness-80"
+									group-hover/bio2:scale-105 group-hover/bio2:brightness-90"
 								style="opacity: {currentIndex2 === i ? '0.7' : '0'}; z-index: {currentIndex2 === i ? '10' : '0'};"
 							/>
 						{/each}
 					</div>
 
-					<!-- <button
+					<button
 						onclick={nextSlide2}
-						class="absolute right-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
+						class="absolute right-2 z-30 p-1 text-white/20 transition-all duration-500 
+							opacity-0 group-hover/bio2:opacity-100 hover:scale-110 hover:text-white focus:outline-none"
 					>
 						<Icon icon="mdi:chevron-right" width="32" height="32" />
-					</button> -->
+					</button>
 				</div>
 			</div>
 		</div>
@@ -581,14 +617,15 @@
 					>
 						<div class="relative h-32 w-32 sm:h-40 sm:w-40">
 							<div
-								class="absolute inset-0 overflow-hidden rounded-lg border border-white/5 text-center shadow-2xl transition-all duration-600"
+								class="absolute inset-0 overflow-hidden rounded-lg border border-white/10 text-center shadow-2xl transition-all duration-600 brightness-60 group-hover:brightness-80"
 							>
 								<img
 									src={album.image}
 									alt={album.title}
-									class="h-full w-full object-cover transition-transform duration-600 group-hover:scale-105 text-base-content/60 group-hover:text-base-content/80 brightness-60"
+									class="h-full w-full object-cover transition-transform duration-600 group-hover:scale-105 text-base-content/60 group-hover:text-base-content/80 "
 								/>
 							</div>
+							<div class="absolute inset-0 rounded-lg border border-white/10 pointer-events-none transition-colors"></div>
 						</div>
 					</div>
 
@@ -611,6 +648,36 @@
 							{album.description}
 						</p>
 					</div>
+				</div>
+			{/each}
+		</div>
+	</section>
+
+	<section id="projects" class="mx-auto w-full max-w-4xl px-4 py-24">
+		<div class="mb-12 flex items-center justify-center gap-4 opacity-70">
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Projets</h2>
+		</div>
+
+		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
+			{#each projects as project}
+				<div class="group/proj relative aspect-[5/6] overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all">
+					
+					<img 
+						src={project.img} 
+						alt={project.title} 
+						class="h-full w-full object-cover brightness-50 transition-all duration-700 ease-in-out group-hover/proj:scale-105 group-hover/proj:brightness-80"
+					/>
+
+					<div class="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
+						<div class="translate-y-2 transition-transform duration-500 group-hover/proj:translate-y-0">
+							<h3 class="text-[10px] font-medium tracking-[0.2em] uppercase text-white/90 md:text-xs">
+								{project.title}
+							</h3>
+							<div class="mt-2 h-[1px] w-0 bg-white/40 transition-all duration-500 group-hover/proj:w-full"></div>
+						</div>
+					</div>
+
+					<a href="#contact" class="absolute inset-0 z-10" aria-label="Details about {project.title}"></a>
 				</div>
 			{/each}
 		</div>

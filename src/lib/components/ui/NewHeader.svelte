@@ -9,7 +9,7 @@
 		{ href: '/test#concerts', label: m.nav_concerts },
 		{ href: '/test#videos', label: m.nav_videos },
 		{ href: '/test#bio', label: m.nav_bio },
-		{ href: '/projects', label: m.nav_projects },
+		{ href: '/test#projects', label: m.nav_projects },
 		{ href: '/test#recordings', label: m.nav_recordings },
 		{ href: '/test#contact', label: m.nav_contact }
 	];
@@ -36,7 +36,7 @@
 <svelte:window bind:scrollY />
 
 <header
-	class="fixed top-0 z-50 h-12 w-full border-b bg-black/0 whitespace-nowrap transition-all duration-300 {scrollY >
+	class="fixed top-0 z-50 h-12 w-full border-b bg-black/0 whitespace-nowrap transition-all duration-300 sm:px-4 xl:px-0 {scrollY >
 	50
 		? 'border-white/10 bg-black/30 shadow-lg backdrop-blur-2xl'
 		: 'border-transparent bg-linear-to-b from-black/80 to-0% shadow-none'}"
@@ -79,11 +79,11 @@
 			</nav>
 
 			<!-- Mobile: language + hamburger -->
-			<div class="flex items-center gap-2 lg:hidden">
-				<a href={getNextLocaleHref()} class="btn text-xs uppercase btn-ghost btn-sm">
+			<div class="flex items-center gap-2 lg:hidden ">
+				<a href={getNextLocaleHref()} class="btn text-xs uppercase btn-ghost btn-sm text-base-content/80">
 					{currentLocale}
 				</a>
-				<label for="mobile-drawer" class="btn btn-square btn-ghost btn-sm" aria-label="Open menu">
+				<label for="mobile-drawer" class="btn btn-square btn-ghost btn-sm text-base-content/80" aria-label="Open menu">
 					<Icon icon="material-symbols:menu" width="24" />
 				</label>
 			</div>
@@ -98,16 +98,14 @@
 	<div class="drawer-side">
 		<label for="mobile-drawer" aria-label="Close menu" class="drawer-overlay"></label>
 
-		<aside class="flex min-h-full w-72 flex-col bg-base-200 shadow-2xl">
-			<!-- Close button -->
+		<aside class="flex min-h-full w-72 flex-col bg-base-200 shadow-2xl border-l border-white/10 text-base-content/80">
 			<div class="flex justify-end p-4">
 				<label for="mobile-drawer" class="btn btn-square btn-ghost btn-sm" aria-label="Close menu">
 					<Icon icon="material-symbols:close" width="24" />
 				</label>
 			</div>
 
-			<!-- Links -->
-			<nav class="flex flex-1 flex-col gap-1 px-4">
+			<nav class="flex flex-1 flex-col gap-1 px-4 ">
 				<ul class="menu gap-1 text-lg">
 					{#each links as link}
 						<li>
