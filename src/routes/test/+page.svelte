@@ -33,12 +33,12 @@
 	});
 
 	let videos1 = [
-		{ id: 'video4', title: 'Concert 4', videoId: 'JKCSseSa4CY' },
-		{ id: 'video5', title: 'Concert 5', videoId: 'NynXtGhj-dU' },
-		{ id: 'video6', title: 'Concert 6', videoId: 'cQ8ZzzPloXc' },
-		{ id: 'video1', title: 'Concert 1', videoId: 'HgQPZRY2aic' },
-		{ id: 'video2', title: 'Concert 2', videoId: '3OjadYgRVUg' },
-		{ id: 'video3', title: 'Concert 3', videoId: 'uuC-SMsnMWw' }
+		{ id: 'video4', title: 'Pablo de Sarasate "Navarra" - Trio SVITA', videoId: 'JKCSseSa4CY' },
+		{ id: 'video5', title: 'Oy ya znayu/ Ой я знаю - Duo Spivograï', videoId: 'NynXtGhj-dU' },
+		{ id: 'video6', title: 'J.S. Bach - Allegro, Marc Hervieux (flûte à bec) et Bogdan Nesterenko (accordéon de concert)', videoId: 'cQ8ZzzPloXc' },
+		{ id: 'video1', title: 'Moussorgski "La Grande Porte de Kiev" / Bogdan Nesterenko, accordéon bayan', videoId: 'HgQPZRY2aic' },
+		{ id: 'video2', title: 'Ukraine la musique et la guerre. Bogdan Nesterenko dans Mélodies Nocturnes.', videoId: '3OjadYgRVUg' },
+		{ id: 'video3', title: 'Aftermovie Récital Classique de Bogdan Nesterenko - 6 Mai 2018', videoId: 'uuC-SMsnMWw' }
 	];
 
 	let videos = [...videos1, ...videos1, ...videos1];
@@ -126,37 +126,37 @@
 		{
 			title: 'Un Sacre du Printemps',
 			year: '2021',
-			label: 'Musica Prima',
+			label: 'Editions Musica Prima',
 			artists: 'Bogdan Nesterenko (accordéon bayan)',
 			description:
-				"Recorded in his hometown of Kharkiv, Ukraine. This album features an excerpt from 'The Rite of Spring' alongside transcriptions of major 19th-century Russian works by Mussorgsky, Tchaikovsky, and contemporary original pieces for accordion by Ukrainian composers like Runchak and Kukuzenko.",
-			image: '/pochette.jpg' // вкажіть ваш шлях до фото
+				"Le dernier album de Bogdan Nesterenko est enregistré dans sa ville natale Kharkiv en Ukraine. Cet album contient un extrait du \"Sacre du Printemps\" et d'autres transcriptions des grandes œuvres des compositeurs russes du 19-ème siècle pour orchestre et piano (\"Les Tableaux d'une exposition\", \"Les saisons\", \"Casse-Noisette\") ainsi que des ouvres originales écrites pour l'accordéon par les compositeurs ukrainiens d'aujourd'hui (Runchak, Koukouzenko).",
+			image: '/pochette.jpg'
 		},
 		{
 			title: 'Dialogues insolites',
 			year: '2017',
-			label: 'Rainbow Classics',
-			artists: 'Marc Hervieux (recorder) & Bogdan Nesterenko (accordion)',
+			label: 'Editions Rainbow Classics',
+			artists: 'Marc Hervieux (flûte à bec) et  Bogdan Nesterenko (accordéon)',
 			description:
-				'A unique program of 18th-century German sonatas. A recorder and an accordion meet for the first time in history to explore both famous and rare baroque repertoires. Recorded in October 2016 at the Église du Bouclier in Strasbourg.',
+				'Un programme de sonates allemandes du 18ème siècle dans une formation nouvelle et inédite. Flûte à bec et accordéon ne se sont jamais rencontrés, ni a travers leur histoire, ni a travers leurs répertoires. Pourtant, ils se croisent aujourd’hui dans un programme réunissant des oeuvres connues et moins connues du répertoire baroque. L’enregistrement de ce disque s’est fait en octobre 2016 dans l’église du Bouclier à Strasbourg.',
 			image: '/Dialogue-insolite.jpg'
 		},
 		{
 			title: 'Comme un air de passions...',
 			year: '2013',
-			label: 'AR-RE-SE',
-			artists: 'Juliette de Massy (soprano) & Bogdan Nesterenko (accordion)',
+			label: 'Editions AR-RE-SE',
+			artists: 'Juliette de Massy (soprano) et  Bogdan Nesterenko (accordéon)',
 			description:
-				'Transcriptions of J.S. Bach for soprano and concert accordion. Features duets from Passions and Cantatas, as well as solo performances of Toccata and Fugue in D minor (BWV 565) and Prelude and Fugue in A minor (BWV 543).',
+				'Transcriptions de J.S.Bach  pour soprano et accordéon de concert : des extraits de Passion et de cantates en duo (soprano et accordéon) ainsi que Toccata et fugue en ré-mineur (BWV 565) et Prélude et fugue en la-minuer (BWV 543) pour accordéon solo.',
 			image: '/Comme-un-air-de-passions   3.jpg'
 		},
 		{
 			title: 'Accordéon Baroque',
 			year: '2006',
-			label: 'Editions HIRIN',
+			label: 'Editions HIRIN (Ukraine)',
 			artists: 'Bogdan Nesterenko (accordion)',
 			description:
-				'Recorded and released in Ukraine, this second solo album contains baroque transcriptions (Bach, Vivaldi, Albinoni, Buxtehude) and original late 20th-century works for bayan by Ukrainian composers Gaidenko, Belochitsky, and Zubitsky.',
+				'Enregistré et sorti en Ukraine ce deuxième album en solo de Bogdan Nesterenko contient quelques transcriptions de musique baroque (J.S. Bach, A. Vivaldi, T. Albinoni, D. Buhtehude) et quelques œuvres originales écrites pour bayan (accordéon de concert) par des compositeurs ukrainiens de la fin du XXème siècle (A. Gaïdenko, A. Belochitsky, V. Zoubitsky).',
 			image: '/1 str.jpg'
 		}
 	];
@@ -173,7 +173,7 @@
 	muted
 	playsinline
 	bind:this={videoElement}
-	class="fixed inset-0 z-0 h-full w-full object-cover brightness-50"
+	class="fixed inset-0 z-0 h-full w-full object-cover brightness-60"
 	aria-hidden="true"
 >
 	<track kind="captions" />
@@ -234,40 +234,40 @@
 			</h2>
 		</div> -->
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Concerts</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Upcoming concerts</h2>
 		</div>
 
 		<div class="space-y-4">
 			{#each data.concerts as concert}
 				<div
-					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200/50 p-4 transition-all hover:bg-base-300/50 md:gap-6 md:p-6 border border-white/10"
+					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200/5 p-4 transition-all hover:bg-base-200/40 md:gap-6 md:p-6 border border-white/10"
 				>
 					<div
 						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
 					>
-						<span class="text-3xl leading-none font-medium tracking-tighter text-base-content/90">
+						<span class="text-3xl leading-none font-medium tracking-tighter text-base-content/80">
 							{concert.date.split('-')[2]}
 						</span>
-						<span class="mt-1 text-xs font-medium tracking-wider uppercase opacity-70">
+						<span class="mt-1 text-xs font-medium tracking-wider uppercase opacity-70 text-base-content/80">
 							{new Date(concert.date)
 								.toLocaleString(getLocale(), { month: 'short' })
 								.replace('.', '')}
 						</span>
 						{#if concert.time}
-							<span class="mt-1 font-sans text-xs tracking-wide opacity-60">
+							<span class="mt-1 font-sans text-xs tracking-wide opacity-60 text-base-content/60">
 								{concert.time}
 							</span>
 						{/if}
 					</div>
 
 					<div class="flex flex-1 grow flex-col justify-center">
-						<h4 class="text-base leading-tight font-normal tracking-wide opacity-90 md:text-lg">
+						<h4 class="text-base leading-tight font-normal tracking-wide opacity-90 md:text-lg text-base-content/80">
 							{concert.city}{#if concert.country}, {concert.country}{/if}
 						</h4>
 
 						{#if concert.program}
 							<p
-								class="mt-2 text-xs leading-relaxed font-normal tracking-[0.15em] uppercase opacity-60"
+								class="mt-2 text-xs leading-relaxed font-normal tracking-[0.25em] uppercase opacity-60 group-hover:text-base-content/60"
 							>
 								{concert.program}
 							</p>
@@ -280,7 +280,7 @@
 								href={concert.link}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="btn rounded-2xl border-none px-2 text-xs font-normal tracking-widest text-white/90 bg-transparent shadow-none transition-all duration-300 hover:bg-white/5 hover:text-white focus:outline-none md:px-6 md:btn-sm"
+								class="btn rounded-2xl border-none px-2 text-xs font-normal tracking-widest text-white/80 bg-transparent shadow-none transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none md:px-6 md:btn-sm"
 							>
 								INFO
 							</a>
@@ -292,20 +292,25 @@
 	</section>
 	<section
 		id="videos"
-		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden py-24"
+		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden py-24 px-4"
 	>
+
+		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Videos</h2>
+		</div>
+
 		<!-- <div class="mb-16 text-center">
 			<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-white/30 italic font-serif">
 				Video Archive
 			</h2>
 		</div> -->
 
-		<div
+		<!-- <div
 			class="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-linear-to-r from-black via-black to-transparent md:w-56"
 		></div>
 		<div
 			class="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-linear-to-l from-black via-black to-transparent md:w-56"
-		></div>
+		></div> -->
 
 		<swiper-container init="false" class="pb-12">
 			{#each videos as video}
@@ -324,7 +329,7 @@
 							<img
 								src="https://img.youtube.com/vi/{video.videoId}/hqdefault.jpg"
 								alt={video.title}
-								class="h-full w-full rounded-lg object-cover transition-all duration-300 border border-white/10"
+								class="h-full w-full object-cover transition-all duration-300 border border-white/10 brightness-60"
 							/>
 
 							<!-- <button
@@ -366,43 +371,57 @@
 						{/if}
 					</div>
 
-					<!-- <p class="slide-title mt-4 text-center text-[9px] uppercase tracking-[0.3em] text-white/20 font-light italic transition-opacity duration-700">
+					<p class="slide-title mt-4 text-center text-[9px] uppercase tracking-[0.25em] text-base-content/40 transition-opacity duration-700">
 						{video.title}
-					</p> -->
+					</p>
 				</swiper-slide>
 			{/each}
 		</swiper-container>
 
 		<button
-			class="nav-prev absolute top-[40%] left-4 z-30 hidden text-white/50 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:text-white md:left-10 md:flex"
+			class="nav-prev absolute top-[48.5%] left-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:left-2 md:flex"
 			aria-label="Previous slide"
 		>
-			<Icon icon="mdi:chevron-left" width="36" height="36" />
+			<Icon icon="mdi:chevron-left" width="54" height="54" />
 		</button>
 
 		<button
-			class="nav-next absolute top-[40%] right-4 z-30 hidden text-white/50 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:text-white md:right-10 md:flex"
+			class="nav-next absolute top-[48.5%] right-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:right-2 md:flex"
 			aria-label="Next slide"
 		>
-			<Icon icon="mdi:chevron-right" width="36" height="36" />
+			<Icon icon="mdi:chevron-right" width="54" height="54" />
 		</button>
 	</section>
 
 	<style>
-		/* Гарантуємо, що контейнер не обрізає вміст раніше часу */
 		swiper-container {
 			width: 100%;
 			max-width: 100vw;
-			overflow: visible; /* Дозволяє слайдам бути видимими під час руху */
+			overflow: visible;
+			/* Маска: прозрачный -> непрозрачный -> прозрачный */
+			-webkit-mask-image: linear-gradient(
+				to right,
+				transparent 0%,
+				black 15%,
+				black 85%,
+				transparent 100%
+			);
+			mask-image: linear-gradient(
+				to right,
+				transparent 0%,
+				black 45%,
+				black 55%,
+				transparent 100%
+			);
 		}
 
-		/* Але сама секція має тримати все в межах екрана */
 		#videos {
 			width: 100%;
 			overflow: hidden;
+			/* Убедимся, что секция не имеет своего фона, который перекрывает общий */
+			background: transparent; 
 		}
 
-		/* Виправлення для Flexbox, щоб слайди не стискалися */
 		:global(.swiper-wrapper) {
 			display: flex;
 			width: 100%;
@@ -415,11 +434,11 @@
 	>
 		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row md:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center py-4">
-				<div class="mb-10 flex items-center gap-4 opacity-70">
-					<h2 class="text-sm font-normal tracking-[0.5em] uppercase">Biography</h2>
+				<div class="mb-8 flex items-center gap-4 opacity-70">
+					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">Biography</h2>
 				</div>
 				<div
-					class="relative space-y-6 border-l border-white/10 pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-white/80"
+					class="relative space-y-6 border-l border-white/10 pl-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80"
 				>
 					<p>
 						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de
@@ -453,7 +472,9 @@
 							<img
 								{src}
 								alt="Bogdan"
-								class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
+								class="absolute inset-0 h-full w-full object-cover brightness-60 
+									transition-all duration-700 ease-in-out 
+									group-hover/bio1:scale-105 group-hover/bio1:brightness-80"
 								style="opacity: {currentIndex1 === i ? '0.7' : '0'}; z-index: {currentIndex1 === i ? '10' : '0'};"
 							/>
 						{/each}
@@ -472,7 +493,7 @@
 		<div class="group/bio2 flex flex-col items-stretch gap-10 md:flex-row-reverse md:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center py-4">
 				<div
-					class="relative space-y-6 border-r border-white/10 pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-white/80 md:text-right"
+					class="relative space-y-6 border-r border-white/10 pr-8 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80 md:text-right"
 				>
 					<p>
 						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de
@@ -503,7 +524,7 @@
 			</div>
 
 			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
-				<div class="md:absolute md:inset-0 flex items-center">
+				<div class="md:absolute md:inset-0 flex items-center transition-transform ">
 					<!-- <button
 						onclick={prevSlide2}
 						class="absolute left-2 z-30 p-1 text-white/20 transition-all hover:scale-110 hover:text-white focus:outline-none"
@@ -516,7 +537,9 @@
 							<img
 								{src}
 								alt="Bogdan"
-								class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
+								class="absolute inset-0 h-full w-full object-cover brightness-60 
+									transition-all duration-700 ease-in-out 
+									group-hover/bio2:scale-105 group-hover/bio2:brightness-80"
 								style="opacity: {currentIndex2 === i ? '0.7' : '0'}; z-index: {currentIndex2 === i ? '10' : '0'};"
 							/>
 						{/each}
@@ -533,12 +556,12 @@
 		</div>
 	</section>
 
-	<section id="recordings" class="relative mx-auto max-w-4xl px-4 py-16">
-		<div class="mb-4 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-sm font-normal tracking-[0.5em] uppercase">Discography</h2>
+	<section id="recordings" class="relative mx-auto max-w-4xl px-4 py-24">
+		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Discography</h2>
 		</div>
 
-		<div class="absolute top-32 bottom-24 left-1/2 hidden w-[0.5px] bg-white/10 md:block"></div>
+		<div class="absolute top-40 bottom-24 left-1/2 hidden w-[0.5px] bg-white/10 md:block"></div>
 
 		<div class="space-y-8 md:space-y-0">
 			{#each albums as album, i}
@@ -558,12 +581,12 @@
 					>
 						<div class="relative h-32 w-32 sm:h-40 sm:w-40">
 							<div
-								class="absolute inset-0 overflow-hidden rounded-lg border border-white/5 text-center shadow-2xl transition-all duration-700"
+								class="absolute inset-0 overflow-hidden rounded-lg border border-white/5 text-center shadow-2xl transition-all duration-600"
 							>
 								<img
 									src={album.image}
 									alt={album.title}
-									class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+									class="h-full w-full object-cover transition-transform duration-600 group-hover:scale-105 text-base-content/60 group-hover:text-base-content/80 brightness-60"
 								/>
 							</div>
 						</div>
@@ -574,16 +597,16 @@
 							? 'order-2 md:order-2 md:text-left'
 							: 'order-2 md:order-1 md:text-right'}"
 					>
-						<p class="mb-1 text-xs tracking-[0.2em] text-white/50 uppercase">
+						<p class="mb-1 text-xs tracking-[0.25em] text-base-content/40 uppercase group-hover:text-base-content/60">
 							{album.year} • {album.label}
 						</p>
 
-						<h3 class="mb-2 text-lg font-light tracking-tight text-white/90 md:text-xl">
+						<h3 class="mb-2 text-lg font-light tracking-tight text-base-content/60 md:text-xl group-hover:text-base-content/80">
 							{album.title}
 						</h3>
 
 						<p
-							class="text-xs leading-relaxed font-light text-white/60 transition-colors group-hover:text-white/80 md:text-sm"
+							class="text-xs leading-relaxed font-light text-base-content/40 transition-colors group-hover:text-base-content/60 md:text-sm"
 						>
 							{album.description}
 						</p>
@@ -605,24 +628,24 @@
 		<div class="relative z-10 mx-auto w-full max-w-2xl px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-12 text-center">
-					<h2 class="mb-4 text-sm font-normal tracking-[0.5em] text-white/70 uppercase">
-						{m.nav_contact()}
-					</h2>
+					<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
+						<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Contact</h2>
+					</div>
 
 					<div
 						class="flex flex-col items-center justify-center gap-6 text-sm sm:flex-row sm:gap-12"
 					>
 						<a
 							href="mailto:mail@example.com"
-							class="pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:text-white"
+							class="pb-1 font-light tracking-widest text-base-content/80 transition-all duration-500 hover:text-primary"
 						>
-							mail@example.com
+							bogdan.nesterenko@yahoo.fr
 						</a>
 						<a
 							href="tel:+33000000000"
-							class="pb-1 font-light tracking-widest text-white/80 transition-all duration-500 hover:text-white"
+							class="pb-1 font-light tracking-widest text-base-content/80 transition-all duration-500 hover:text-primary"
 						>
-							+33 (0) 0 00 00 00 00
+							+33 (6) 66 45 59 32
 						</a>
 					</div>
 				</div>
@@ -633,7 +656,7 @@
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						<div class="form-control">
 							<label class="label pt-0" for="name">
-								<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase"
+								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
 									>Votre Nom</span
 								>
 							</label>
@@ -642,13 +665,13 @@
 								name="name"
 								placeholder="Nom"
 								required
-								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
+								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
 						</div>
 
 						<div class="form-control">
 							<label class="label pt-0" for="email">
-								<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase"
+								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
 									>Votre adresse mail</span
 								>
 							</label>
@@ -657,14 +680,14 @@
 								placeholder="email@example.com"
 								name="email"
 								required
-								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
+								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
 						</div>
 					</div>
 
 					<div class="form-control">
 						<label class="label pt-0" for="subject">
-							<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase">Objet</span
+							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase">Objet</span
 							>
 						</label>
 						<input
@@ -672,13 +695,13 @@
 							name="subject"
 							placeholder="Sujet"
 							required
-							class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
+							class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 						/>
 					</div>
 
 					<div class="form-control">
 						<label class="label pt-0" for="message">
-							<span class="label-text text-xs tracking-[0.15em] text-white/90 uppercase"
+							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
 								>Message</span
 							>
 						</label>
@@ -686,14 +709,14 @@
 							name="message"
 							placeholder="Message..."
 							required
-							class="textarea min-h-[120px] w-full resize-none rounded-xl border-none textarea-ghost bg-white/5 text-xs text-white transition-all duration-300 placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
+							class="textarea min-h-[120px] w-full resize-none rounded-xl border-none textarea-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 						></textarea>
 					</div>
 
 					<div class="flex justify-center pt-4">
 						<button
 							type="submit"
-							class="rounded-3xl bg-white/10 px-6 py-3 text-sm tracking-wider text-base-content/90 uppercase transition-all duration-300 hover:bg-white/20 hover:text-white focus:outline-none"
+							class="rounded-3xl bg-white/10 px-6 py-3 text-sm tracking-wider text-base-content/80 uppercase transition-all duration-300 hover:bg-white/20 hover:text-primary focus:outline-none"
 						>
 							{m.nav_contact()}
 						</button>

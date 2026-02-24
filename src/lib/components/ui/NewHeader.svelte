@@ -47,7 +47,7 @@
 			<div class="flex flex-1 items-center">
 				<a
 					href="/test"
-					class="text-base font-medium tracking-widest text-base-content transition-colors hover:text-primary"
+					class="text-base font-medium tracking-widest text-base-content/80 transition-colors hover:text-primary"
 				>
 					BOGDAN NESTERENKO
 				</a>
