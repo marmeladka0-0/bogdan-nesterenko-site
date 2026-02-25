@@ -23,7 +23,9 @@
 	];
 </script>
 
-<footer class="flex w-full justify-center border-t border-white/5 bg-transparent py-10">
+<footer
+	class="flex w-full justify-center border-t border-white/10 bg-black/20 py-10 backdrop-blur-xl"
+>
 	<div class="flex max-w-5xl flex-col gap-6 px-4">
 		<div class="flex flex-wrap justify-center">
 			<nav class="flex flex-wrap justify-center gap-1">
@@ -45,10 +47,11 @@
 				{/each}
 			</nav>
 		</div>
-		
-		<div class="flex w-full justify-center text-[9px] uppercase tracking-[0.25em] text-base-content/40 transition-opacity duration-700">
+
+		<div
+			class="flex w-full justify-center text-[9px] tracking-[0.25em] text-base-content/40 uppercase transition-opacity duration-700"
+		>
 			© {new Date().getFullYear()} Bogdan Nesterenko
 		</div>
 	</div>
 </footer>
-

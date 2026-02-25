@@ -25,6 +25,6 @@
 	{/each}
 </div>
 
-<div class="relative z-2 bg-black/80">
+<div class="relative z-2">
 	<Footer />
 </div>
