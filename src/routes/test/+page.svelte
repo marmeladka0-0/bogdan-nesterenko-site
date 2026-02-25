@@ -47,7 +47,7 @@
 	let playingVideoId = $state<string | null>(null); // Зберігаємо ID відео, яке зараз відтворюється
 
 	const swiperParams: SwiperOptions & { [key: string]: any } = {
-		slidesPerView: 1.8,
+		slidesPerView: 1.2,
 		centeredSlides: true,
 		spaceBetween: 20,
 		loop: true,
@@ -156,14 +156,14 @@
 	];
 
 	const projects = [
-		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.jpg' },
-		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.jpg' },
-		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1413 Ju.jpg' },
-		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.jpg' },
-		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.JPG' },
-		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.JPG' },
-		{ id: 7, title: 'RAFRAÎCHIS', img: '/projects/1201 SVITA.jpg' },
-		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/projects/1201 SVITA.jpg' }
+		{ id: 1, title: 'TRIO SViTA', colab: '', img: '/projects/1201 SVITA.jpg' },
+		{ id: 2, title: 'PAN & BAYAN', colab: '', img: '/projects/1301 Pan Bayan.jpg' },
+		{ id: 3, title: 'DE MASSY', colab: 'Avec Juliette', img: '/projects/1413 Ju.jpg' },
+		{ id: 4, title: 'VOJNOVIC', colab: 'Avec Olga', img: '/projects/1501 Olga.jpg' },
+		{ id: 5, title: 'DIALOGUE INSOLITE', colab: '', img: '/projects/1601 Marc.JPG' },
+		{ id: 6, title: 'ORGUE et ACCORDÉON', colab: '', img: '/projects/1701 Jan.JPG' },
+		{ id: 7, title: 'RAFRAÎCHIS', colab: '', img: '/projects/1201 SVITA.jpg' },
+		{ id: 8, title: 'LE CHANT DU CYGNE', colab: '', img: '/projects/1201 SVITA.jpg' }
 	];
 </script>
 
@@ -178,19 +178,20 @@
 	muted
 	playsinline
 	bind:this={videoElement}
-	class="fixed inset-0 z-0 h-full w-full object-cover brightness-60"
+	class="fixed inset-0 z-0 h-full w-full object-cover"
+	style="filter: brightness(0.8) contrast(0.85) saturate(0.7);"
 	aria-hidden="true"
 >
 	<track kind="captions" />
 </video>
 
-<div class="noise-overlay" aria-hidden="true"></div>
+<!-- <div class="noise-overlay" aria-hidden="true"></div> -->
 
 <!-- Blur/darken overlay that activates when scrolling past the hero -->
 <div
 	class="fixed inset-0 z-1 transition-all duration-500 ease-out"
 	style="background: rgba(0,0,0,{overlayProgress() *
-		0.2}); backdrop-filter: blur({overlayProgress() *
+		0.4}); backdrop-filter: blur({overlayProgress() *
 		14}px);  -webkit-backdrop-filter: blur({overlayProgress() * 14}px);"
 	aria-hidden="true"
 ></div>
@@ -247,7 +248,7 @@
 		<div class="space-y-4">
 			{#each data.concerts as concert}
 				<div
-					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-base-200/5 p-4 transition-all hover:bg-base-200/40 md:gap-6 md:p-6 border border-white/10"
+					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg bg-black/10 p-4 transition-all hover:bg-black/40 md:gap-6 md:p-6 border border-white/10"
 				>
 					<div
 						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
@@ -273,8 +274,13 @@
 						</h4>
 
 						{#if concert.program}
-							<p
+							<!-- <p
 								class="mt-2 text-xs leading-relaxed font-normal tracking-[0.25em] uppercase opacity-60 group-hover:text-base-content/60"
+							>
+								{concert.program}
+							</p> -->
+							<p
+								class="mt-2 text-[9px] uppercase tracking-[0.25em] text-base-content/40 transition-all duration-700 group-hover:text-base-content/60"
 							>
 								{concert.program}
 							</p>
@@ -302,7 +308,7 @@
 		id="bio"
 		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-4 py-24 pb-16 md:space-y-24 md:pb-32"
 	>
-		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row lg:gap-16 mb-24">
+		<div class="group/bio1 flex flex-col items-stretch gap-10 md:flex-row lg:gap-16 mb-12 md:mb-24">
 			<div class="flex w-full flex-1 flex-col justify-center">
 				<div class="mb-8 flex items-center gap-4 opacity-70">
 					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">Biography</h2>
@@ -623,13 +629,13 @@
 	</style>
 
 	<section id="projects" class="mx-auto w-full max-w-4xl px-4 py-24">
-		<div class="mb-12 flex items-center justify-center gap-4 opacity-70">
+		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Projets</h2>
 		</div>
 
-		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
+		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-5">
 			{#each projects as project}
-				<div class="group/proj relative aspect-[5/6] overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all">
+				<div class="group/proj relative aspect-[10/13] overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all">
 					
 					<img 
 						src={project.img} 
@@ -637,16 +643,27 @@
 						class="h-full w-full object-cover brightness-50 transition-all duration-700 ease-in-out group-hover/proj:scale-105 group-hover/proj:brightness-80"
 					/>
 
-					<div class="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
+					<!-- <div class="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
 						<div class="translate-y-2 transition-transform duration-500 group-hover/proj:translate-y-0">
 							<h3 class="text-[10px] font-medium tracking-[0.2em] uppercase text-white/90 md:text-xs">
 								{project.title}
 							</h3>
 							<div class="mt-2 h-[1px] w-0 bg-white/40 transition-all duration-500 group-hover/proj:w-full"></div>
 						</div>
+					</div> -->
+					<div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+						<div class="translate-y-4 opacity-100 lg:opacity-0 transition-all duration-700 ease-out group-hover/proj:translate-y-0 group-hover/proj:opacity-100">
+							<h3 class="text-xs font-medium tracking-widest uppercase text-white drop-shadow-lg md:text-sm">
+								{project.title}
+							</h3>
+							
+							<p class="mt-2 text-[9px] tracking-[0.25em] uppercase text-base-content/80">
+								{project.colab}
+							</p>
+						</div>
 					</div>
 
-					<a href="#contact" class="absolute inset-0 z-10" aria-label="Details about {project.title}"></a>
+					<!-- <a href="#contact" class="absolute inset-0 z-10" aria-label="Details about {project.title}"></a> -->
 				</div>
 			{/each}
 		</div>
@@ -694,16 +711,16 @@
 							? 'order-2 md:order-2 md:text-left'
 							: 'order-2 md:order-1 md:text-right'}"
 					>
-						<p class="mb-1 text-xs tracking-[0.25em] text-base-content/40 uppercase group-hover:text-base-content/60">
+						<p class="mb-1 text-xs tracking-[0.25em] text-base-content/60 uppercase group-hover:text-base-content/80">
 							{album.year} • {album.label}
 						</p>
 
-						<h3 class="mb-2 text-lg font-light tracking-tight text-base-content/60 md:text-xl group-hover:text-base-content/80">
+						<h3 class="mb-2 text-lg font-light tracking-tight text-base-content/80 lg:text-base-content/60 md:text-xl group-hover:text-base-content/80">
 							{album.title}
 						</h3>
 
 						<p
-							class="text-xs leading-relaxed font-light text-base-content/40 transition-colors group-hover:text-base-content/60 md:text-sm"
+							class="text-sm leading-relaxed font-light text-base-content/80 lg:text-base-content/60 transition-colors group-hover:text-base-content/80 md:text-md"
 						>
 							{album.description}
 						</p>
@@ -724,13 +741,13 @@
 
 		<div class="relative z-10 mx-auto w-full max-w-2xl px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
-				<div class="mb-12 text-center">
-					<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
+				<div class="mb-4 text-center">
+					<div class="mb-6 flex items-center justify-center gap-4 opacity-70">
 						<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Contact</h2>
 					</div>
 
 					<div
-						class="flex flex-col items-center justify-center gap-6 text-sm sm:flex-row sm:gap-12"
+						class="flex flex-col items-center justify-center gap-2 text-sm"
 					>
 						<a
 							href="mailto:mail@example.com"

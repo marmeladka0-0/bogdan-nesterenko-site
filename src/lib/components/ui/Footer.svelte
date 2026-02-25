@@ -34,10 +34,10 @@
 						rel="noopener noreferrer"
 						class="group flex items-center gap-2 rounded-full px-4 py-2 transition-all duration-300 hover:bg-white/10"
 					>
-						<Icon icon={link.icon} class="text-lg text-white/60 group-hover:text-white" />
+						<Icon icon={link.icon} class="text-lg text-base-content/80 group-hover:text-primary" />
 
 						<span
-							class="hidden text-sm tracking-wide text-white/80 uppercase transition-colors group-hover:text-white sm:inline"
+							class="hidden text-sm tracking-wide text-base-content/80 uppercase transition-colors group-hover:text-primary sm:inline"
 						>
 							{link.label}
 						</span>
@@ -45,11 +45,10 @@
 				{/each}
 			</nav>
 		</div>
-
-		<div
-			class="flex w-full justify-center text-[10px] font-light tracking-[0.4em] text-white/20 uppercase"
-		>
+		
+		<div class="flex w-full justify-center text-[9px] uppercase tracking-[0.25em] text-base-content/40 transition-opacity duration-700">
 			© {new Date().getFullYear()} Bogdan Nesterenko
 		</div>
 	</div>
 </footer>
+
