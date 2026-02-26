@@ -21,5 +21,26 @@
     "bio_p3": "Bogdan Nesterenko performs with violinist Stefan Stalanowski (Super-Soloist of the Orchestre National de Lille), the GoYa Quartet, and the Elysée Quartet, as well as with pianist Alain Raës and violinist Pablo Schatzman, the Camerata de Flandre, and the vocal ensemble Métamorphoses. He formed the Trio SVITA with Benjamin and Khrystyna Boursier (violins) and performs with Jan Vermeire (organ), Dorian Gheorghilas (pan flute), and soprano Olga Vojnovic.",
     "bio_p4": "In the field of contemporary music, he has participated in premieres by M. Bourbon, Ch. Hache, N. Debard, J. Dassié, and S. Fache, and premiered the 'Concerto de deux mondes' (Concerto of Two Worlds) for accordion and symphony orchestra by Omar Yagoubi.",
     "bio_p5": "He also performs regularly with soprano Juliette de Massy. Their recording of Bach arias, 'Comme un air de passions...' (ed. AR-RE-SE), received critical acclaim. In a duo with Marc Hervieux (recorders), he recorded the album 'Dialogue insolite' (Unusual Dialogue) for RAINBOW CLASSIC. The musician's latest solo album, 'Un Sacre du printemps' (A Rite of Spring), is dedicated to Ukrainian and Russian music.",
-    "bio_p6": "Bogdan Nesterenko plays a 'Jupiter' brand 'bayan' accordion, an instrument that, thanks to its tonal richness and multiple registers, offers a vast range of musical possibilities."
+    "bio_p6": "Bogdan Nesterenko plays a 'Jupiter' brand 'bayan' accordion, an instrument that, thanks to its tonal richness and multiple registers, offers a vast range of musical possibilities.",
+	
+	"album1_title": "Un Sacre du Printemps",
+	"album1_description": "Bogdan Nesterenko's latest album was recorded in his hometown of Kharkiv, Ukraine. The disc features an excerpt from 'The Rite of Spring' alongside transcriptions of major 19th-century Russian orchestral and piano masterpieces (including 'Pictures at an Exhibition', 'The Seasons', and 'The Nutcracker'). It also showcases original contemporary works for accordion by Ukrainian composers such as Runchak and Koukouzenko.",
+	"album2_title": "Dialogues insolites",
+	"album2_description": "A program of 18th-century German sonatas presented in a unique and unprecedented instrumental pairing. Historically, the recorder and accordion have never shared a common history or repertoire. Yet today, they meet in a program that brings together both celebrated and rare gems of the Baroque era. This album was recorded in October 2016 at the Church of the Shield (Église du Bouclier) in Strasbourg.",
+	"album3_title": "Comme un air de passions...",
+	"album3_description": "Transcriptions of J.S. Bach's masterpieces for soprano and concert accordion. The album includes excerpts from the Passions and cantatas performed as a duo, as well as the Toccata and Fugue in D minor (BWV 565) and the Prelude and Fugue in A minor (BWV 543) for solo accordion.",
+	"album4_title": "Accordéon Baroque",
+	"album4_description": "Recorded and released in Ukraine, Bogdan Nesterenko's second solo album features transcriptions of Baroque music (J.S. Bach, A. Vivaldi, T. Albinoni, D. Buxtehude) alongside original late 20th-century works for bayan (concert accordion) by Ukrainian composers A. Gaïdenko, A. Beloshitsky, and V. Zubitsky.",
+
+	"contact_title": "Contact",
+	"contact_name_label": "Your Name",
+	"contact_name_placeholder": "Name",
+	"contact_email_label": "Your Email Address",
+	"contact_email_placeholder": "email@example.com",
+	"contact_subject_label": "Subject",
+	"contact_subject_placeholder": "Subject",
+	"contact_message_label": "Message",
+	"contact_message_placeholder": "Message...",
+	"contact_send_button": "Send Message",
+	"contact_sending_status": "Sending..."
 }

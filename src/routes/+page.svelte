@@ -114,7 +114,9 @@
 
 			// Это событие "убивает" видео и звук при любом сдвиге слайдера
 			swiperEl.addEventListener('swiperslidechange', () => {
-				playingVideoId = null;
+				setTimeout(() => {
+					playingVideoId = null; 
+				}, 0);
 			});
 
 			// Додатковий "пінок" для перерахунку циклу
@@ -133,8 +135,8 @@
 	let currentIndex1 = $state(0);
 	let currentIndex2 = $state(0);
 
-	const images1 = ['/1121.jpg', '/1123.jpg'];
-	const images2 = ['/1109.jpg', '/1111.jpg'];
+	const images1 = ['/1121.webp', '/1123.webp'];
+	const images2 = ['/1109.webp', '/1111.webp'];
 
 	// Функции переключения остаются такими же
 	function nextSlide1() {
@@ -156,48 +158,44 @@
 			year: '2021',
 			label: 'Editions Musica Prima',
 			artists: 'Bogdan Nesterenko (accordéon bayan)',
-			description:
-				'Le dernier album de Bogdan Nesterenko est enregistré dans sa ville natale Kharkiv en Ukraine. Cet album contient un extrait du "Sacre du Printemps" et d\'autres transcriptions des grandes œuvres des compositeurs russes du 19-ème siècle pour orchestre et piano ("Les Tableaux d\'une exposition", "Les saisons", "Casse-Noisette") ainsi que des ouvres originales écrites pour l\'accordéon par les compositeurs ukrainiens d\'aujourd\'hui (Runchak, Koukouzenko).',
-			image: '/pochette.jpg'
+			description: m.album1_description(),
+			image: '/pochette.webp'
 		},
 		{
 			title: 'Dialogues insolites',
 			year: '2017',
 			label: 'Editions Rainbow Classics',
 			artists: 'Marc Hervieux (flûte à bec) et  Bogdan Nesterenko (accordéon)',
-			description:
-				'Un programme de sonates allemandes du 18ème siècle dans une formation nouvelle et inédite. Flûte à bec et accordéon ne se sont jamais rencontrés, ni a travers leur histoire, ni a travers leurs répertoires. Pourtant, ils se croisent aujourd’hui dans un programme réunissant des oeuvres connues et moins connues du répertoire baroque. L’enregistrement de ce disque s’est fait en octobre 2016 dans l’église du Bouclier à Strasbourg.',
-			image: '/Dialogue-insolite.jpg'
+			description: m.album2_description(),
+			image: '/Dialogue-insolite.webp'
 		},
 		{
 			title: 'Comme un air de passions...',
 			year: '2013',
 			label: 'Editions AR-RE-SE',
 			artists: 'Juliette de Massy (soprano) et  Bogdan Nesterenko (accordéon)',
-			description:
-				'Transcriptions de J.S.Bach  pour soprano et accordéon de concert : des extraits de Passion et de cantates en duo (soprano et accordéon) ainsi que Toccata et fugue en ré-mineur (BWV 565) et Prélude et fugue en la-minuer (BWV 543) pour accordéon solo.',
-			image: '/Comme-un-air-de-passions   3.jpg'
+			description: m.album3_description(),
+			image: '/Comme-un-air-de-passions   3.webp'
 		},
 		{
 			title: 'Accordéon Baroque',
 			year: '2006',
 			label: 'Editions HIRIN (Ukraine)',
 			artists: 'Bogdan Nesterenko (accordion)',
-			description:
-				'Enregistré et sorti en Ukraine ce deuxième album en solo de Bogdan Nesterenko contient quelques transcriptions de musique baroque (J.S. Bach, A. Vivaldi, T. Albinoni, D. Buhtehude) et quelques œuvres originales écrites pour bayan (accordéon de concert) par des compositeurs ukrainiens de la fin du XXème siècle (A. Gaïdenko, A. Belochitsky, V. Zoubitsky).',
-			image: '/1 str.jpg'
+			description: m.album4_description(),
+			image: '/1 str.webp'
 		}
 	];
 
 	const projects = [
-		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.jpg' },
-		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.jpg' },
-		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1413 Ju.jpg' },
-		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.jpg' },
-		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.JPG' },
-		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.JPG' },
-		{ id: 7, title: 'RAFRAÎCHIS', img: '/projects/1201 SVITA.jpg' },
-		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/projects/1201 SVITA.jpg' }
+		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.webp' },
+		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.webp' },
+		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1413 Ju.webp' },
+		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.webp' },
+		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.webp' },
+		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.webp' },
+		{ id: 7, title: 'RAFRAÎCHIS', img: '/projects/RAFRAÎCHIS.webp' },
+		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/1123.webp' }
 	];
 
 	let isSending = $state(false);
@@ -259,7 +257,7 @@
 	class="fixed inset-0 z-1 transition-all duration-500 ease-out"
 	style="background: rgba(0,0,0,{overlayProgress() *
 		0.4}); backdrop-filter: blur({overlayProgress() *
-		14}px);  -webkit-backdrop-filter: blur({overlayProgress() * 14}px);"
+		14}px);  -webkit-backdrop-filter: blur({overlayProgress() * 14}px); backface-visibility: hidden;"
 	aria-hidden="true"
 ></div>
 
@@ -304,7 +302,7 @@
 	</div>
 </div>
 <main class="relative z-2 mx-auto w-full px-0 sm:px-4 md:px-8 md:py-24">
-	<section id="concerts" class="mx-auto w-full max-w-4xl px-8 sm:px-4 pt-24 font-sans">
+	<section id="concerts" class="mx-auto w-full max-w-4xl px-8 sm:px-4 pt-24 pb-8 font-sans">
 		<!-- <div class="mb-4 flex items-center justify-center gap-8 opacity-40">
 			<h2 class="text-[11px] font-normal tracking-[0.2em] uppercase">
 				Upcoming Concerts
@@ -379,7 +377,7 @@
 
 	<section
 		id="bio"
-		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-8 sm:px-4 py-24 pb-16 md:space-y-24 md:pb-32"
+		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-8 sm:px-4 py-24 pb-16 md:space-y-24І md:pb-32"
 	>
 		<div class="group/bio1 mb-12 flex flex-col items-stretch gap-10 md:mb-24 md:flex-row lg:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center">
@@ -502,7 +500,7 @@
 
 	<section
 		id="videos"
-		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-0 py-24 sm:px-4"
+		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-0 py-24 sm:px-4 "
 	>
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
@@ -659,12 +657,12 @@
 		}
 
 		/*===============================*/
-		.noise-overlay {
+		/* /* .noise-overlay {
 			position: fixed;
-			inset: -200%; /* Увеличиваем размер, чтобы при анимации не было пустых краев */
-			z-index: 1; /* Между видео (z-0) и оверлеем (z-1) */
+			inset: -200%;
+			z-index: 1; 
 			background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-			opacity: 0.5; /* Едва заметно, чтобы не раздражать */
+			opacity: 0.5;
 			pointer-events: none;
 			animation: noise-shift 0.2s infinite steps(2);
 		}
@@ -703,7 +701,7 @@
 			100% {
 				transform: translate(1%, 0);
 			}
-		}
+		} */
 		/*===============================*/
 
 		/* Скрываем кнопку на всех слайдах по умолчанию */
@@ -725,7 +723,7 @@
 		}
 	</style>
 
-	<section id="projects" class="mx-auto w-full max-w-4xl px-8 sm:px-4 py-24">
+	<section id="projects" class="mx-auto w-full max-w-4xl px-8 sm:px-4 py-32">
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">{m.title_projects()}</h2>
 		</div>
@@ -751,7 +749,7 @@
 					</div> -->
 					<div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
 						<div
-							class="translate-y-4 opacity-100 transition-all duration-700 ease-out group-hover/proj:translate-y-0 "
+							class="translate-y-4 opacity-100 transition-all duration-700 ease-out "
 						>
 							<!-- <h3
 								class="text-xs font-medium tracking-widest text-white uppercase drop-shadow-lg md:text-sm"
@@ -759,7 +757,7 @@
 								{project.title}
 							</h3> -->
 
-							<p class="mt-2 text-xs tracking-widest text-base-content/80 uppercase md:text-sm">
+							<p class="mt-2 text-md tracking-wider text-base-content/80 uppercase md:text-sm">
 								{project.title}
 							</p>
 						</div>
@@ -872,13 +870,13 @@
 						<div class="form-control">
 							<label class="label pt-0" for="name">
 								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
-									>Votre Nom</span
+									>{m.contact_name_label()}</span
 								>
 							</label>
 							<input
 								type="text"
 								name="name"
-								placeholder="Nom"
+								placeholder={m.contact_name_placeholder()}
 								required
 								class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
@@ -887,13 +885,13 @@
 						<div class="form-control">
 							<label class="label pt-0" for="email">
 								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
-									>Votre adresse mail</span
+									>{m.contact_email_label()}</span
 								>
 							</label>
 							<input
 								type="email"
 								placeholder="email@example.com"
-								name="email"
+								name={m.contact_email_placeholder()}
 								required
 								class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
@@ -903,13 +901,13 @@
 					<div class="form-control">
 						<label class="label pt-0" for="subject">
 							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
-								>Objet</span
+								>{m.contact_subject_label()}</span
 							>
 						</label>
 						<input
 							type="text"
 							name="subject"
-							placeholder="Sujet"
+							placeholder={m.contact_subject_placeholder()}
 							required
 							class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 						/>
@@ -918,12 +916,12 @@
 					<div class="form-control">
 						<label class="label pt-0" for="message">
 							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
-								>Message</span
+								>{m.contact_message_label()}</span
 							>
 						</label>
 						<textarea
 							name="message"
-							placeholder="Message..."
+							placeholder={m.contact_message_placeholder()}
 							required
 							class="textarea min-h-[120px] w-full resize-none rounded-none border-none textarea-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 						></textarea>

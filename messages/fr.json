@@ -17,9 +17,31 @@
 	"title_discography": "Discographie",
 
 	"bio_p1": "Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de Kharkov (Ukraine) en accordéon, direction d’orchestre, musique de chambre et lauréat de plusieurs Concours Internationaux d’Accordéon.",
-	"bio_p2": "Installé en France depuis 2006, Bogdan Nesterenko donne un grand nombre de récitals en Europe, en solo et musique de chambre. Il est invité à se produire dans des lieux (Opéra de Vichy, Villa Strauli en Suisse, Théâtre national de Beauvaisis, Abbatiale d’Ebersmunster, Opéra de Lille, Philharmonie de Luxembourg…) et festivals prestigieux (Lille Piano Festival, Festivals de musique baroque de Strasbourg et de Madiran, Festival International d’Orgue en Flandres, Septembre Musical de l&#39; Orne, Nuit blanche à Paris...) en Europe, en Ukraine et en Asie. On peut l&#39;entendre sur les ondes de France Musique, BBC Radio ou sur CultureBox.",
-	"bio_p3": "Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de l’Orchestre National de Lille), avec Quatuor GoYa et Quatuor Elysée, avec le pianiste Alain Raës et le violoniste Pablo Schatzman, avec la Camerata de Flandre et l&#39;Ensemble vocal Métamorphoses. Il forme le Trio SVITA avec Benjamin et Khrystyna Boursier (violons) et joue avec Jan Vermeire (orgue), avec Dorian Gheorghilas (flûte de pan) et la soprano Olga Vojnovic.",
-	"bio_p4": "En musique contemporaine il participe aux créations de M. Bourbon, de Ch. Hache, de N.Debard, J. Dassié, S. Fache et crée le &quot;Concerto de deux mondes&quot; pour accordéon et orchestre symphonique de Omar Yagoubi.",
-	"bio_p5": "Il joue également régulièrement avec la soprano Juliette de Massy. Leur enregistrementdes airs de Bach « Comme un air de passions...» (ed. AR-RE- SE) a reçu des critiques élogieuses. En duo avec Marc Hervieux (flûtes à bec) il enregistre l’album « Dialogue insolite » aux éditions RAINBOW CLASSIC. Le dernier album en solo du musicien « Un Sacre du printemps » est consacré à la musique ukrainienne et russe.",
-	"bio_p6": "Bogdan Nesterenko joue sur un accordéon « bayan » de marque «Jupiter», un instrument offrant, grâce à sa richesse de timbre et à ses multiples registres, des possibilités musicales très étendues."
+	"bio_p2": "Installé en France depuis 2006, Bogdan Nesterenko donne un grand nombre de récitals en Europe, en solo et musique de chambre. Il est invité à se produire dans des lieux (Opéra de Vichy, Villa Strauli en Suisse, Théâtre national de Beauvaisis, Abbatiale d’Ebersmunster, Opéra de Lille, Philharmonie de Luxembourg…) et festivals prestigieux (Lille Piano Festival, Festivals de musique baroque de Strasbourg et de Madiran, Festival International d’Orgue en Flandres, Septembre Musical de l’Orne, Nuit blanche à Paris...) en Europe, en Ukraine et en Asie. On peut l’entendre sur les ondes de France Musique, BBC Radio ou sur CultureBox.",
+	"bio_p3": "Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de l’Orchestre National de Lille), avec Quatuor GoYa et Quatuor Elysée, avec le pianiste Alain Raës et le violoniste Pablo Schatzman, avec la Camerata de Flandre et l’Ensemble vocal Métamorphoses. Il forme le Trio SVITA avec Benjamin et Khrystyna Boursier (violons) et joue avec Jan Vermeire (orgue), avec Dorian Gheorghilas (flûte de pan) et la soprano Olga Vojnovic.",
+	"bio_p4": "En musique contemporaine il participe aux créations de M. Bourbon, de Ch. Hache, de N.Debard, J. Dassié, S. Fache et crée le «Concerto de deux mondes» pour accordéon et orchestre symphonique de Omar Yagoubi.",
+	"bio_p5": "Il joue également régulièrement avec la soprano Juliette de Massy. Leur enregistrementdes airs de Bach «Comme un air de passions...» (ed. AR-RE- SE) a reçu des critiques élogieuses. En duo avec Marc Hervieux (flûtes à bec) il enregistre l’album «Dialogue insolite» aux éditions RAINBOW CLASSIC. Le dernier album en solo du musicien «Un Sacre du printemps» est consacré à la musique ukrainienne et russe.",
+	"bio_p6": "Bogdan Nesterenko joue sur un accordéon «bayan» de marque «Jupiter», un instrument offrant, grâce à sa richesse de timbre et à ses multiples registres, des possibilités musicales très étendues.",
+
+	"album1_title": "Un Sacre du Printemps",
+  	"album1_description": "Le dernier album de Bogdan Nesterenko est enregistré dans sa ville natale Kharkiv en Ukraine. Cet album contient un extrait du \"Sacre du Printemps\" et d'autres transcriptions des grandes œuvres des compositeurs russes du 19-ème siècle pour orchestre et piano (\"Les Tableaux d'une exposition\", \"Les saisons\", \"Casse-Noisette\") ainsi que des ouvres originales écrites pour l'accordéon par les compositeurs ukrainiens d'aujourd'hui (Runchak, Koukouzenko).",
+	"album2_title": "Dialogues insolites",
+  	"album2_description": "Un programme de sonates allemandes du 18ème siècle dans une formation nouvelle et inédite. Flûte à bec et accordéon ne se sont jamais rencontrés, ni a travers leur histoire, ni a travers leurs répertoires. Pourtant, ils se croisent aujourd’hui dans un programme réunissant des oeuvres connues et moins connues du répertoire baroque. L’enregistrement de ce disque s’est fait en octobre 2016 dans l’église du Bouclier à Strasbourg.",
+	"album3_title": "Comme un air de passions...",
+  	"album3_description": "Transcriptions de J.S.Bach  pour soprano et accordéon de concert : des extraits de Passion et de cantates en duo (soprano et accordéon) ainsi que Toccata et fugue en ré-mineur (BWV 565) et Prélude et fugue en la-minuer (BWV 543) pour accordéon solo.",
+	"album4_title": "Accordéon Baroque",
+  	"album4_description": "Enregistré et sorti en Ukraine ce deuxième album en solo de Bogdan Nesterenko contient quelques transcriptions de musique baroque (J.S. Bach, A. Vivaldi, T. Albinoni, D. Buhtehude) et quelques œuvres originales écrites pour bayan (accordéon de concert) par des compositeurs ukrainiens de la fin du XXème siècle (A. Gaïdenko, A. Belochitsky, V. Zoubitsky).",
+
+	"contact_title": "Contact",
+	"contact_name_label": "Votre Nom",
+	"contact_name_placeholder": "Nom",
+	"contact_email_label": "Votre adresse mail",
+	"contact_email_placeholder": "email@example.com",
+	"contact_subject_label": "Objet", 
+  	"contact_subject_placeholder": "L'objet de votre message",
+	"contact_message_label": "Message",
+	"contact_message_placeholder": "Message...",
+	"contact_send_button": "Envoyer le Message",
+	"contact_sending_status": "Envoi en cours..."
+
 }
