@@ -218,7 +218,7 @@
 
 <video
 	src="/Video Project 2.webm"
-	poster="/poster.webp"
+	poster="/poster1.webp"
 	autoplay
 	loop
 	muted
@@ -245,14 +245,11 @@
 <div
     class="fixed inset-0 z-1 transition-all duration-500 ease-out"
     style="
-        /* Добавляем базовое затемнение 0.2 (20%) + динамическое от скролла до 0.5 (50%) */
         background: rgba(0, 0, 0, {0.2 + overlayProgress() * 0.3}); 
         
-        /* Блюр остается динамическим */
         backdrop-filter: blur({overlayProgress() * 14}px); 
         -webkit-backdrop-filter: blur({overlayProgress() * 14}px); 
         
-        /* Оптимизация для плавности (GPU) */
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
         transform: translateZ(0);
