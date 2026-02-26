@@ -740,7 +740,7 @@
 							<input
 								type="email"
 								placeholder="email@example.com"
-								name={m.contact_email_placeholder()}
+								name="email"
 								required
 								class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
