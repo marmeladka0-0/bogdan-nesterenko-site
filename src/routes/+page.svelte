@@ -173,12 +173,12 @@
 	const projects = [
 		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.webp' },
 		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.webp' },
-		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1413 Ju.webp' },
+		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1412 Ju.webp' },
 		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.webp' },
 		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.webp' },
 		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.webp' },
-		{ id: 7, title: 'RAFRAÎCHIS', img: '/projects/RAFRAÎCHIS.webp' },
-		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/1123.webp' }
+		{ id: 7, title: 'RAFRAÎCHIS AUSSI LE SOL NU', img: '/projects/RAFRAÎCHIS.webp' },
+		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/projects/Le chant du cygne_cropped.webp' }
 	];
 
 	let isSending = $state(false);
@@ -217,14 +217,14 @@
 <svelte:window bind:scrollY bind:innerHeight />
 
 <video
-	src="/video.webm"
+	src="/Video Project 2.webm"
 	poster="/poster.webp"
 	autoplay
 	loop
 	muted
 	playsinline
 	bind:this={videoElement}
-	class="fixed inset-0 z-0 h-full w-full object-cover brightness-75 contrast-[0.85]"
+	class="fixed inset-0 z-0 h-full w-full object-cover brightness-75 contrast-[0.85] hue-rotate-[-5deg]"
 	aria-hidden="true"
 >
 	<track kind="captions" />
@@ -234,12 +234,30 @@
 <!-- <div class="noise-overlay" aria-hidden="true"></div> -->
 
 <!-- Blur/darken overlay that activates when scrolling past the hero -->
-<div
+<!-- <div
 	class="fixed inset-0 z-1 transition-all duration-500 ease-out"
 	style="background: rgba(0,0,0,{overlayProgress() *
 		0.4}); backdrop-filter: blur({overlayProgress() *
 		14}px);  -webkit-backdrop-filter: blur({overlayProgress() * 14}px); backface-visibility: hidden;"
 	aria-hidden="true"
+></div> -->
+
+<div
+    class="fixed inset-0 z-1 transition-all duration-500 ease-out"
+    style="
+        /* Добавляем базовое затемнение 0.2 (20%) + динамическое от скролла до 0.5 (50%) */
+        background: rgba(0, 0, 0, {0.2 + overlayProgress() * 0.3}); 
+        
+        /* Блюр остается динамическим */
+        backdrop-filter: blur({overlayProgress() * 14}px); 
+        -webkit-backdrop-filter: blur({overlayProgress() * 14}px); 
+        
+        /* Оптимизация для плавности (GPU) */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+    "
+    aria-hidden="true"
 ></div>
 
 <div class="relative z-2 h-screen w-full overflow-hidden">
@@ -272,7 +290,7 @@
 		<div class="space-y-4">
 			{#each data.concerts as concert}
 				<div
-					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/10 p-4 transition-all hover:bg-black/40 md:gap-6 md:p-6"
+					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/30 p-4 transition-all hover:bg-black/40 md:gap-6 md:p-6"
 				>
 					<div
 						class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8"
@@ -456,9 +474,9 @@
 	>
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
-				<span class="block sm:hidden">{m.title_video_short()}</span>
+				<span class="block">{m.title_video_short()}</span>
 				
-				<span class="hidden sm:block">{m.title_video_long()}</span>
+				<!-- <span class="hidden sm:block">{m.title_video_long()}</span> -->
 			</h2>
 		</div>
 
@@ -622,8 +640,8 @@
 				>
 					<div
 						class="absolute top-1/2 left-1/2 z-10 hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full
-						bg-zinc-600 transition-all duration-500
-						group-hover:bg-zinc-400 md:block"
+						bg-base-content/50 transition-all duration-500
+						group-hover:bg-base-content/80 md:block"
 					></div>
 
 					<div
@@ -770,7 +788,7 @@
 							class="btn border-none bg-transparent shadow-none rounded-2xl px-6 py-2 text-xs font-normal tracking-widest text-white/80 uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none md:btn-sm disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							<span class="transition-colors">
-								{isSending ? 'Sending...' : 'Send Message'}
+								{isSending ? m.contact_sending_status() : m.contact_send_button()}
 							</span>
 						</button>
 					</div>
