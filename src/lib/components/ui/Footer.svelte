@@ -49,7 +49,7 @@
 		</div>
 
 		<div
-			class="flex w-full justify-center text-[9px] tracking-[0.25em] text-base-content/40 uppercase transition-opacity duration-700"
+			class="flex w-full justify-center text-[9px] tracking-widest text-base-content/40 uppercase transition-opacity duration-700"
 		>
 			© {new Date().getFullYear()} Bogdan Nesterenko
 		</div>

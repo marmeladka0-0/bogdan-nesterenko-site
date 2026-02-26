@@ -46,7 +46,7 @@
 			<!-- Logo / Brand -->
 			<div class="flex flex-1 items-center">
 				<a
-					href="/test"
+					href="/"
 					class="text-base font-medium tracking-widest text-base-content/80 transition-colors hover:text-primary"
 				>
 					BOGDAN NESTERENKO
@@ -70,6 +70,7 @@
 					<li class="ml-4">
 						<a
 							href={getNextLocaleHref()}
+							data-sveltekit-noscroll
 							class="text-sm tracking-wider text-base-content/80 uppercase transition-colors hover:text-primary"
 						>
 							{currentLocale}
@@ -82,6 +83,7 @@
 			<div class="flex items-center gap-2 lg:hidden">
 				<a
 					href={getNextLocaleHref()}
+					data-sveltekit-noscroll
 					class="btn text-xs text-base-content/80 uppercase btn-ghost btn-sm"
 				>
 					{currentLocale}

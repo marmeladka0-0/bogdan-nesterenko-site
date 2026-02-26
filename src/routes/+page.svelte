@@ -6,6 +6,8 @@
 	import { onMount } from 'svelte';
 	import { register } from 'swiper/element/bundle';
 	import type { SwiperOptions } from 'swiper/types';
+	import emailjs from '@emailjs/browser';
+	
 
 	// Реєструємо Swiper елементи
 	register();
@@ -66,7 +68,7 @@
 	const swiperParams: SwiperOptions & { [key: string]: any } = {
 		slidesPerView: 1.2,
 		centeredSlides: true,
-		spaceBetween: 20,
+		spaceBetween: 6,
 		loop: true,
 		loopAdditionalSlides: 6,
 		watchSlidesProgress: true,
@@ -90,7 +92,8 @@
 		breakpoints: {
 			// Начиная с 768px (планшеты и десктопы) ВЫКЛЮЧАЕМ свайп
 			768: {
-				slidesPerView: 2
+				slidesPerView: 2,
+				spaceBetween: 20
 			},
 			1024: {
 				slidesPerView: 2.2
@@ -101,7 +104,7 @@
 	};
 
 	onMount(() => {
-		const swiperEl = document.querySelector('swiper-container');
+		const swiperEl = document.querySelector('swiper-container');		
 		if (swiperEl) {
 			// Очищуємо попередні налаштування, якщо вони були
 			Object.assign(swiperEl, swiperParams);
@@ -109,11 +112,17 @@
 			// Важливо: спочатку реєструємо, потім ініціалізуємо
 			swiperEl.initialize();
 
+			// Это событие "убивает" видео и звук при любом сдвиге слайдера
+			swiperEl.addEventListener('swiperslidechange', () => {
+				playingVideoId = null;
+			});
+
 			// Додатковий "пінок" для перерахунку циклу
 			setTimeout(() => {
 				swiperEl.swiper.update();
 			}, 100);
 		}
+
 	});
 
 	function playVideo(id: string): void {
@@ -181,15 +190,48 @@
 	];
 
 	const projects = [
-		{ id: 1, title: 'TRIO SViTA', colab: '', img: '/projects/1201 SVITA.jpg' },
-		{ id: 2, title: 'PAN & BAYAN', colab: '', img: '/projects/1301 Pan Bayan.jpg' },
-		{ id: 3, title: 'DE MASSY', colab: 'Avec Juliette', img: '/projects/1413 Ju.jpg' },
-		{ id: 4, title: 'VOJNOVIC', colab: 'Avec Olga', img: '/projects/1501 Olga.jpg' },
-		{ id: 5, title: 'DIALOGUE INSOLITE', colab: '', img: '/projects/1601 Marc.JPG' },
-		{ id: 6, title: 'ORGUE et ACCORDÉON', colab: '', img: '/projects/1701 Jan.JPG' },
-		{ id: 7, title: 'RAFRAÎCHIS', colab: '', img: '/projects/1201 SVITA.jpg' },
-		{ id: 8, title: 'LE CHANT DU CYGNE', colab: '', img: '/projects/1201 SVITA.jpg' }
+		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.jpg' },
+		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.jpg' },
+		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1413 Ju.jpg' },
+		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.jpg' },
+		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.JPG' },
+		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.JPG' },
+		{ id: 7, title: 'RAFRAÎCHIS', img: '/projects/1201 SVITA.jpg' },
+		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/projects/1201 SVITA.jpg' }
 	];
+
+	let isSending = $state(false);
+
+	onMount(() => {
+		emailjs.init("X0Bzm7EnoTZys7dV4");
+	});
+
+	async function handleSubmit(event: SubmitEvent) {
+		event.preventDefault(); // Теперь TypeScript знает, что у event есть этот метод
+		
+		// Важно: берем элемент формы из события
+		const form = event.currentTarget as HTMLFormElement;
+		
+		if (isSending) return;
+		isSending = true;
+
+		try {
+			await emailjs.sendForm(
+				'service_wl4y2kh', 
+				'template_fp6ywt9', 
+				form, // Передаем саму форму
+				'X0Bzm7EnoTZys7dV4'
+			);
+			// alert('Merci! Votre message a été envoyé.');
+			form.reset();
+		} catch (error) {
+			// console.error('EmailJS Error:', error);
+			// alert('Erreur...');
+		} finally {
+			isSending = false;
+		}
+	}
+
 </script>
 
 <svelte:window bind:scrollY bind:innerHeight />
@@ -209,7 +251,7 @@
 	<track kind="captions" />
 </video>
 
-<div class="canvas-vignette pointer-events-none fixed inset-0 z-[1]"></div>
+<!-- <div class="canvas-vignette pointer-events-none fixed inset-0 z-[1]"></div> -->
 <!-- <div class="noise-overlay" aria-hidden="true"></div> -->
 
 <!-- Blur/darken overlay that activates when scrolling past the hero -->
@@ -261,15 +303,15 @@
 		</button>
 	</div>
 </div>
-<main class="relative z-2 mx-auto w-full px-4 md:px-8 md:py-24">
-	<section id="concerts" class="mx-auto w-full max-w-4xl px-4 pt-24 font-sans">
+<main class="relative z-2 mx-auto w-full px-0 sm:px-4 md:px-8 md:py-24">
+	<section id="concerts" class="mx-auto w-full max-w-4xl px-8 sm:px-4 pt-24 font-sans">
 		<!-- <div class="mb-4 flex items-center justify-center gap-8 opacity-40">
 			<h2 class="text-[11px] font-normal tracking-[0.2em] uppercase">
 				Upcoming Concerts
 			</h2>
 		</div> -->
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Upcoming concerts</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase"> { m.title_concerts() } </h2>
 		</div>
 
 		<div class="space-y-4">
@@ -311,7 +353,7 @@
 								{concert.program}
 							</p> -->
 							<p
-								class="mt-2 text-[9px] tracking-[0.25em] text-base-content/40 uppercase transition-all duration-700 group-hover:text-base-content/60"
+								class="mt-2 text-[9px] tracking-widest text-base-content/40 uppercase transition-all duration-700 group-hover:text-base-content/60"
 							>
 								{concert.program}
 							</p>
@@ -337,35 +379,26 @@
 
 	<section
 		id="bio"
-		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-4 py-24 pb-16 md:space-y-24 md:pb-32"
+		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-8 sm:px-4 py-24 pb-16 md:space-y-24 md:pb-32"
 	>
 		<div class="group/bio1 mb-12 flex flex-col items-stretch gap-10 md:mb-24 md:flex-row lg:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center">
 				<div class="mb-8 flex items-center gap-4 opacity-70">
-					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">Biography</h2>
+					<h2 class="text-lg font-normal tracking-[0.5em] uppercase">{m.title_biography()}</h2>
 				</div>
 				<div
 					class="relative space-y-6 border-white/10 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80 lg:border-l lg:pl-8"
 				>
 					<p>
-						Né en Ukraine, Bogdan Nesterenko est diplômé du Conservatoire Supérieur de Musique de
-						Kharkov (Ukraine) en accordéon, direction d’orchestre, musique de chambre et lauréat de
-						plusieurs Concours Internationaux d’Accordéon.
+						{m.bio_p1()}
 					</p>
 					<p>
-						Installé en France depuis 2006, Bogdan Nesterenko donne un grand nombre de récitals en
-						Europe, en solo et musique de chambre. Il est invité à se produire dans des lieux (Opéra
-						de Vichy, Villa Strauli en Suisse, Théâtre national de Beauvaisis, Abbatiale
-						d’Ebersmunster, Opéra de Lille, Philharmonie de Luxembourg…) et festivals prestigieux
-						(Lille Piano Festival, Festivals de musique baroque de Strasbourg et de Madiran,
-						Festival International d’Orgue en Flandres, Septembre Musical de l&#39;Orne, Nuit
-						blanche à Paris...) en Europe, en Ukraine et en Asie. On peut l&#39;entendre sur les
-						ondes de France Musique, BBC Radio ou sur CultureBox.
+						{m.bio_p2()}
 					</p>
 				</div>
 			</div>
 
-			<div class="relative min-h-[350px] w-full shrink-0 md:min-h-0 md:w-[320px]">
+			<div class="relative min-h-[450px] w-full shrink-0 md:min-h-0 md:w-[320px]">
 				<div class="absolute inset-0 flex items-center">
 					<button
 						onclick={prevSlide1}
@@ -383,7 +416,7 @@
 							style="transform: translateX(-{currentIndex1 * 100}%);"
 						>
 							{#each images1 as src}
-								<div class="h-full w-full shrink-0 overflow-hidden">
+								<div class="h-full w-full shrink-0 overflow-hidden ">
 									<img
 										{src}
 										alt="Bogdan"
@@ -411,29 +444,16 @@
 					class="relative space-y-6 border-white/10 text-justify font-sans text-sm leading-relaxed font-light tracking-wide text-base-content/80 lg:border-r lg:pr-8"
 				>
 					<p>
-						Bogdan Nesterenko se produit avec le violoniste Stefan Stalanowski (Super Soliste de
-						l’Orchestre National de Lille), avec Quatuor GoYa et Quatuor Elysée, avec le pianiste
-						Alain Raës et le violoniste Pablo Schatzman, avec la Camerata de Flandre et
-						l&#39;Ensemble vocal Métamorphoses. Il forme le Trio SVITA avec Benjamin et Khrystyna
-						Boursier (violons) et joue avec Jan Vermeire (orgue), avec Dorian Gheorghilas (flûte de
-						pan) et la soprano Olga Vojnovic.
+						{m.bio_p3()}
 					</p>
 					<p>
-						En musique contemporaine il participe aux créations de M. Bourbon, de Ch. Hache, de N.
-						Debard, J. Dassié, S. Fache et crée le &quot;Concerto de deux mondes&quot; pour
-						accordéon et orchestre symphonique de Omar Yagoubi.
+						{m.bio_p4()}
 					</p>
 					<p>
-						Il joue également régulièrement avec la soprano Juliette de Massy. Leur
-						enregistrementdes airs de Bach « Comme un air de passions...» (ed. AR-RE- SE) a reçu des
-						critiques élogieuses. En duo avec Marc Hervieux (flûtes à bec) il enregistre l’album
-						« Dialogue insolite » aux éditions RAINBOW CLASSIC. Le dernier album en solo du musicien
-						« Un Sacre du printemps » est consacré à la musique ukrainienne et russe.
+						{m.bio_p5()}
 					</p>
 					<p>
-						Bogdan Nesterenko joue sur un accordéon « bayan » de marque «Jupiter», un instrument
-						offrant, grâce à sa richesse de timbre et à ses multiples registres, des possibilités
-						musicales très étendues.
+						{m.bio_p6()}
 					</p>
 				</div>
 			</div>
@@ -482,11 +502,13 @@
 
 	<section
 		id="videos"
-		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-4 py-24"
+		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-0 py-24 sm:px-4"
 	>
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
-				Performance Archive
+				<span class="block sm:hidden">{m.title_video_short()}</span>
+				
+				<span class="hidden sm:block">{m.title_video_long()}</span>
 			</h2>
 		</div>
 
@@ -503,7 +525,7 @@
 			class="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-linear-to-l from-black via-black to-transparent md:w-56"
 		></div> -->
 
-		<swiper-container init="false" class="pb-12">
+		<swiper-container init="false" class="">
 			{#each videos as video}
 				<swiper-slide>
 					<div
@@ -512,10 +534,10 @@
 						{#if playingVideoId === video.videoId}
 							<iframe
 								class="h-full w-full"
-								src="https://www.youtube.com/embed/{video.videoId}?autoplay=1"
+								src="https://www.youtube.com/embed/{video.videoId}?autoplay=1&enablejsapi=1&playsinline=1&rel=0"
 								title={video.title}
 								frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture "
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen; media-playback-quality"
 								allowfullscreen
 							></iframe>
 						{:else}
@@ -565,7 +587,7 @@
 					</div>
 
 					<p
-						class="slide-title mt-4 text-center text-[9px] tracking-[0.25em] text-base-content/40 uppercase transition-opacity duration-700"
+						class="slide-title mt-4 text-center text-[9px] tracking-widest text-base-content/40 uppercase transition-opacity duration-700"
 					>
 						{video.title}
 					</p>
@@ -574,20 +596,34 @@
 		</swiper-container>
 
 		<button
-			class="nav-prev absolute top-[47.5%] left-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:left-4 md:flex"
+			class="nav-prev absolute top-[44.5%] left-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:left-4 md:flex"
 			aria-label="Previous slide"
 		>
 			<Icon icon="mdi:chevron-left" width="32" height="32" />
 		</button>
 
 		<button
-			class="nav-next absolute top-[47.5%] right-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:right-4 md:flex"
+			class="nav-next absolute top-[44.5%] right-0 z-50 hidden -translate-y-1/2 text-white/20 opacity-0 transition-all duration-300 group-hover/section:opacity-100 hover:scale-110 hover:text-white md:right-4 md:flex"
 			aria-label="Next slide"
 		>
 			<Icon icon="mdi:chevron-right" width="32" height="32" />
 		</button>
-	</section>
 
+		<div class="mt-4 flex justify-center pt-8">
+			<a
+				href="https://youtube.com/@bogdannesterenko7139" 
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group flex items-center gap-2 rounded-2xl border-none bg-transparent px-4 py-2 text-xs font-normal text-white/40 tracking-widest uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none"
+			>
+				<!-- <Icon icon="mdi:youtube" class="text-base text-base-content/80 transition-colors group-hover:text-primary" /> -->
+				
+				<span class="transition-colors text-base-content/40 group-hover:text-primary">
+					{m.btn_more_youtube()}
+				</span>
+			</a>
+		</div>
+	</section>
 	<style>
 		swiper-container {
 			width: 100%;
@@ -689,9 +725,9 @@
 		}
 	</style>
 
-	<section id="projects" class="mx-auto w-full max-w-4xl px-4 py-24">
+	<section id="projects" class="mx-auto w-full max-w-4xl px-8 sm:px-4 py-24">
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Projets</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">{m.title_projects()}</h2>
 		</div>
 
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-5">
@@ -715,16 +751,16 @@
 					</div> -->
 					<div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
 						<div
-							class="translate-y-4 opacity-100 transition-all duration-700 ease-out group-hover/proj:translate-y-0 group-hover/proj:opacity-100 lg:opacity-0"
+							class="translate-y-4 opacity-100 transition-all duration-700 ease-out group-hover/proj:translate-y-0 "
 						>
-							<h3
+							<!-- <h3
 								class="text-xs font-medium tracking-widest text-white uppercase drop-shadow-lg md:text-sm"
 							>
 								{project.title}
-							</h3>
+							</h3> -->
 
-							<p class="mt-2 text-[9px] tracking-[0.25em] text-base-content/80 uppercase">
-								{project.colab}
+							<p class="mt-2 text-xs tracking-widest text-base-content/80 uppercase md:text-sm">
+								{project.title}
 							</p>
 						</div>
 					</div>
@@ -735,9 +771,9 @@
 		</div>
 	</section>
 
-	<section id="recordings" class="relative mx-auto max-w-4xl px-4 py-24">
+	<section id="recordings" class="relative mx-auto max-w-4xl px-8 sm:px-4 py-24">
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Discography</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">{m.title_discography()}</h2>
 		</div>
 
 		<div class="absolute top-40 bottom-24 left-1/2 hidden w-[0.5px] bg-white/10 md:block"></div>
@@ -811,36 +847,31 @@
 			<div class="absolute inset-0 bg-linear-to-b from-black via-black/40 to-black"></div>
 		</div> -->
 
-		<div class="relative z-10 mx-auto w-full max-w-2xl px-4 md:px-8">
+		<div class="relative z-10 mx-auto w-full max-w-2xl px-8 sm:px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-4 text-center">
 					<div class="mb-6 flex items-center justify-center gap-4 opacity-70">
 						<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">Contact</h2>
 					</div>
 
-					<div class="flex flex-col items-center justify-center gap-2 text-sm">
-						<a
-							href="mailto:mail@example.com"
-							class="pb-1 font-light tracking-widest text-base-content/80 transition-all duration-500 hover:text-primary"
-						>
+					<div class="flex flex-col items-center justify-center text-sm">
+						<p class="font-light tracking-widest text-base-content/80 selection:bg-primary selection:text-white">
 							bogdan.nesterenko@yahoo.fr
-						</a>
-						<a
-							href="tel:+33000000000"
-							class="pb-1 font-light tracking-widest text-base-content/80 transition-all duration-500 hover:text-primary"
-						>
-							+33 (6) 66 45 59 32
-						</a>
+						</p>
+						<p class="font-light tracking-widest text-base-content/80 selection:bg-primary selection:text-white">
+							+33 6 66 45 59 32
+						</p>
 					</div>
 				</div>
 
 				<form
-					class="space-y-6 rounded-3xl border border-white/10 bg-black/40 p-8 shadow-2xl backdrop-blur-md transition-all duration-500 md:p-10"
+					onsubmit={handleSubmit}
+					class="space-y-6 rounded-2xl border border-white/10 bg-black/40 p-8 shadow-2xl backdrop-blur-md transition-all duration-500 md:p-10"
 				>
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						<div class="form-control">
 							<label class="label pt-0" for="name">
-								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
+								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
 									>Votre Nom</span
 								>
 							</label>
@@ -849,13 +880,13 @@
 								name="name"
 								placeholder="Nom"
 								required
-								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
+								class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
 						</div>
 
 						<div class="form-control">
 							<label class="label pt-0" for="email">
-								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
+								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
 									>Votre adresse mail</span
 								>
 							</label>
@@ -864,14 +895,14 @@
 								placeholder="email@example.com"
 								name="email"
 								required
-								class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
+								class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 							/>
 						</div>
 					</div>
 
 					<div class="form-control">
 						<label class="label pt-0" for="subject">
-							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
+							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
 								>Objet</span
 							>
 						</label>
@@ -880,13 +911,13 @@
 							name="subject"
 							placeholder="Sujet"
 							required
-							class="input w-full rounded-xl border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
+							class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 						/>
 					</div>
 
 					<div class="form-control">
 						<label class="label pt-0" for="message">
-							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase"
+							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
 								>Message</span
 							>
 						</label>
@@ -894,16 +925,21 @@
 							name="message"
 							placeholder="Message..."
 							required
-							class="textarea min-h-[120px] w-full resize-none rounded-xl border-none textarea-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
+							class="textarea min-h-[120px] w-full resize-none rounded-none border-none textarea-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
 						></textarea>
 					</div>
+
+					<input type="hidden" name="time" value={new Date().toLocaleString()} />
 
 					<div class="flex justify-center pt-4">
 						<button
 							type="submit"
-							class="rounded-3xl bg-white/10 px-6 py-3 text-sm tracking-wider text-base-content/80 uppercase transition-all duration-300 hover:bg-white/20 hover:text-primary focus:outline-none"
+							disabled={isSending} 
+							class="btn border-none bg-transparent shadow-none rounded-2xl px-6 py-2 text-xs font-normal tracking-widest text-white/80 uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none md:btn-sm disabled:opacity-50 disabled:cursor-not-allowed"
 						>
-							{m.nav_contact()}
+							<span class="transition-colors">
+								{isSending ? 'Sending...' : 'Send Message'}
+							</span>
 						</button>
 					</div>
 				</form>
@@ -912,7 +948,7 @@
 	</section>
 </main>
 
-<style>
+<!-- <style>
 	.canvas-vignette {
 		/* Темные края, прозрачный центр */
 		background:
@@ -924,4 +960,4 @@
 			3px 3px,
 			3px 3px;
 	}
-</style>
+</style> -->
