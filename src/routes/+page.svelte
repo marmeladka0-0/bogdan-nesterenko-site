@@ -8,26 +8,15 @@
 	import type { SwiperOptions } from 'swiper/types';
 	import emailjs from '@emailjs/browser';
 	
-
-	// Реєструємо Swiper елементи
 	register();
 
 	let { data }: PageProps = $props();
 
 	let videoElement: HTMLVideoElement;
-	let muted = $state(true);
-
-	function toggleMuted() {
-		if (videoElement) {
-			videoElement.muted = !videoElement.muted;
-			muted = videoElement.muted;
-		}
-	}
 
 	let scrollY = $state(0);
 	let innerHeight = $state(0);
 
-	// Compute overlay progress: 0 in hero, 1 when fully past hero
 	let overlayProgress = $derived(() => {
 		if (innerHeight === 0) return 0;
 		const progress = Math.max(0, Math.min(1, (scrollY - innerHeight * 0.5) / (innerHeight * 0.5)));
@@ -62,8 +51,7 @@
 
 	let videos = [...videos1, ...videos1, ...videos1];
 
-	// Налаштування слайдера
-	let playingVideoId = $state<string | null>(null); // Зберігаємо ID відео, яке зараз відтворюється
+	let playingVideoId = $state<string | null>(null); 
 
 	const swiperParams: SwiperOptions & { [key: string]: any } = {
 		slidesPerView: 1.2,
@@ -79,7 +67,6 @@
 			nextEl: '.nav-next'
 		},
 
-		// По умолчанию ВКЛЮЧАЕМ свайп (для мобильных)
 		allowTouchMove: true,
 		simulateTouch: true,
 
@@ -90,7 +77,6 @@
 		mousewheel: false,
 
 		breakpoints: {
-			// Начиная с 768px (планшеты и десктопы) ВЫКЛЮЧАЕМ свайп
 			768: {
 				slidesPerView: 2,
 				spaceBetween: 20
@@ -106,20 +92,17 @@
 	onMount(() => {
 		const swiperEl = document.querySelector('swiper-container');		
 		if (swiperEl) {
-			// Очищуємо попередні налаштування, якщо вони були
+
 			Object.assign(swiperEl, swiperParams);
 
-			// Важливо: спочатку реєструємо, потім ініціалізуємо
 			swiperEl.initialize();
 
-			// Это событие "убивает" видео и звук при любом сдвиге слайдера
 			swiperEl.addEventListener('swiperslidechange', () => {
 				setTimeout(() => {
 					playingVideoId = null; 
 				}, 0);
 			});
 
-			// Додатковий "пінок" для перерахунку циклу
 			setTimeout(() => {
 				swiperEl.swiper.update();
 			}, 100);
@@ -131,14 +114,14 @@
 		playingVideoId = id;
 	}
 
-	// Оставляем ваши переменные
+
 	let currentIndex1 = $state(0);
 	let currentIndex2 = $state(0);
 
 	const images1 = ['/1121.webp', '/1123.webp'];
 	const images2 = ['/1109.webp', '/1111.webp'];
 
-	// Функции переключения остаются такими же
+
 	function nextSlide1() {
 		currentIndex1 = (currentIndex1 + 1) % images1.length;
 	}
@@ -205,9 +188,8 @@
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
-		event.preventDefault(); // Теперь TypeScript знает, что у event есть этот метод
+		event.preventDefault();
 		
-		// Важно: берем элемент формы из события
 		const form = event.currentTarget as HTMLFormElement;
 		
 		if (isSending) return;
@@ -217,7 +199,7 @@
 			await emailjs.sendForm(
 				'service_wl4y2kh', 
 				'template_fp6ywt9', 
-				form, // Передаем саму форму
+				form,
 				'X0Bzm7EnoTZys7dV4'
 			);
 			// alert('Merci! Votre message a été envoyé.');
@@ -234,7 +216,6 @@
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<!-- Fixed fullscreen video background -->
 <video
 	src="/video.webm"
 	poster="/poster.webp"
@@ -262,9 +243,6 @@
 ></div>
 
 <div class="relative z-2 h-screen w-full overflow-hidden">
-	<!-- <div href="#concerts" class="absolute inset-x-0 bottom-5 z-20 flex animate-bounce justify-center text-white/50">
-		<Icon icon="mdi:chevron-down" width="36" height="36" />
-	</div> -->
 	<a
 		href="#concerts"
 		class="absolute inset-x-0 bottom-5 z-20 flex animate-bounce justify-center text-base-content/60 transition-colors hover:text-primary"
@@ -283,31 +261,10 @@
 			{m.label_bayan()}
 		</p>
 	</div>
-
-	<!-- Unmute Toggle Button -->
-	<div class="absolute right-6 bottom-6 z-20 hidden">
-		<button
-			class="btn btn-circle bg-black/50 text-white btn-ghost backdrop-blur-sm hover:bg-black/70"
-			onclick={toggleMuted}
-			aria-label={muted ? 'Unmute video' : 'Mute video'}
-		>
-			{#if muted}
-				<!-- Muted Icon -->
-				<Icon icon="mdi:volume-off" width="24" height="24" />
-			{:else}
-				<!-- Unmuted Icon -->
-				<Icon icon="mdi:volume-high" width="24" height="24" />
-			{/if}
-		</button>
-	</div>
 </div>
 <main class="relative z-2 mx-auto w-full px-0 sm:px-4 md:px-8 md:py-24">
 	<section id="concerts" class="mx-auto w-full max-w-4xl px-8 sm:px-4 pt-24 pb-8 font-sans">
-		<!-- <div class="mb-4 flex items-center justify-center gap-8 opacity-40">
-			<h2 class="text-[11px] font-normal tracking-[0.2em] uppercase">
-				Upcoming Concerts
-			</h2>
-		</div> -->
+
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase"> { m.title_concerts() } </h2>
 		</div>
@@ -345,11 +302,6 @@
 						</h4>
 
 						{#if concert.program}
-							<!-- <p
-								class="mt-2 text-xs leading-relaxed font-normal tracking-[0.25em] uppercase opacity-60 group-hover:text-base-content/60"
-							>
-								{concert.program}
-							</p> -->
 							<p
 								class="mt-2 text-[9px] tracking-widest text-base-content/40 uppercase transition-all duration-700 group-hover:text-base-content/60"
 							>
@@ -510,19 +462,6 @@
 			</h2>
 		</div>
 
-		<!-- <div class="mb-16 text-center">
-			<h2 class="text-[10px] font-normal tracking-[0.5em] uppercase text-white/30 italic font-serif">
-				Video Archive
-			</h2>
-		</div> -->
-
-		<!-- <div
-			class="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-linear-to-r from-black via-black to-transparent md:w-56"
-		></div>
-		<div
-			class="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-linear-to-l from-black via-black to-transparent md:w-56"
-		></div> -->
-
 		<swiper-container init="false" class="">
 			{#each videos as video}
 				<swiper-slide>
@@ -545,23 +484,6 @@
 								class="h-full w-full object-cover brightness-60 transition-all duration-300"
 							/>
 
-							<!-- <button
-								onclick={() => playVideo(video.videoId)}
-								class="group absolute inset-0 z-30 flex items-center justify-center border-none transition-all outline-none"
-								type="button"
-								aria-label="Play {video.title}"
-							>
-								<div
-									class="rounded-full border border-white/0 bg-white/0 p-1 backdrop-blur-[2px] transition-all duration-700 group-hover:scale-105 group-hover:border-white/10 group-hover:bg-white/5 group-hover:backdrop-blur-md"
-								>
-									<svg
-										class="mr-3 ml-3 h-6 w-6 fill-current text-white/20 transition-all duration-500 group-hover:text-white/80"
-										viewBox="0 0 24 24"
-									>
-										<path d="M8 5v14l11-7z"/>
-									</svg>
-								</div>
-							</button> -->
 							<button
 								onclick={() => playVideo(video.videoId)}
 								class="group absolute inset-0 z-30 flex items-center justify-center border-none bg-transparent transition-all outline-none"
@@ -614,7 +536,6 @@
 				rel="noopener noreferrer"
 				class="group flex items-center gap-2 rounded-2xl border-none bg-transparent px-4 py-2 text-xs font-normal text-white/40 tracking-widest uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none"
 			>
-				<!-- <Icon icon="mdi:youtube" class="text-base text-base-content/80 transition-colors group-hover:text-primary" /> -->
 				
 				<span class="transition-colors text-base-content/40 group-hover:text-primary">
 					{m.btn_more_youtube()}
@@ -627,27 +548,11 @@
 			width: 100%;
 			max-width: 100vw;
 			overflow: visible;
-			/* Маска: прозрачный -> непрозрачный -> прозрачный */
-			/* -webkit-mask-image: linear-gradient(
-				to right,
-				transparent 0%,
-				black 15%,
-				black 85%,
-				transparent 100%
-			);
-			mask-image: linear-gradient(
-				to right,
-				transparent 0%,
-				black 45%,
-				black 55%,
-				transparent 100%
-			); */
 		}
 
 		#videos {
 			width: 100%;
 			overflow: hidden;
-			/* Убедимся, что секция не имеет своего фона, который перекрывает общий */
 			background: transparent;
 		}
 
@@ -656,68 +561,17 @@
 			width: 100%;
 		}
 
-		/*===============================*/
-		/* /* .noise-overlay {
-			position: fixed;
-			inset: -200%;
-			z-index: 1; 
-			background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-			opacity: 0.5;
-			pointer-events: none;
-			animation: noise-shift 0.2s infinite steps(2);
-		}
-
-		@keyframes noise-shift {
-			0% {
-				transform: translate(0, 0);
-			}
-			10% {
-				transform: translate(-1%, -2%);
-			}
-			20% {
-				transform: translate(-3%, 1%);
-			}
-			30% {
-				transform: translate(2%, -3%);
-			}
-			40% {
-				transform: translate(-2%, 4%);
-			}
-			50% {
-				transform: translate(-4%, 2%);
-			}
-			60% {
-				transform: translate(3%, 0);
-			}
-			70% {
-				transform: translate(0, 3%);
-			}
-			80% {
-				transform: translate(-2%, 0);
-			}
-			90% {
-				transform: translate(2%, 1%);
-			}
-			100% {
-				transform: translate(1%, 0);
-			}
-		} */
-		/*===============================*/
-
-		/* Скрываем кнопку на всех слайдах по умолчанию */
 		swiper-slide .video-wrapper button {
 			opacity: 0;
 			pointer-events: none;
 			transition: opacity 0.5s ease-in-out;
 		}
 
-		/* Показываем кнопку только на активном (центральном) слайде */
 		swiper-slide.swiper-slide-active .video-wrapper button {
 			opacity: 1;
 			pointer-events: auto;
 		}
 
-		/* Сохраняем ваши hover-эффекты внутри активного слайда */
 		swiper-slide.swiper-slide-active .video-wrapper button:hover {
 			transform: scale(1.05);
 		}
@@ -739,31 +593,16 @@
 						class="h-full w-full object-cover brightness-50 transition-all duration-700 ease-in-out group-hover/proj:scale-105 group-hover/proj:brightness-80"
 					/>
 
-					<!-- <div class="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
-						<div class="translate-y-2 transition-transform duration-500 group-hover/proj:translate-y-0">
-							<h3 class="text-[10px] font-medium tracking-[0.2em] uppercase text-white/90 md:text-xs">
-								{project.title}
-							</h3>
-							<div class="mt-2 h-[1px] w-0 bg-white/40 transition-all duration-500 group-hover/proj:w-full"></div>
-						</div>
-					</div> -->
 					<div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
 						<div
 							class="translate-y-4 opacity-100 transition-all duration-700 ease-out "
 						>
-							<!-- <h3
-								class="text-xs font-medium tracking-widest text-white uppercase drop-shadow-lg md:text-sm"
-							>
-								{project.title}
-							</h3> -->
 
 							<p class="mt-2 text-md tracking-wider text-base-content/80 uppercase md:text-sm">
 								{project.title}
 							</p>
 						</div>
 					</div>
-
-					<!-- <a href="#contact" class="absolute inset-0 z-10" aria-label="Details about {project.title}"></a> -->
 				</div>
 			{/each}
 		</div>
@@ -840,11 +679,6 @@
 		id="contact"
 		class="relative flex min-h-screen items-center justify-center overflow-hidden py-24"
 	>
-		<!-- <div class="absolute inset-0 z-0 mx-auto w-full max-w-4xl">
-			<img src="/poster.webp" alt="Background" class="h-full w-full object-cover opacity-40" />
-			<div class="absolute inset-0 bg-linear-to-b from-black via-black/40 to-black"></div>
-		</div> -->
-
 		<div class="relative z-10 mx-auto w-full max-w-2xl px-8 sm:px-4 md:px-8">
 			<div class="mx-auto max-w-2xl">
 				<div class="mb-4 text-center">

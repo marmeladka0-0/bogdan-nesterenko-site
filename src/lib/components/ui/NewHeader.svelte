@@ -43,7 +43,6 @@
 >
 	<div class="navbar min-h-12 py-0">
 		<div class="mx-auto flex w-full max-w-6xl">
-			<!-- Logo / Brand -->
 			<div class="flex flex-1 items-center">
 				<a
 					href="/"
@@ -66,6 +65,7 @@
 							</a>
 						</li>
 					{/each}
+					
 					<!-- Language switcher -->
 					<li class="ml-4">
 						<a

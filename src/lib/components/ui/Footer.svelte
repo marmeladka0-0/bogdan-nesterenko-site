@@ -13,8 +13,6 @@
 			label: 'LinkedIn'
 		},
 		{ href: 'https://facebook.com/yourprofile', icon: 'mdi:facebook', label: 'Facebook' },
-		// { href: 'https://t.me/yourprofile', icon: 'mdi:telegram', label: 'Telegram'},
-		// { href: 'bogdan.nesterenko@yahoo.fr', icon: 'material-symbols:mail', label: 'Email'}
 		{
 			href: 'https://open.spotify.com/artist/4rbrZcsGjag5jTFXqqNAvG?si=F5a48sF7QgCF-dWPdnqmDg',
 			icon: 'mdi:spotify',
