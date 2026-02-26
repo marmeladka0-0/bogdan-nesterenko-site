@@ -197,7 +197,7 @@
 
 		try {
 			await emailjs.sendForm(
-				'service_wl4y2kh', 
+				'service_25elvmp', 
 				'template_fp6ywt9', 
 				form,
 				'X0Bzm7EnoTZys7dV4'
