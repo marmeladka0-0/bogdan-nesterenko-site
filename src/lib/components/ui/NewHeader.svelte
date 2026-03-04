@@ -15,7 +15,7 @@
 	];
 
 	function getNextLocaleHref() {
-		const currentLocale = locales.find((l) => page.url.pathname.startsWith('/' + l)) || 'en';
+		const currentLocale = locales.find((l) => page.url.pathname.startsWith('/' + l)) || 'fr';
 		const currentIndex = locales.indexOf(currentLocale);
 		const nextIndex = (currentIndex + 1) % locales.length;
 		const nextLocale = locales[nextIndex];
@@ -36,7 +36,7 @@
 <svelte:window bind:scrollY />
 
 <header
-	class="fixed top-0 z-50 h-12 w-full border-b bg-black/0 whitespace-nowrap transition-all duration-300 px-2 sm:px-4 xl:px-0 {scrollY >
+	class="fixed top-0 z-50 h-12 w-full border-b bg-black/0 px-2 whitespace-nowrap transition-all duration-300 sm:px-4 xl:px-0 {scrollY >
 	50
 		? 'border-white/10 bg-black/30 shadow-lg backdrop-blur-2xl'
 		: 'border-transparent bg-linear-to-b from-black/80 to-0% shadow-none'}"
@@ -65,7 +65,7 @@
 							</a>
 						</li>
 					{/each}
-					
+
 					<!-- Language switcher -->
 					<li class="ml-4">
 						<a
