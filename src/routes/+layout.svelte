@@ -18,13 +18,13 @@
 </div>
 
 <div style="display:none">
-	{#each locales as locale}
+	{#each locales as locale (locale)}
 		<a href={localizeHref(page.url.pathname, { locale })}>
 			{locale}
 		</a>
 	{/each}
 </div>
 
-<div class="relative z-2">
+<div class="relative z-20">
 	<Footer />
 </div>

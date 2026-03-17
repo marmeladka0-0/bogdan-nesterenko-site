@@ -20,10 +20,12 @@ export const handle: Handle = ({ event, resolve }) => {
 		// Обов'язково встановлюємо мову для поточного запиту
 		setLocale(locale);
 
-		// @ts-ignore
+		// request is immutable but patched by SvelteKit runtime locally
 		event.request = request;
-		// @ts-ignore
+		// @ts-expect-error type override
 		event.locals.locale = locale;
+		// @ts-expect-error type override
+		event.locals.paraglide = { locale };
 
 		return resolve(event, {
 			transformPageChunk: ({ html }) => html.replace('%paraglide.lang%', locale)

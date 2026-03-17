@@ -27,7 +27,7 @@
 	<div class="flex max-w-5xl flex-col gap-6 px-4">
 		<div class="flex flex-wrap justify-center">
 			<nav class="flex flex-wrap justify-center gap-1">
-				{#each links as link}
+				{#each links as link (link.href)}
 					<a
 						href={link.href}
 						target="_blank"

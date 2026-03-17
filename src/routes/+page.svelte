@@ -7,7 +7,7 @@
 	import { register } from 'swiper/element/bundle';
 	import type { SwiperOptions } from 'swiper/types';
 	import emailjs from '@emailjs/browser';
-	
+
 	register();
 
 	let { data }: PageProps = $props();
@@ -17,11 +17,7 @@
 	let scrollY = $state(0);
 	let innerHeight = $state(0);
 
-	let overlayProgress = $derived(() => {
-		if (innerHeight === 0) return 0;
-		const progress = Math.max(0, Math.min(1, (scrollY - innerHeight * 0.5) / (innerHeight * 0.5)));
-		return progress;
-	});
+	let isOpaqueOverlay = $derived(innerHeight === 0 ? false : scrollY > innerHeight * 0.2);
 
 	let videos1 = [
 		{ id: 'video4', title: 'Pablo de Sarasate "Navarra" - Trio SVITA', videoId: 'JKCSseSa4CY' },
@@ -51,9 +47,9 @@
 
 	let videos = [...videos1, ...videos1, ...videos1];
 
-	let playingVideoId = $state<string | null>(null); 
+	let playingVideoId = $state<number | null>(null);
 
-	const swiperParams: SwiperOptions & { [key: string]: any } = {
+	const swiperParams: SwiperOptions & Record<string, unknown> = {
 		slidesPerView: 1.2,
 		centeredSlides: true,
 		spaceBetween: 6,
@@ -90,16 +86,15 @@
 	};
 
 	onMount(() => {
-		const swiperEl = document.querySelector('swiper-container');		
+		const swiperEl = document.querySelector('swiper-container');
 		if (swiperEl) {
-
 			Object.assign(swiperEl, swiperParams);
 
 			swiperEl.initialize();
 
 			swiperEl.addEventListener('swiperslidechange', () => {
 				setTimeout(() => {
-					playingVideoId = null; 
+					playingVideoId = null;
 				}, 0);
 			});
 
@@ -107,20 +102,33 @@
 				swiperEl.swiper.update();
 			}, 100);
 		}
-
 	});
 
-	function playVideo(id: string): void {
-		playingVideoId = id;
+	function playVideo(index: number): void {
+		playingVideoId = index;
 	}
 
+	const imageModules = import.meta.glob(
+		'/static/**/*.{avif,AVIF,gif,GIF,heif,HEIF,jpeg,JPEG,jpg,JPG,png,PNG,tiff,TIFF,webp,WEBP}',
+		{
+			eager: true,
+			query: {
+				enhanced: true
+			}
+		}
+	) as Record<string, { default: string }>;
 
 	let currentIndex1 = $state(0);
 	let currentIndex2 = $state(0);
 
-	const images1 = ['/1121.webp', '/1123.webp'];
-	const images2 = ['/1109.webp', '/1111.webp'];
-
+	const images1 = [
+		imageModules['/static/1121.webp']?.default,
+		imageModules['/static/1123.webp']?.default
+	];
+	const images2 = [
+		imageModules['/static/1109.webp']?.default,
+		imageModules['/static/1111.webp']?.default
+	];
 
 	function nextSlide1() {
 		currentIndex1 = (currentIndex1 + 1) % images1.length;
@@ -142,7 +150,7 @@
 			label: 'Editions Musica Prima',
 			artists: 'Bogdan Nesterenko (accordéon bayan)',
 			description: m.album1_description(),
-			image: '/pochette.webp'
+			image: imageModules['/static/pochette.webp']?.default
 		},
 		{
 			title: 'Dialogues insolites',
@@ -150,7 +158,7 @@
 			label: 'Editions Rainbow Classics',
 			artists: 'Marc Hervieux (flûte à bec) et  Bogdan Nesterenko (accordéon)',
 			description: m.album2_description(),
-			image: '/Dialogue-insolite.webp'
+			image: imageModules['/static/Dialogue-insolite.webp']?.default
 		},
 		{
 			title: 'Comme un air de passions...',
@@ -158,7 +166,7 @@
 			label: 'Editions AR-RE-SE',
 			artists: 'Juliette de Massy (soprano) et  Bogdan Nesterenko (accordéon)',
 			description: m.album3_description(),
-			image: '/Comme-un-air-de-passions   3.webp'
+			image: imageModules['/static/Comme-un-air-de-passions   3.webp']?.default
 		},
 		{
 			title: 'Accordéon Baroque',
@@ -166,53 +174,78 @@
 			label: 'Editions HIRIN (Ukraine)',
 			artists: 'Bogdan Nesterenko (accordion)',
 			description: m.album4_description(),
-			image: '/1 str.webp'
+			image: imageModules['/static/1 str.webp']?.default
 		}
 	];
 
 	const projects = [
-		{ id: 1, title: 'TRIO SViTA', img: '/projects/1201 SVITA.webp' },
-		{ id: 2, title: 'PAN & BAYAN', img: '/projects/1301 Pan Bayan.webp' },
-		{ id: 3, title: 'Avec Juliette DE MASSY', img: '/projects/1412 Ju.webp' },
-		{ id: 4, title: 'Avec Olga VOJNOVIC', img: '/projects/1501 Olga.webp' },
-		{ id: 5, title: 'DIALOGUE INSOLITE', img: '/projects/1601 Marc.webp' },
-		{ id: 6, title: 'ORGUE et ACCORDÉON', img: '/projects/1701 Jan.webp' },
-		{ id: 7, title: 'RAFRAÎCHIS AUSSI LE SOL NU', img: '/projects/RAFRAÎCHIS.webp' },
-		{ id: 8, title: 'LE CHANT DU CYGNE', img: '/projects/Le chant du cygne_cropped.webp' }
+		{ id: 1, title: 'TRIO SViTA', img: imageModules['/static/projects/1201 SVITA.webp']?.default },
+		{
+			id: 2,
+			title: 'PAN & BAYAN',
+			img: imageModules['/static/projects/1301 Pan Bayan.webp']?.default
+		},
+		{
+			id: 3,
+			title: 'Avec Juliette DE MASSY',
+			img: imageModules['/static/projects/1412 Ju.webp']?.default
+		},
+		{
+			id: 4,
+			title: 'Avec Olga VOJNOVIC',
+			img: imageModules['/static/projects/1501 Olga.webp']?.default
+		},
+		{
+			id: 5,
+			title: 'DIALOGUE INSOLITE',
+			img: imageModules['/static/projects/1601 Marc.webp']?.default
+		},
+		{
+			id: 6,
+			title: 'ORGUE et ACCORDÉON',
+			img: imageModules['/static/projects/1701 Jan.webp']?.default
+		},
+		{
+			id: 7,
+			title: 'RAFRAÎCHIS AUSSI LE SOL NU',
+			img: imageModules['/static/projects/RAFRAÎCHIS.webp']?.default
+		},
+		{
+			id: 8,
+			title: 'LE CHANT DU CYGNE',
+			img: imageModules['/static/projects/Le chant du cygne_cropped.webp']?.default
+		}
 	];
 
 	let isSending = $state(false);
 
 	onMount(() => {
-		emailjs.init("X0Bzm7EnoTZys7dV4");
+		emailjs.init('X0Bzm7EnoTZys7dV4');
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
-		
+
 		const form = event.currentTarget as HTMLFormElement;
-		
+
 		if (isSending) return;
 		isSending = true;
 
 		try {
-			await emailjs.sendForm(
-				'service_25elvmp', 
-				'template_fp6ywt9', 
-				form,
-				'X0Bzm7EnoTZys7dV4'
-			);
-			// alert('Merci! Votre message a été envoyé.');
+			await emailjs.sendForm('service_25elvmp', 'template_fp6ywt9', form, 'X0Bzm7EnoTZys7dV4');
 			form.reset();
-		} catch (error) {
-			// console.error('EmailJS Error:', error);
-			// alert('Erreur...');
+		} catch {
+			// handled silently
 		} finally {
 			isSending = false;
 		}
 	}
-
 </script>
+
+<svelte:head>
+	<title>Bogdan Nesterenko - {m.label_bayan()}</title>
+	<meta name="description" content={m.bio_p1()} />
+</svelte:head>
 
 <svelte:window bind:scrollY bind:innerHeight />
 
@@ -224,7 +257,7 @@
 	muted
 	playsinline
 	bind:this={videoElement}
-	class="fixed inset-0 z-0 h-full w-full object-cover brightness-75 contrast-[0.85] hue-rotate-[-5deg]"
+	class="pointer-events-none fixed inset-0 z-0 h-screen w-full object-cover"
 	aria-hidden="true"
 >
 	<track kind="captions" />
@@ -243,21 +276,17 @@
 ></div> -->
 
 <div
-    class="fixed inset-0 z-1 transition-all duration-500 ease-out"
-    style="
-        background: rgba(0, 0, 0, {0.2 + overlayProgress() * 0.3}); 
-        
-        backdrop-filter: blur({overlayProgress() * 14}px); 
-        -webkit-backdrop-filter: blur({overlayProgress() * 14}px); 
-        
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
+	class="pointer-events-none fixed left-0 top-0 z-10 h-screen w-full bg-black/60 backdrop-blur-md transition-opacity duration-1000"
+	class:opacity-0={!isOpaqueOverlay}
+	class:opacity-100={isOpaqueOverlay}
+	style="
         transform: translateZ(0);
+        will-change: transform, opacity;
     "
-    aria-hidden="true"
+	aria-hidden="true"
 ></div>
 
-<div class="relative z-2 h-screen w-full overflow-hidden">
+<div class="relative z-20 h-screen w-full overflow-hidden">
 	<a
 		href="#concerts"
 		class="absolute inset-x-0 bottom-5 z-20 flex animate-bounce justify-center text-base-content/60 transition-colors hover:text-primary"
@@ -277,15 +306,16 @@
 		</p>
 	</div>
 </div>
-<main class="relative z-2 mx-auto w-full px-0 sm:px-4 md:px-8 md:py-24">
-	<section id="concerts" class="mx-auto w-full max-w-4xl px-8 sm:px-4 pt-24 pb-8 font-sans">
-
+<main class="relative z-20 mx-auto w-full px-0 sm:px-4 md:px-8 md:py-24">
+	<section id="concerts" class="mx-auto w-full max-w-4xl px-8 pt-24 pb-8 font-sans sm:px-4">
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase"> { m.title_concerts() } </h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
+				{m.title_concerts()}
+			</h2>
 		</div>
 
 		<div class="space-y-4">
-			{#each data.concerts as concert}
+			{#each data.concerts as concert, index (concert.date + index)}
 				<div
 					class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/30 p-4 transition-all hover:bg-black/40 md:gap-6 md:p-6"
 				>
@@ -344,7 +374,7 @@
 
 	<section
 		id="bio"
-		class="mx-auto mt-24 w-full max-w-4xl space-y-24 px-8 sm:px-4 py-24 pb-16 md:space-y-24І md:pb-32"
+		class="md:space-y-24І mx-auto mt-24 w-full max-w-4xl space-y-24 px-8 py-24 pb-16 sm:px-4 md:pb-32"
 	>
 		<div class="group/bio1 mb-12 flex flex-col items-stretch gap-10 md:mb-24 md:flex-row lg:gap-16">
 			<div class="flex w-full flex-1 flex-col justify-center">
@@ -380,9 +410,9 @@
 							class="flex h-full w-full transition-transform duration-700 ease-in-out"
 							style="transform: translateX(-{currentIndex1 * 100}%);"
 						>
-							{#each images1 as src}
-								<div class="h-full w-full shrink-0 overflow-hidden ">
-									<img
+							{#each images1 as src, index (index)}
+								<div class="h-full w-full shrink-0 overflow-hidden">
+									<enhanced:img
 										{src}
 										alt="Bogdan"
 										class="h-full w-full object-cover brightness-60 transition-all duration-700 group-hover/bio1:scale-105 group-hover/bio1:brightness-90"
@@ -440,9 +470,9 @@
 							class="flex h-full w-full transition-transform duration-700 ease-in-out"
 							style="transform: translateX(-{currentIndex2 * 100}%);"
 						>
-							{#each images2 as src}
+							{#each images2 as src, index (index)}
 								<div class="h-full w-full shrink-0 overflow-hidden">
-									<img
+									<enhanced:img
 										{src}
 										alt="Bogdan"
 										class="h-full w-full object-cover brightness-60 transition-all duration-700
@@ -467,23 +497,23 @@
 
 	<section
 		id="videos"
-		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-0 py-24 sm:px-4 "
+		class="group/section relative mx-auto w-full max-w-4xl overflow-hidden px-0 py-24 sm:px-4"
 	>
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
 			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
 				<span class="block">{m.title_video_short()}</span>
-				
+
 				<!-- <span class="hidden sm:block">{m.title_video_long()}</span> -->
 			</h2>
 		</div>
 
 		<swiper-container init="false" class="">
-			{#each videos as video}
+			{#each videos as video, index (index)}
 				<swiper-slide>
 					<div
 						class="video-wrapper relative aspect-video w-full overflow-hidden rounded-lg border border-white/10 transition-all duration-700"
 					>
-						{#if playingVideoId === video.videoId}
+						{#if playingVideoId === index}
 							<iframe
 								class="h-full w-full"
 								src="https://www.youtube.com/embed/{video.videoId}?autoplay=1&enablejsapi=1&playsinline=1&rel=0"
@@ -497,10 +527,13 @@
 								src="https://img.youtube.com/vi/{video.videoId}/hqdefault.jpg"
 								alt={video.title}
 								class="h-full w-full object-cover brightness-60 transition-all duration-300"
+								width="480"
+								height="360"
+								loading="lazy"
 							/>
 
 							<button
-								onclick={() => playVideo(video.videoId)}
+								onclick={() => playVideo(index)}
 								class="group absolute inset-0 z-30 flex items-center justify-center border-none bg-transparent transition-all outline-none"
 								type="button"
 								aria-label="Play {video.title}"
@@ -546,13 +579,12 @@
 
 		<div class="mt-4 flex justify-center pt-8">
 			<a
-				href="https://youtube.com/@bogdannesterenko7139" 
+				href="https://youtube.com/@bogdannesterenko7139"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="group flex items-center gap-2 rounded-2xl border-none bg-transparent px-4 py-2 text-xs font-normal text-white/40 tracking-widest uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none"
+				class="group flex items-center gap-2 rounded-2xl border-none bg-transparent px-4 py-2 text-xs font-normal tracking-widest text-white/40 uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none"
 			>
-				
-				<span class="transition-colors text-base-content/40 group-hover:text-primary">
+				<span class="text-base-content/40 transition-colors group-hover:text-primary">
 					{m.btn_more_youtube()}
 				</span>
 			</a>
@@ -592,28 +624,27 @@
 		}
 	</style>
 
-	<section id="projects" class="mx-auto w-full max-w-4xl px-8 sm:px-4 py-32">
+	<section id="projects" class="mx-auto w-full max-w-4xl px-8 py-32 sm:px-4">
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">{m.title_projects()}</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
+				{m.title_projects()}
+			</h2>
 		</div>
 
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-5">
-			{#each projects as project}
+			{#each projects as project (project.id)}
 				<div
 					class="group/proj relative aspect-10/13 overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all"
 				>
-					<img
+					<enhanced:img
 						src={project.img}
 						alt={project.title}
 						class="h-full w-full object-cover brightness-50 transition-all duration-700 ease-in-out group-hover/proj:scale-105 group-hover/proj:brightness-80"
 					/>
 
 					<div class="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-						<div
-							class="translate-y-4 opacity-100 transition-all duration-700 ease-out "
-						>
-
-							<p class="mt-2 text-md tracking-wider text-base-content/80 uppercase md:text-sm">
+						<div class="translate-y-4 opacity-100 transition-all duration-700 ease-out">
+							<p class="text-md mt-2 tracking-wider text-base-content/80 uppercase md:text-sm">
 								{project.title}
 							</p>
 						</div>
@@ -623,15 +654,17 @@
 		</div>
 	</section>
 
-	<section id="recordings" class="relative mx-auto max-w-4xl px-8 sm:px-4 py-24">
+	<section id="recordings" class="relative mx-auto max-w-4xl px-8 py-24 sm:px-4">
 		<div class="mb-8 flex items-center justify-center gap-4 opacity-70">
-			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">{m.title_discography()}</h2>
+			<h2 class="text-center text-lg font-normal tracking-[0.5em] uppercase">
+				{m.title_discography()}
+			</h2>
 		</div>
 
 		<div class="absolute top-40 bottom-24 left-1/2 hidden w-[0.5px] bg-white/10 md:block"></div>
 
 		<div class="space-y-8 md:space-y-0">
-			{#each albums as album, i}
+			{#each albums as album, i (album.title)}
 				<div
 					class="group relative flex flex-col items-center justify-between py-4 md:flex-row md:py-6"
 				>
@@ -650,7 +683,7 @@
 							<div
 								class="absolute inset-0 overflow-hidden rounded-lg border border-white/10 text-center shadow-2xl brightness-60 transition-all duration-600 group-hover:brightness-80"
 							>
-								<img
+								<enhanced:img
 									src={album.image}
 									alt={album.title}
 									class="h-full w-full object-cover text-base-content/60 transition-transform duration-600 group-hover:scale-105 group-hover:text-base-content/80"
@@ -702,10 +735,14 @@
 					</div>
 
 					<div class="flex flex-col items-center justify-center text-sm">
-						<p class="font-light tracking-widest text-base-content/80 selection:bg-primary selection:text-white">
+						<p
+							class="font-light tracking-widest text-base-content/80 selection:bg-primary selection:text-white"
+						>
 							bogdan.nesterenko@yahoo.fr
 						</p>
-						<p class="font-light tracking-widest text-base-content/80 selection:bg-primary selection:text-white">
+						<p
+							class="font-light tracking-widest text-base-content/80 selection:bg-primary selection:text-white"
+						>
 							+33 6 66 45 59 32
 						</p>
 					</div>
@@ -718,12 +755,14 @@
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						<div class="form-control">
 							<label class="label pt-0" for="name">
-								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
+								<span
+									class="label-text pb-1 pl-1 text-xs tracking-[0.15em] text-base-content/80 uppercase"
 									>{m.contact_name_label()}</span
 								>
 							</label>
 							<input
 								type="text"
+								id="name"
 								name="name"
 								placeholder={m.contact_name_placeholder()}
 								required
@@ -733,13 +772,15 @@
 
 						<div class="form-control">
 							<label class="label pt-0" for="email">
-								<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
+								<span
+									class="label-text pb-1 pl-1 text-xs tracking-[0.15em] text-base-content/80 uppercase"
 									>{m.contact_email_label()}</span
 								>
 							</label>
 							<input
 								type="email"
 								placeholder="email@example.com"
+								id="email"
 								name="email"
 								required
 								class="input w-full rounded-none border-none input-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
@@ -749,12 +790,14 @@
 
 					<div class="form-control">
 						<label class="label pt-0" for="subject">
-							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
+							<span
+								class="label-text pb-1 pl-1 text-xs tracking-[0.15em] text-base-content/80 uppercase"
 								>{m.contact_subject_label()}</span
 							>
 						</label>
 						<input
 							type="text"
+							id="subject"
 							name="subject"
 							placeholder={m.contact_subject_placeholder()}
 							required
@@ -764,12 +807,14 @@
 
 					<div class="form-control">
 						<label class="label pt-0" for="message">
-							<span class="label-text text-xs tracking-[0.15em] text-base-content/80 uppercase pl-1 pb-1"
+							<span
+								class="label-text pb-1 pl-1 text-xs tracking-[0.15em] text-base-content/80 uppercase"
 								>{m.contact_message_label()}</span
 							>
 						</label>
 						<textarea
 							name="message"
+							id="message"
 							placeholder={m.contact_message_placeholder()}
 							required
 							class="textarea min-h-[120px] w-full resize-none rounded-none border-none textarea-ghost bg-white/5 text-xs text-base-content/80 transition-all duration-300 placeholder:text-base-content/20 focus:bg-white/10 focus:outline-none"
@@ -781,8 +826,8 @@
 					<div class="flex justify-center pt-4">
 						<button
 							type="submit"
-							disabled={isSending} 
-							class="btn border-none bg-transparent shadow-none rounded-2xl px-6 py-2 text-xs font-normal tracking-widest text-white/80 uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none md:btn-sm disabled:opacity-50 disabled:cursor-not-allowed"
+							disabled={isSending}
+							class="btn rounded-2xl border-none bg-transparent px-6 py-2 text-xs font-normal tracking-widest text-white/80 uppercase shadow-none transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:btn-sm"
 						>
 							<span class="transition-colors">
 								{isSending ? m.contact_sending_status() : m.contact_send_button()}

@@ -55,10 +55,10 @@
 			<!-- Desktop Navigation -->
 			<nav class="hidden items-center lg:flex">
 				<ul class="menu menu-horizontal gap-1 px-0 py-0 text-sm">
-					{#each links as link}
+					{#each links as link (link.href)}
 						<li>
 							<a
-								href={link.href}
+								href={link.href as any}
 								class="tracking-wide text-base-content/80 transition-colors hover:text-primary"
 							>
 								{link.label()}
@@ -118,9 +118,9 @@
 
 			<nav class="flex flex-1 flex-col gap-1 px-4">
 				<ul class="menu gap-1 text-lg">
-					{#each links as link}
+					{#each links as link (link.href)}
 						<li>
-							<a href={link.href} onclick={closeDrawer} class="tracking-wide uppercase">
+							<a href={link.href as any} onclick={closeDrawer} class="tracking-wide uppercase">
 								{link.label()}
 							</a>
 						</li>

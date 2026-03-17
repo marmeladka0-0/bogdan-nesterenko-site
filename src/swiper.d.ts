@@ -1,4 +1,5 @@
-import { SwiperContainer, SwiperSlide } from 'swiper/element';
+/* eslint-disable */
+import type { SwiperProps } from 'swiper/element/bundle';
 
 declare global {
 	namespace svelteHTML {

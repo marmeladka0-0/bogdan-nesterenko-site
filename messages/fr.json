@@ -24,24 +24,23 @@
 	"bio_p6": "Bogdan Nesterenko joue sur un accordéon «bayan» de marque «Jupiter», un instrument offrant, grâce à sa richesse de timbre et à ses multiples registres, des possibilités musicales très étendues.",
 
 	"album1_title": "Un Sacre du Printemps",
-  	"album1_description": "Le dernier album de Bogdan Nesterenko est enregistré dans sa ville natale Kharkiv en Ukraine. Cet album contient un extrait du \"Sacre du Printemps\" et d'autres transcriptions des grandes œuvres des compositeurs russes du 19-ème siècle pour orchestre et piano (\"Les Tableaux d'une exposition\", \"Les saisons\", \"Casse-Noisette\") ainsi que des ouvres originales écrites pour l'accordéon par les compositeurs ukrainiens d'aujourd'hui (Runchak, Koukouzenko).",
+	"album1_description": "Le dernier album de Bogdan Nesterenko est enregistré dans sa ville natale Kharkiv en Ukraine. Cet album contient un extrait du \"Sacre du Printemps\" et d'autres transcriptions des grandes œuvres des compositeurs russes du 19-ème siècle pour orchestre et piano (\"Les Tableaux d'une exposition\", \"Les saisons\", \"Casse-Noisette\") ainsi que des ouvres originales écrites pour l'accordéon par les compositeurs ukrainiens d'aujourd'hui (Runchak, Koukouzenko).",
 	"album2_title": "Dialogues insolites",
-  	"album2_description": "Un programme de sonates allemandes du 18ème siècle dans une formation nouvelle et inédite. Flûte à bec et accordéon ne se sont jamais rencontrés, ni a travers leur histoire, ni a travers leurs répertoires. Pourtant, ils se croisent aujourd’hui dans un programme réunissant des oeuvres connues et moins connues du répertoire baroque. L’enregistrement de ce disque s’est fait en octobre 2016 dans l’église du Bouclier à Strasbourg.",
+	"album2_description": "Un programme de sonates allemandes du 18ème siècle dans une formation nouvelle et inédite. Flûte à bec et accordéon ne se sont jamais rencontrés, ni a travers leur histoire, ni a travers leurs répertoires. Pourtant, ils se croisent aujourd’hui dans un programme réunissant des oeuvres connues et moins connues du répertoire baroque. L’enregistrement de ce disque s’est fait en octobre 2016 dans l’église du Bouclier à Strasbourg.",
 	"album3_title": "Comme un air de passions...",
-  	"album3_description": "Transcriptions de J.S.Bach  pour soprano et accordéon de concert : des extraits de Passion et de cantates en duo (soprano et accordéon) ainsi que Toccata et fugue en ré-mineur (BWV 565) et Prélude et fugue en la-minuer (BWV 543) pour accordéon solo.",
+	"album3_description": "Transcriptions de J.S.Bach  pour soprano et accordéon de concert : des extraits de Passion et de cantates en duo (soprano et accordéon) ainsi que Toccata et fugue en ré-mineur (BWV 565) et Prélude et fugue en la-minuer (BWV 543) pour accordéon solo.",
 	"album4_title": "Accordéon Baroque",
-  	"album4_description": "Enregistré et sorti en Ukraine ce deuxième album en solo de Bogdan Nesterenko contient quelques transcriptions de musique baroque (J.S. Bach, A. Vivaldi, T. Albinoni, D. Buhtehude) et quelques œuvres originales écrites pour bayan (accordéon de concert) par des compositeurs ukrainiens de la fin du XXème siècle (A. Gaïdenko, A. Belochitsky, V. Zoubitsky).",
+	"album4_description": "Enregistré et sorti en Ukraine ce deuxième album en solo de Bogdan Nesterenko contient quelques transcriptions de musique baroque (J.S. Bach, A. Vivaldi, T. Albinoni, D. Buhtehude) et quelques œuvres originales écrites pour bayan (accordéon de concert) par des compositeurs ukrainiens de la fin du XXème siècle (A. Gaïdenko, A. Belochitsky, V. Zoubitsky).",
 
 	"contact_title": "Contact",
 	"contact_name_label": "Votre Nom",
 	"contact_name_placeholder": "Nom",
 	"contact_email_label": "Votre adresse mail",
 	"contact_email_placeholder": "email@example.com",
-	"contact_subject_label": "Objet", 
-  	"contact_subject_placeholder": "L'objet de votre message",
+	"contact_subject_label": "Objet",
+	"contact_subject_placeholder": "L'objet de votre message",
 	"contact_message_label": "Message",
 	"contact_message_placeholder": "Message...",
 	"contact_send_button": "Envoyer le Message",
 	"contact_sending_status": "Envoi en cours..."
-
 }
