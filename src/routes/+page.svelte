@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts"> 
 	import Icon from '@iconify/svelte';
 	import type { PageProps } from './$types';
 	import { m } from '$lib/paraglide/messages.js';
