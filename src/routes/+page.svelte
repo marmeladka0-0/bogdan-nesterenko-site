@@ -109,7 +109,7 @@
 	}
 
 	const imageModules = import.meta.glob(
-		'/static/**/*.{avif,AVIF,gif,GIF,heif,HEIF,jpeg,JPEG,jpg,JPG,png,PNG,tiff,TIFF,webp,WEBP}',
+		'/src/lib/assets/**/*.{avif,AVIF,gif,GIF,heif,HEIF,jpeg,JPEG,jpg,JPG,png,PNG,tiff,TIFF,webp,WEBP}',
 		{
 			eager: true,
 			query: {
@@ -122,12 +122,12 @@
 	let currentIndex2 = $state(0);
 
 	const images1 = [
-		imageModules['/static/1121.webp']?.default,
-		imageModules['/static/1123.webp']?.default
+		imageModules['/src/lib/assets/1121.webp']?.default,
+		imageModules['/src/lib/assets/1123.webp']?.default
 	];
 	const images2 = [
-		imageModules['/static/1109.webp']?.default,
-		imageModules['/static/1111.webp']?.default
+		imageModules['/src/lib/assets/1109.webp']?.default,
+		imageModules['/src/lib/assets/1111.webp']?.default
 	];
 
 	function nextSlide1() {
@@ -150,7 +150,7 @@
 			label: 'Editions Musica Prima',
 			artists: 'Bogdan Nesterenko (accordéon bayan)',
 			description: m.album1_description(),
-			image: imageModules['/static/pochette.webp']?.default
+			image: imageModules['/src/lib/assets/pochette.webp']?.default
 		},
 		{
 			title: 'Dialogues insolites',
@@ -158,7 +158,7 @@
 			label: 'Editions Rainbow Classics',
 			artists: 'Marc Hervieux (flûte à bec) et  Bogdan Nesterenko (accordéon)',
 			description: m.album2_description(),
-			image: imageModules['/static/Dialogue-insolite.webp']?.default
+			image: imageModules['/src/lib/assets/Dialogue-insolite.webp']?.default
 		},
 		{
 			title: 'Comme un air de passions...',
@@ -166,7 +166,7 @@
 			label: 'Editions AR-RE-SE',
 			artists: 'Juliette de Massy (soprano) et  Bogdan Nesterenko (accordéon)',
 			description: m.album3_description(),
-			image: imageModules['/static/Comme-un-air-de-passions   3.webp']?.default
+			image: imageModules['/src/lib/assets/Comme-un-air-de-passions   3.webp']?.default
 		},
 		{
 			title: 'Accordéon Baroque',
@@ -174,46 +174,50 @@
 			label: 'Editions HIRIN (Ukraine)',
 			artists: 'Bogdan Nesterenko (accordion)',
 			description: m.album4_description(),
-			image: imageModules['/static/1 str.webp']?.default
+			image: imageModules['/src/lib/assets/1 str.webp']?.default
 		}
 	];
 
 	const projects = [
-		{ id: 1, title: 'TRIO SViTA', img: imageModules['/static/projects/1201 SVITA.webp']?.default },
+		{
+			id: 1,
+			title: 'TRIO SViTA',
+			img: imageModules['/src/lib/assets/projects/1201 SVITA.webp']?.default
+		},
 		{
 			id: 2,
 			title: 'PAN & BAYAN',
-			img: imageModules['/static/projects/1301 Pan Bayan.webp']?.default
+			img: imageModules['/src/lib/assets/projects/1301 Pan Bayan.webp']?.default
 		},
 		{
 			id: 3,
 			title: 'Avec Juliette DE MASSY',
-			img: imageModules['/static/projects/1412 Ju.webp']?.default
+			img: imageModules['/src/lib/assets/projects/1412 Ju.webp']?.default
 		},
 		{
 			id: 4,
 			title: 'Avec Olga VOJNOVIC',
-			img: imageModules['/static/projects/1501 Olga.webp']?.default
+			img: imageModules['/src/lib/assets/projects/1501 Olga.webp']?.default
 		},
 		{
 			id: 5,
 			title: 'DIALOGUE INSOLITE',
-			img: imageModules['/static/projects/1601 Marc.webp']?.default
+			img: imageModules['/src/lib/assets/projects/1601 Marc.webp']?.default
 		},
 		{
 			id: 6,
 			title: 'ORGUE et ACCORDÉON',
-			img: imageModules['/static/projects/1701 Jan.webp']?.default
+			img: imageModules['/src/lib/assets/projects/1701 Jan.webp']?.default
 		},
 		{
 			id: 7,
 			title: 'RAFRAÎCHIS AUSSI LE SOL NU',
-			img: imageModules['/static/projects/RAFRAÎCHIS.webp']?.default
+			img: imageModules['/src/lib/assets/projects/RAFRAÎCHIS.webp']?.default
 		},
 		{
 			id: 8,
 			title: 'LE CHANT DU CYGNE',
-			img: imageModules['/static/projects/Le chant du cygne_cropped.webp']?.default
+			img: imageModules['/src/lib/assets/projects/Le chant du cygne_cropped.webp']?.default
 		}
 	];
 
@@ -251,13 +255,13 @@
 
 <video
 	src="/Video Project 2.webm"
-	poster="/poster1.webp"
+	poster="/poster.webp"
 	autoplay
 	loop
 	muted
 	playsinline
 	bind:this={videoElement}
-	class="pointer-events-none fixed inset-0 z-0 h-screen w-full object-cover"
+	class="pointer-events-none fixed top-0 left-0 z-0 h-screen w-full object-cover brightness-75 contrast-[0.85] hue-rotate-[-5deg]"
 	aria-hidden="true"
 >
 	<track kind="captions" />
@@ -276,7 +280,7 @@
 ></div> -->
 
 <div
-	class="pointer-events-none fixed left-0 top-0 z-10 h-screen w-full bg-black/60 backdrop-blur-md transition-opacity duration-1000"
+	class="pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-black/60 backdrop-blur-md transition-opacity duration-1000"
 	class:opacity-0={!isOpaqueOverlay}
 	class:opacity-100={isOpaqueOverlay}
 	style="
