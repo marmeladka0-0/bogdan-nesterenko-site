@@ -254,14 +254,14 @@
 <svelte:window bind:scrollY bind:innerHeight />
 
 <video
-	src="/Video Project 2.webm"
+	src="/video.webm"
 	poster="/poster.webp"
 	autoplay
 	loop
 	muted
 	playsinline
 	bind:this={videoElement}
-	class="pointer-events-none fixed top-0 left-0 z-0 h-screen w-full object-cover brightness-75 contrast-[0.85] hue-rotate-[-5deg]"
+	class="pointer-events-none fixed top-0 left-0 z-0 h-screen w-full object-cover brightness-50 contrast-[0.85] hue-rotate-[-5deg]"
 	aria-hidden="true"
 >
 	<track kind="captions" />
@@ -280,7 +280,7 @@
 ></div> -->
 
 <div
-	class="pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-black/60 backdrop-blur-md transition-opacity duration-1000"
+	class="pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-black/30 backdrop-blur-md transition-opacity duration-1000"
 	class:opacity-0={!isOpaqueOverlay}
 	class:opacity-100={isOpaqueOverlay}
 	style="
