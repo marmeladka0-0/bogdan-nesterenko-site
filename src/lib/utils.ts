@@ -1,17 +1,24 @@
+// src/lib/utils.ts
 export interface Concert {
-	date: string;
-	time: string;
-	city: string;
-	country: string;
-	program: string;
-	link: string;
+    date: string;
+    time: string;
+    city: string;
+    country: string;
+    program: string;
+    link: string;
 }
 
-let cachedConcerts: Concert[] | null = null;
+export interface ConcertsData {
+    future: Concert[];
+    past: Concert[];
+    all: Concert[]; // Усі концерти, відсортовані хронологічно
+}
+
+let cachedConcerts: ConcertsData | null = null;
 let cachedConcertsTimestamp: number | null = null;
 const CACHE_TTL = 10 * 60 * 1000;
 
-export async function getConcerts(): Promise<Concert[]> {
+export async function getConcerts(): Promise<ConcertsData> {
     if (
         cachedConcerts &&
         cachedConcertsTimestamp &&
@@ -50,7 +57,6 @@ export async function getConcerts(): Promise<Concert[]> {
             return acc;
         }, []);
 
-        // Функция для корректного сравнения дат (поддержка DD.MM.YYYY)
         const parseToDate = (dateStr: string) => {
             if (dateStr.includes('.')) {
                 const [d, m, y] = dateStr.split('.');
@@ -59,29 +65,19 @@ export async function getConcerts(): Promise<Concert[]> {
             return new Date(dateStr);
         };
 
-        // Разделяем на будущие и прошедшие
         const futureConcerts = allParsedConcerts
             .filter(c => parseToDate(c.date) >= now)
             .sort((a, b) => parseToDate(a.date).getTime() - parseToDate(b.date).getTime());
 
         const pastConcerts = allParsedConcerts
             .filter(c => parseToDate(c.date) < now)
-            // Прошедшие сортируем от самых новых к старым
             .sort((a, b) => parseToDate(b.date).getTime() - parseToDate(a.date).getTime());
 
-        let result: Concert[] = [];
-
-        if (futureConcerts.length >= 3) {
-            // Если будущих достаточно, берем первые 5 (как в оригинале)
-            result = futureConcerts.slice(0, 5);
-        } else {
-            // Если будущих мало (меньше 3), берем все будущие и дополняем из прошедших до 3 штук
-            const neededFromPast = 3 - futureConcerts.length;
-            result = [...futureConcerts, ...pastConcerts.slice(0, neededFromPast)];
-            
-            // Финальная сортировка результата, чтобы прошедшие были сверху (по хронологии)
-            result.sort((a, b) => parseToDate(a.date).getTime() - parseToDate(b.date).getTime());
-        }
+        const result: ConcertsData = {
+            future: futureConcerts,
+            past: pastConcerts,
+            all: [...futureConcerts, ...pastConcerts].sort((a, b) => parseToDate(b.date).getTime() - parseToDate(a.date).getTime())
+        };
 
         cachedConcerts = result;
         cachedConcertsTimestamp = Date.now();
@@ -89,6 +85,6 @@ export async function getConcerts(): Promise<Concert[]> {
         return result;
     } catch (e) {
         console.error('Error loading CSV:', e);
-        return [];
+        return { future: [], past: [], all: [] };
     }
 }

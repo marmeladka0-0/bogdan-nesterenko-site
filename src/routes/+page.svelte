@@ -181,41 +181,49 @@
 	const projects = [
 		{
 			id: 1,
+			slug: 'trio-svita',
 			title: 'TRIO SViTA',
 			img: imageModules['/src/lib/assets/projects/1201 SVITA.webp']?.default
 		},
 		{
 			id: 2,
+			slug: 'pan-bayan',
 			title: 'PAN & BAYAN',
 			img: imageModules['/src/lib/assets/projects/1301 Pan Bayan.webp']?.default
 		},
 		{
 			id: 3,
+			slug: 'juliette-de-massy',
 			title: 'Avec Juliette DE MASSY',
 			img: imageModules['/src/lib/assets/projects/1412 Ju.webp']?.default
 		},
 		{
 			id: 4,
+			slug: 'olga-vojnovic',
 			title: 'Avec Olga VOJNOVIC',
 			img: imageModules['/src/lib/assets/projects/1501 Olga.webp']?.default
 		},
 		{
 			id: 5,
+			slug: 'dialogue-insolite',
 			title: 'DIALOGUE INSOLITE',
 			img: imageModules['/src/lib/assets/projects/1601 Marc.webp']?.default
 		},
 		{
 			id: 6,
+			slug: 'orgue-accordion',
 			title: 'ORGUE et ACCORDÉON',
 			img: imageModules['/src/lib/assets/projects/1701 Jan.webp']?.default
 		},
 		{
 			id: 7,
+			slug: 'rafraichis',
 			title: 'RAFRAÎCHIS AUSSI LE SOL NU',
 			img: imageModules['/src/lib/assets/projects/RAFRAÎCHIS.webp']?.default
 		},
 		{
 			id: 8,
+			slug: 'chant-du-cygne',
 			title: 'LE CHANT DU CYGNE',
 			img: imageModules['/src/lib/assets/projects/Le chant du cygne_cropped.webp']?.default
 		}
@@ -267,8 +275,8 @@
 	<track kind="captions" />
 </video>
 
-<!-- <div class="canvas-vignette pointer-events-none fixed inset-0 z-[1]"></div> -->
-<!-- <div class="noise-overlay" aria-hidden="true"></div> -->
+<!-- <div class="canvas-vignette pointer-events-none fixed inset-0 z-[1]"></div>
+<div class="noise-overlay" aria-hidden="true"></div> -->
 
 <!-- Blur/darken overlay that activates when scrolling past the hero -->
 <!-- <div
@@ -280,7 +288,7 @@
 ></div> -->
 
 <div
-	class="pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-black/30 backdrop-blur-md transition-opacity duration-1000"
+	class="pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-black/60 backdrop-blur-md transition-opacity duration-1000"
 	class:opacity-0={!isOpaqueOverlay}
 	class:opacity-100={isOpaqueOverlay}
 	style="
@@ -352,7 +360,7 @@
 
 						{#if concert.program}
 							<p
-								class="mt-2 text-[9px] tracking-widest text-base-content/40 uppercase transition-all duration-700 group-hover:text-base-content/60"
+								class="mt-2 text-[9px] tracking-widest text-base-content/40 transition-all duration-700 group-hover:text-base-content/60"
 							>
 								{concert.program}
 							</p>
@@ -374,7 +382,20 @@
 				</div>
 			{/each}
 		</div>
+		{#if data.hasMoreConcerts}
+            <div class="mt-4 flex justify-center pt-8">
+                <a
+                    href="/concerts"
+                    class="group flex items-center gap-2 rounded-2xl border-none bg-transparent px-4 py-2 text-xs font-normal tracking-widest text-white/40 uppercase transition-all duration-300 hover:bg-white/5 hover:text-primary focus:outline-none"
+                >
+                    <span class="text-base-content/40 transition-colors group-hover:text-primary">
+                        {m.all_upcoming_concerts()}
+                    </span>
+                </a>
+            </div>
+        {/if}
 	</section>
+
 
 	<section
 		id="bio"
@@ -637,9 +658,10 @@
 
 		<div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-5">
 			{#each projects as project (project.id)}
-				<div
-					class="group/proj relative aspect-10/13 overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all"
-				>
+				<a
+                    href="/projects/{project.slug}"
+                    class="group/proj relative aspect-10/13 block overflow-hidden rounded-xl border border-white/10 bg-base-200/30 transition-all"
+                >
 					<enhanced:img
 						src={project.img}
 						alt={project.title}
@@ -653,7 +675,7 @@
 							</p>
 						</div>
 					</div>
-				</div>
+				</a>
 			{/each}
 		</div>
 	</section>

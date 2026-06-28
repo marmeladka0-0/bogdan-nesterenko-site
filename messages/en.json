@@ -42,5 +42,16 @@
 	"contact_message_label": "Message",
 	"contact_message_placeholder": "Message...",
 	"contact_send_button": "Send Message",
-	"contact_sending_status": "Sending..."
+	"contact_sending_status": "Sending...",
+
+	"back_long": "Back to Home",
+	"back_short": "Back",
+	"all_upcoming_concerts": "All upcoming concerts",
+
+	"project_svita_member_1": "Benjamin Boursier (violin)",
+	"project_svita_member_2": "Khrystyna Grytsyuk (violin)",
+	"project_svita_member_3": "Bogdan Nesterenko (bayan accordion)",
+
+	"project_svita_desc_1": "The Trio SVITA was born from an artistic and friendly encounter between three virtuoso musicians accustomed to European stages. The combination of two violins and the bayan creates an original sound palette, allowing them to explore a varied repertoire ranging from Bach to Piazzolla, including Slavic and Romani music. Their highly cohesive interpretation gives the impression of a single musical body driven by strong emotional intensity.",
+	"project_svita_desc_2": "The choice of repertoire, marked by their Ukrainian roots — 'SVITA' meaning 'the light of the world' — brings particular depth to their performances. The trio captivates with the accessibility of its programs, the originality of the transcriptions, and the artistic commitment of the musicians."
 }
