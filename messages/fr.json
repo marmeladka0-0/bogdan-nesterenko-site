@@ -42,5 +42,28 @@
 	"contact_message_label": "Message",
 	"contact_message_placeholder": "Message...",
 	"contact_send_button": "Envoyer le Message",
-	"contact_sending_status": "Envoi en cours..."
+	"contact_sending_status": "Envoi en cours...",
+
+	"back_long": "Retour à l'accueil",
+	"back_short": "Retour",
+	"all_upcoming_concerts": "Tous les prochains concerts",
+
+	"project_svita_member_1": "Benjamin Boursier (violon)",
+	"project_svita_member_2": "Khrystyna Grytsyuk (violon)",
+	"project_svita_member_3": "Bogdan Nesterenko (accordéon Bayan)",
+	
+	"project_svita_desc_1": "Le Trio SVITA est né d'une rencontre artistique et amicale entre trois musiciens virtuoses habitués des scènes européennes. L'alliance des deux violons et du bayan crée une palette sonore originale, permettant d'explorer un répertoire varié allant de Bach à Piazzolla, en passant par les musiques slaves et tziganes. Leur interprétation, très fusionnelle, donne l'impression d'un seul corps musical animé par une forte intensité émotionnelle.",
+	"project_svita_desc_2": "Le choix du répertoire, marqué par leurs racines ukrainiennes — « SVITA » signifiant « la lumière du monde » — apporte une profondeur particulière à leurs performances. Le trio séduit par l'accessibilité de ses programmes, l'originalité des transcriptions et l'engagement artistique des musiciens.",
+
+	"project_panbayan_subtitle": "De Mozart, Bach et Bartok aux plus belles mélodies roumaines",
+  
+	"project_panbayan_member_1": "Dorian Gheorghilas (flûte de pan)",
+	"project_panbayan_member_2": "Bogdan Nesterenko (accordéon bayan)",
+	
+	"project_panbayan_desc_1": "Flûte de pan et accordéon bayan, voici un alliage précieux et intime pour un duo d'une profondeur confondante, mêlant douceur limpide et virtuosité ébouriffante.",
+	"project_panbayan_desc_2": "Le premier est un sensationnel virtuose de son instrument dont il fait sortir une musique bouleversante. On ne sait plus s'il chante, joue ou siffle, mais on sait qu'il s'accorde parfaitement avec l'accordéon bayan du second, ambassadeur remarqué de cet instrument…",
+	"project_panbayan_desc_3": "Les deux musiciens interprètent un répertoire original couvrant plusieurs siècles, de Bach aux plus belles chansons traditionnelles d'Europe de l'Est, le tout baigné d'inventivité espiègle, de tendresse et de passion. On découvre ici un duo qui émerveille en même temps qu'une musique à écouter dans le creux de son cœur.",
+
+	"common_development": "Page en cours de création"
+
 }

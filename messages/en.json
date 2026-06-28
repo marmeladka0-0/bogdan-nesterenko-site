@@ -42,5 +42,27 @@
 	"contact_message_label": "Message",
 	"contact_message_placeholder": "Message...",
 	"contact_send_button": "Send Message",
-	"contact_sending_status": "Sending..."
+	"contact_sending_status": "Sending...",
+
+	"back_long": "Back to Home",
+	"back_short": "Back",
+	"all_upcoming_concerts": "All upcoming concerts",
+
+	"project_svita_member_1": "Benjamin Boursier (violin)",
+	"project_svita_member_2": "Khrystyna Grytsyuk (violin)",
+	"project_svita_member_3": "Bogdan Nesterenko (bayan accordion)",
+
+	"project_svita_desc_1": "The Trio SVITA was born from an artistic and friendly encounter between three virtuoso musicians accustomed to European stages. The combination of two violins and the bayan creates an original sound palette, allowing them to explore a varied repertoire ranging from Bach to Piazzolla, including Slavic and Romani music. Their highly cohesive interpretation gives the impression of a single musical body driven by strong emotional intensity.",
+	"project_svita_desc_2": "The choice of repertoire, marked by their Ukrainian roots — 'SVITA' meaning 'the light of the world' — brings particular depth to their performances. The trio captivates with the accessibility of its programs, the originality of the transcriptions, and the artistic commitment of the musicians.",
+
+	"project_panbayan_subtitle": "From Mozart, Bach, and Bartók to the most beautiful Romanian melodies",
+
+    "project_panbayan_member_1": "Dorian Gheorghilas (pan flute)",
+    "project_panbayan_member_2": "Bogdan Nesterenko (bayan accordion)",
+
+    "project_panbayan_desc_1": "Pan flute and bayan accordion — a precious and intimate alliance for a duo of startling depth, blending crystalline softness with breathtaking virtuosity.",
+    "project_panbayan_desc_2": "The former is a sensational virtuoso of his instrument, coaxing out deeply moving music. One no longer knows if he is singing, playing, or whistling, but one knows he is in perfect harmony with the bayan accordion of the latter, a renowned ambassador of his instrument…",
+    "project_panbayan_desc_3": "The two musicians perform an original repertoire spanning several centuries, from Bach to the most beautiful traditional songs of Eastern Europe, all bathed in playful inventiveness, tenderness, and passion. We discover here a duo that marvels as much as it provides music to be listened to in the depths of one's heart.",
+
+	"common_development": "Page in development"
 }
