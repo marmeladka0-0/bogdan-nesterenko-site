@@ -1,6 +1,4 @@
-<!-- src/routes/concerts/+page.svelte -->
 <script lang="ts">
-    import Icon from '@iconify/svelte';
     import { m } from '$lib/paraglide/messages.js';
     import { getLocale } from '$lib/paraglide/runtime.js';
     import type { PageProps } from './$types';
@@ -12,8 +10,7 @@
     <title>Tous les concerts - Bogdan Nesterenko</title>
 </svelte:head>
 
-<!-- <div class="fixed top-0 left-0 z-0 h-screen w-full bg-black/90" aria-hidden="true"></div> -->
- <!-- ФОНОВЕ ВІДЕО -->
+
 <video
     src="/video.webm"
     poster="/poster.webp"
@@ -25,7 +22,6 @@
     aria-hidden="true"
 ></video>
 
-<!-- НАПІВРОЗОРИЙ ШАР З РОЗМИТТЯМ (щоб текст добре читався) -->
 <div
     class="pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-black/60 backdrop-blur-md"
     aria-hidden="true"
@@ -40,7 +36,6 @@
     </div>
 
     <div class="space-y-4">
-        <!-- ТУТ ВАШ КОД КАРТКИ, але вже для повного масиву майбутніх концертів -->
         {#each data.concerts as concert, index (concert.date + index)}
             <div class="flex min-h-[120px] w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/30 p-4 transition-all hover:bg-black/40 md:gap-6 md:p-6">
                 <div class=" flex min-w-[50px] flex-col items-center justify-center border-r border-base-content/10 pr-2 md:pr-8 text-white">
